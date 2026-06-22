@@ -1,36 +1,46 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="description" content="10 herramientas gratuitas potenciadas por IA para escribir, corregir, resumir y mejorar cualquier texto.">
+<title>ClearText | Herramientas de IA para mejorar textos gratis</title>
 
-    <meta name="theme-color" content="#7C3AED">
+<meta name="description" content="Mejora, corrige, resume y transforma cualquier texto con herramientas impulsadas por inteligencia artificial. Gratis, rápido y sin registro.">
 
-    <link rel="icon" href="/favicon.ico">
+<meta property="og:title" content="ClearText | Herramientas de IA para mejorar textos">
+<meta property="og:description" content="Escribe, corrige, resume, optimiza y transforma cualquier texto con IA.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://cleartext.app">
+<meta property="og:image" content="https://cleartext.app/og-image.jpg">
 
-    <title>ClearText</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+    --primary:#7C3AED;
+    --secondary:#C4B5FD;
+    --bg:#FFFFFF;
+    --bg-soft:#FAFAFA;
+    --text:#111827;
+    --muted:#6B7280;
+    --border:#E5E7EB;
+    --shadow:0 10px 30px rgba(17,24,39,.06);
+    --shadow-lg:0 25px 60px rgba(124,58,237,.12);
+    --radius:22px;
+    --transition:.3s ease;
+}
 
-    <style>
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
 }
 
-:root{
-    --primary:#7C3AED;
-    --secondary:#C4B5FD;
-    --bg:#ffffff;
-    --card:#ffffff;
-    --text:#1F2937;
-    --muted:#6B7280;
-    --border:#E5E7EB;
+html{
+    scroll-behavior:smooth;
 }
 
 body{
@@ -38,6 +48,7 @@ body{
     background:var(--bg);
     color:var(--text);
     line-height:1.6;
+    overflow-x:hidden;
 }
 
 .container{
@@ -45,223 +56,736 @@ body{
     margin:auto;
 }
 
-/* HEADER */
-
-header{
-    padding:70px 20px 55px;
-    text-align:center;
-}
-
-.logo{
-    width:84px;
-    height:84px;
-    margin:auto;
-    border-radius:22px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:42px;
-    background:linear-gradient(135deg,#C4B5FD,#7C3AED);
-    box-shadow:0 15px 40px rgba(124,58,237,.25);
-}
-
-h1{
-    margin-top:24px;
-    font-size:3rem;
-    font-weight:800;
-    background:linear-gradient(135deg,#C4B5FD,#7C3AED);
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-}
-
-.subtitle{
-    margin-top:12px;
-    color:var(--muted);
-    font-size:1.1rem;
-    max-width:700px;
-    margin-inline:auto;
-}
-
-/* GRID */
-
-.tools{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-    gap:24px;
-    padding-bottom:70px;
-}
-
-.card{
-    display:flex;
-    flex-direction:column;
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:18px;
-    padding:24px;
+a{
     text-decoration:none;
     color:inherit;
-    transition:.25s ease;
-    box-shadow:0 8px 22px rgba(0,0,0,.05);
 }
 
-.card:hover{
-    transform:translateY(-6px);
-    border-color:#C4B5FD;
-    box-shadow:0 18px 40px rgba(124,58,237,.15);
+img{
+    max-width:100%;
 }
 
-.icon{
-    width:60px;
-    height:60px;
-    border-radius:16px;
-    display:flex;
+section{
+    padding:100px 0;
+}
+
+.btn{
+    display:inline-flex;
     align-items:center;
     justify-content:center;
-    font-size:30px;
-    margin-bottom:18px;
-    background:linear-gradient(135deg,#C4B5FD,#7C3AED);
+    gap:.5rem;
+    padding:14px 24px;
+    border-radius:14px;
+    font-weight:600;
+    transition:var(--transition);
+    cursor:pointer;
 }
 
-.card h2{
-    font-size:1.15rem;
-    margin-bottom:10px;
-    font-weight:700;
+.btn-primary{
+    background:var(--primary);
+    color:white;
+    box-shadow:0 10px 25px rgba(124,58,237,.25);
 }
 
-.card p{
-    color:var(--muted);
-    font-size:.95rem;
+.btn-primary:hover{
+    transform:translateY(-2px);
+    box-shadow:0 18px 35px rgba(124,58,237,.3);
 }
 
-/* FOOTER */
-
-footer{
-    padding:35px 20px 50px;
-    text-align:center;
-    color:var(--muted);
-    border-top:1px solid var(--border);
+.btn-secondary{
+    border:1px solid var(--border);
+    background:white;
 }
 
-/* MOBILE */
+.btn-secondary:hover{
+    border-color:var(--primary);
+    color:var(--primary);
+}
 
-@media (max-width:768px){
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:.5rem;
+    padding:8px 14px;
+    border-radius:999px;
+    background:rgba(124,58,237,.08);
+    color:var(--primary);
+    font-size:.9rem;
+    font-weight:600;
+}
 
 header{
-    padding-top:50px;
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:rgba(255,255,255,.85);
+    backdrop-filter:blur(16px);
+    border-bottom:1px solid rgba(229,231,235,.6);
 }
 
-h1{
-    font-size:2.2rem;
-}
-
-.subtitle{
-    font-size:1rem;
+.nav{
+    height:78px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
 }
 
 .logo{
-    width:72px;
-    height:72px;
-    font-size:34px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-size:1.1rem;
+    font-weight:800;
+}
+
+.logo-icon{
+    width:40px;
+    height:40px;
+    border-radius:12px;
+    background:linear-gradient(135deg,var(--primary),var(--secondary));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:white;
+}
+
+.nav-links{
+    display:flex;
+    align-items:center;
+    gap:32px;
+}
+
+.nav-links a{
+    color:var(--muted);
+    font-weight:500;
+    transition:var(--transition);
+}
+
+.nav-links a:hover{
+    color:var(--primary);
+}
+
+.hero{
+    padding:90px 0 60px;
+}
+
+.hero-grid{
+    display:grid;
+    grid-template-columns:1.1fr 1fr;
+    gap:70px;
+    align-items:center;
+}
+
+.hero h1{
+    font-size:clamp(2.8rem,6vw,4.8rem);
+    line-height:1.05;
+    font-weight:800;
+    margin:22px 0;
+    letter-spacing:-2px;
+}
+
+.hero p{
+    font-size:1.15rem;
+    color:var(--muted);
+    max-width:650px;
+}
+
+.hero-actions{
+    display:flex;
+    gap:16px;
+    flex-wrap:wrap;
+    margin-top:35px;
+}
+
+.mockup-wrapper{
+    position:relative;
+}
+
+.mockup{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:28px;
+    box-shadow:var(--shadow-lg);
+    overflow:hidden;
+}
+
+.mockup-top{
+    padding:18px;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    gap:8px;
+}
+
+.dot{
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    background:#ddd;
+}
+
+.dot:nth-child(1){background:#ff5f57;}
+.dot:nth-child(2){background:#febc2e;}
+.dot:nth-child(3){background:#28c840;}
+
+.mockup-content{
+    padding:28px;
+}
+
+.editor{
+    background:var(--bg-soft);
+    border-radius:18px;
+    padding:20px;
+    margin-bottom:20px;
+}
+
+.line{
+    height:10px;
+    border-radius:20px;
+    background:#E5E7EB;
+    margin-bottom:12px;
+}
+
+.line:nth-child(1){width:90%;}
+.line:nth-child(2){width:100%;}
+.line:nth-child(3){width:75%;}
+
+.result-card{
+    background:linear-gradient(135deg,#F5F3FF,#FFFFFF);
+    border:1px solid #E9D5FF;
+    padding:18px;
+    border-radius:18px;
+}
+
+.floating-card{
+    position:absolute;
+    background:white;
+    border-radius:18px;
+    padding:16px;
+    box-shadow:var(--shadow);
+    border:1px solid var(--border);
+    animation:float 5s ease-in-out infinite;
+}
+
+.card-left{
+    left:-35px;
+    top:20%;
+}
+
+.card-right{
+    right:-30px;
+    bottom:15%;
+    animation-delay:1s;
+}
+
+@keyframes float{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-12px);
+    }
+}
+
+.section-title{
+    text-align:center;
+    max-width:700px;
+    margin:0 auto 60px;
+}
+
+.section-title h2{
+    font-size:clamp(2rem,4vw,3rem);
+    margin-bottom:15px;
+    letter-spacing:-1px;
+}
+
+.section-title p{
+    color:var(--muted);
 }
 
 .tools{
-    grid-template-columns:1fr;
+    background:var(--bg-soft);
 }
 
-.card{
-    padding:22px;
+.tools-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:24px;
 }
 
+.tool-card{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:22px;
+    padding:24px;
+    transition:var(--transition);
+}
+
+.tool-card:hover{
+    transform:translateY(-8px);
+    box-shadow:var(--shadow-lg);
+    border-color:#DDD6FE;
+}
+
+.tool-icon{
+    font-size:2rem;
+    margin-bottom:14px;
+}
+
+.tool-card h3{
+    margin-bottom:10px;
+    font-size:1.05rem;
+}
+
+.tool-card p{
+    color:var(--muted);
+    font-size:.95rem;
+    margin-bottom:18px;
+}
+
+.tool-card span{
+    color:var(--primary);
+    font-weight:600;
+}
+
+.features-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:28px;
+}
+
+.feature{
+    text-align:center;
+    padding:40px 30px;
+    border-radius:24px;
+    background:white;
+    border:1px solid var(--border);
+    transition:var(--transition);
+}
+
+.feature:hover{
+    transform:translateY(-6px);
+    box-shadow:var(--shadow);
+}
+
+.feature-icon{
+    font-size:2.3rem;
+    margin-bottom:14px;
+}
+
+.feature h3{
+    margin-bottom:10px;
+}
+
+.feature p{
+    color:var(--muted);
+}
+
+.cta{
+    background:linear-gradient(135deg,#F5F3FF,#FFFFFF);
+}
+
+.cta-box{
+    text-align:center;
+    max-width:800px;
+    margin:auto;
+    padding:70px 40px;
+    border-radius:32px;
+    background:white;
+    border:1px solid #E9D5FF;
+    box-shadow:var(--shadow-lg);
+}
+
+.cta h2{
+    font-size:clamp(2rem,4vw,3rem);
+    margin-bottom:20px;
+}
+
+footer{
+    background:#FCFCFC;
+    border-top:1px solid var(--border);
+    padding:60px 0;
+}
+
+.footer-grid{
+    display:flex;
+    justify-content:space-between;
+    gap:40px;
+    flex-wrap:wrap;
+}
+
+.footer-info{
+    max-width:420px;
+}
+
+.footer-info p{
+    color:var(--muted);
+    margin-top:14px;
+}
+
+.footer-links{
+    display:flex;
+    gap:28px;
+    flex-wrap:wrap;
+}
+
+.footer-links a{
+    color:var(--muted);
+    transition:var(--transition);
+}
+
+.footer-links a:hover{
+    color:var(--primary);
+}
+
+.fade-up{
+    animation:fadeUp .8s ease forwards;
+}
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@media (max-width: 992px){
+
+    .hero-grid{
+        grid-template-columns:1fr;
+    }
+
+    .mockup-wrapper{
+        max-width:700px;
+        margin:auto;
+    }
+
+    .features-grid{
+        grid-template-columns:1fr;
+    }
+}
+
+@media (max-width: 768px){
+
+    .nav{
+        flex-wrap:wrap;
+        height:auto;
+        padding:18px 0;
+        gap:16px;
+    }
+
+    .nav-links{
+        width:100%;
+        justify-content:center;
+        flex-wrap:wrap;
+        gap:18px;
+    }
+
+    .hero{
+        padding-top:60px;
+    }
+
+    .hero-actions{
+        flex-direction:column;
+    }
+
+    .hero-actions .btn{
+        width:100%;
+    }
+
+    .floating-card{
+        display:none;
+    }
+
+    section{
+        padding:80px 0;
+    }
+
+    .cta-box{
+        padding:50px 25px;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<header class="container">
+<header>
+    <div class="container nav">
+        <a href="#" class="logo">
+            <div class="logo-icon">
+                📄
+            </div>
+            <span>ClearText App</span>
+        </a>
 
-<div class="logo">📄</div>
+        <nav class="nav-links">
+            <a href="#herramientas">Herramientas</a>
+            <a href="#ventajas">Ventajas</a>
+            <a href="#contacto">Contacto</a>
+        </nav>
 
-<h1>ClearText</h1>
-
-<p class="subtitle">
-10 herramientas de texto con IA, gratis y sin registro.
-</p>
-
+        <a href="#" class="btn btn-primary">
+            Comenzar gratis
+        </a>
+    </div>
 </header>
 
-<main class="container">
+<main>
 
-<section class="tools">
+<section class="hero">
+    <div class="container hero-grid">
 
-<a class="card" href="/tools/detector-ia/">
-<div class="icon">🤖</div>
-<h2>Detector de IA</h2>
-<p>Analiza si un texto parece generado por inteligencia artificial.</p>
-</a>
+        <div class="fade-up">
+            <div class="badge">
+                ✨ 10 herramientas potenciadas por IA
+            </div>
 
-<a class="card" href="/tools/humanizador-texto/">
-<div class="icon">✨</div>
-<h2>Humanizador de texto</h2>
-<p>Convierte textos generados por IA en un estilo más natural.</p>
-</a>
+            <h1>
+                Tu texto, mejorado al instante
+            </h1>
 
-<a class="card" href="/tools/contador-palabras/">
-<div class="icon">📊</div>
-<h2>Contador de palabras</h2>
-<p>Cuenta palabras, caracteres, frases y párrafos al instante.</p>
-</a>
+            <p>
+                Escribe, corrige, resume, optimiza y transforma cualquier texto con nuestras herramientas gratuitas impulsadas por inteligencia artificial.
+            </p>
 
-<a class="card" href="/tools/generador-hashtags/">
-<div class="icon">#️⃣</div>
-<h2>Generador de hashtags</h2>
-<p>Crea hashtags optimizados para redes sociales en segundos.</p>
-</a>
+            <div class="hero-actions">
+                <a href="#herramientas" class="btn btn-primary">
+                    Explorar herramientas
+                </a>
 
-<a class="card" href="/tools/corrector-acentos/">
-<div class="icon">✍️</div>
-<h2>Corrector de acentos</h2>
-<p>Corrige acentos y errores ortográficos automáticamente.</p>
-</a>
+                <a href="#" class="btn btn-secondary">
+                    Sin registro
+                </a>
+            </div>
+        </div>
 
-<a class="card" href="/tools/resumidor-emails/">
-<div class="icon">📧</div>
-<h2>Resumidor de emails</h2>
-<p>Extrae las ideas principales de correos largos rápidamente.</p>
-</a>
+        <div class="mockup-wrapper fade-up">
 
-<a class="card" href="/tools/nombres-empresa/">
-<div class="icon">💼</div>
-<h2>Nombres de empresa</h2>
-<p>Genera nombres originales para marcas, negocios y proyectos.</p>
-</a>
+            <div class="floating-card card-left">
+                🤖 Detector IA<br>
+                <small>98% precisión</small>
+            </div>
 
-<a class="card" href="/tools/simplificador-legal/">
-<div class="icon">⚖️</div>
-<h2>Simplificador legal</h2>
-<p>Convierte textos jurídicos complejos en lenguaje sencillo.</p>
-</a>
+            <div class="floating-card card-right">
+                ⚡ Resultado listo<br>
+                <small>2 segundos</small>
+            </div>
 
-<a class="card" href="/tools/jerga-paises/">
-<div class="icon">🌎</div>
-<h2>Jerga entre países</h2>
-<p>Adapta expresiones al español de diferentes países.</p>
-</a>
+            <div class="mockup">
 
-<a class="card" href="/tools/ocr-texto-imagen/">
-<div class="icon">📷</div>
-<h2>OCR texto de imagen</h2>
-<p>Extrae texto editable desde imágenes de forma automática.</p>
-</a>
+                <div class="mockup-top">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+
+                <div class="mockup-content">
+
+                    <div class="editor">
+                        <div class="line"></div>
+                        <div class="line"></div>
+                        <div class="line"></div>
+                    </div>
+
+                    <div class="result-card">
+                        <strong>Texto optimizado</strong>
+                        <p style="margin-top:10px;color:#6B7280;">
+                            Hemos corregido errores, mejorado la claridad y optimizado la estructura del contenido.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<section class="tools" id="herramientas">
+
+    <div class="container">
+
+        <div class="section-title">
+            <h2>Todo lo que necesitas para trabajar con texto</h2>
+            <p>
+                Una colección completa de herramientas inteligentes para escritores, estudiantes, profesionales y creadores de contenido.
+            </p>
+        </div>
+
+        <div class="tools-grid">
+
+            <a href="#" class="tool-card">
+                <div class="tool-icon">🤖</div>
+                <h3>Detector de IA</h3>
+                <p>Analiza textos y detecta contenido generado por inteligencia artificial.</p>
+                <span>Explorar →</span>
+            </a>
+
+            <a href="#" class="tool-card">
+                <div class="tool-icon">🧠</div>
+                <h3>Humanizador de texto</h3>
+                <p>Convierte contenido robótico en lenguaje natural y fluido.</p>
+                <span>Explorar →</span>
+            </a>
+
+            <a href="#" class="tool-card">
+                <div class="tool-icon">📊</div>
+                <h3>Contador de palabras</h3>
+                <p>Mide palabras, caracteres y tiempo estimado de lectura.</p>
+                <span>Explorar →</span>
+            </a>
+
+            <a href="#" class="tool-card">
+                <div class="tool-icon">#️⃣</div>
+                <h3>Generador de hashtags</h3>
+                <p>Obtén hashtags relevantes para redes sociales y campañas.</p>
+                <span>Explorar →</span>
+            </a>
+
+            <a href="#" class="tool-card">
+                <div class="tool-icon">✍️</div>
+                <h3>Corrector de acentos</h3>
+                <p>Corrige errores ortográficos y mejora la escritura.</p>
+                <span>Explorar →</span>
+            </a>
+
+            <a href="#" class="tool-card">
+                <div class="tool-icon">📧</div>
+                <h3>Resumidor de emails</h3>
+                <p>Extrae los puntos clave de correos largos en segundos.</p>
+                <span>Explorar →</span>
+            </a>
+
+            <a href="#" class="tool-card">
+                <div class="tool-icon">💡</div>
+                <h3>Generador de nombres</h3>
+                <p>Crea nombres originales para marcas, productos o proyectos.</p>
+                <span>Explorar →</span>
+            </a>
+
+            <a href="#" class="tool-card">
+                <div class="tool-icon">⚖️</div>
+                <h3>Simplificador legal</h3>
+                <p>Traduce documentos legales a lenguaje comprensible.</p>
+                <span>Explorar →</span>
+            </a>
+
+            <a href="#" class="tool-card">
+                <div class="tool-icon">🗣️</div>
+                <h3>Traductor de jerga</h3>
+                <p>Interpreta expresiones complejas y lenguaje informal.</p>
+                <span>Explorar →</span>
+            </a>
+
+            <a href="#" class="tool-card">
+                <div class="tool-icon">📸</div>
+                <h3>OCR de imágenes</h3>
+                <p>Extrae texto editable desde imágenes y documentos.</p>
+                <span>Explorar →</span>
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section id="ventajas">
+
+    <div class="container">
+
+        <div class="section-title">
+            <h2>Diseñado para ser simple, rápido y útil</h2>
+            <p>
+                Todo lo que necesitas para trabajar con texto sin complicaciones.
+            </p>
+        </div>
+
+        <div class="features-grid">
+
+            <div class="feature">
+                <div class="feature-icon">⚡</div>
+                <h3>Rápido</h3>
+                <p>Resultados en segundos.</p>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">🔒</div>
+                <h3>Privado</h3>
+                <p>No almacenamos tus textos.</p>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">🎯</div>
+                <h3>Gratuito</h3>
+                <p>Sin registro ni límites.</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="cta">
+
+    <div class="container">
+
+        <div class="cta-box">
+
+            <h2>
+                Empieza a mejorar tus textos hoy
+            </h2>
+
+            <p style="color:#6B7280;max-width:650px;margin:0 auto 30px;">
+                Accede a herramientas inteligentes que te ayudan a escribir mejor, ahorrar tiempo y comunicar tus ideas con claridad.
+            </p>
+
+            <a href="#herramientas" class="btn btn-primary">
+                Explorar herramientas
+            </a>
+
+        </div>
+
+    </div>
 
 </section>
 
 </main>
 
-<footer>
-© 2026 ClearText · Herramientas de texto con IA gratuitas.
+<footer id="contacto">
+
+    <div class="container footer-grid">
+
+        <div class="footer-info">
+
+            <div class="logo">
+                <div class="logo-icon">📄</div>
+                <span>ClearText</span>
+            </div>
+
+            <p>
+                Herramientas impulsadas por IA para mejorar, analizar y transformar textos de forma rápida, privada y gratuita.
+            </p>
+
+        </div>
+
+        <div class="footer-links">
+            <a href="#">Privacidad</a>
+            <a href="#">Términos</a>
+            <a href="#">Contacto</a>
+            <a href="#">Acerca de</a>
+        </div>
+
+    </div>
+
 </footer>
 
 </body>
 </html>
-```
