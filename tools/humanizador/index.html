@@ -1,1 +1,593 @@
-placeholderr
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Humanizador de texto IA gratis | ClearText</title>
+  <meta name="description" content="Convierte texto generado por IA en escritura natural y humana. Elimina los patrones típicos de ChatGPT y Claude. Gratis, sin registro.">
+
+  <meta property="og:title" content="Humanizador de texto IA | ClearText">
+  <meta property="og:description" content="Transforma texto de IA en escritura que suena completamente humana. Gratis y sin registro.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cleartext-app.com/tools/humanizador/">
+  <meta property="og:image" content="https://cleartext-app.com/logo-512.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+
+  <style>
+    * { box-sizing: border-box; }
+
+    header {
+      background: #ffffff;
+      border-bottom: 1px solid #E5E7EB;
+      box-shadow: 0 2px 12px rgba(124,58,237,0.07);
+      backdrop-filter: none;
+    }
+    .logo { color: #111827; }
+    .nav-links a { color: #6B7280; }
+    .nav-links a:hover { color: #7C3AED; }
+    .btn-nav {
+      background: linear-gradient(135deg,#A78BFA,#7C3AED);
+      color: #fff; border: none;
+      padding: 9px 20px; border-radius: 10px;
+      font-weight: 600; font-size: 0.9rem;
+      cursor: pointer; display: inline-flex;
+      align-items: center; text-decoration: none;
+      transition: opacity .2s, transform .2s;
+    }
+    .btn-nav:hover { opacity: .9; transform: translateY(-1px); }
+
+    .tool-page { padding: 40px 0 80px; }
+
+    .breadcrumb {
+      display: flex; align-items: center;
+      gap: 8px; font-size: 0.875rem;
+      color: #9CA3AF; margin-bottom: 28px;
+    }
+    .breadcrumb a { color: #7C3AED; font-weight: 500; text-decoration: none; }
+    .breadcrumb a:hover { opacity: .75; }
+    .breadcrumb-sep { color: #D1D5DB; }
+    .breadcrumb-current { color: #6B7280; font-weight: 500; }
+
+    .tool-header { text-align: center; max-width: 680px; margin: 0 auto 44px; }
+    .tool-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #EDE9FE; color: #7C3AED;
+      padding: 6px 14px; border-radius: 9999px;
+      font-size: 0.82rem; font-weight: 600; margin-bottom: 16px;
+    }
+    .tool-header h1 {
+      font-size: clamp(1.8rem,4vw,2.6rem);
+      font-weight: 800; color: #111827;
+      letter-spacing: -.5px; margin-bottom: 12px; line-height: 1.15;
+    }
+    .tool-header h1 span {
+      background: linear-gradient(135deg,#C4B5FD,#7C3AED);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .tool-header p { font-size: 1.05rem; color: #6B7280; line-height: 1.65; }
+
+    .tool-body { max-width: 820px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; }
+
+    .input-section {
+      background: #fff; border: 1px solid #E5E7EB;
+      border-radius: 16px; padding: 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.04);
+    }
+    .input-label {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.85rem; font-weight: 600;
+      color: #374151; margin-bottom: 10px;
+    }
+    .input-label span { color: #9CA3AF; font-weight: 400; }
+
+    textarea.input-field {
+      width: 100%; min-height: 200px; padding: 16px;
+      border: 1.5px solid #E5E7EB; border-radius: 12px;
+      background: #FAFAFA; color: #111827;
+      font-size: 0.97rem; font-family: 'Inter',sans-serif;
+      line-height: 1.7; resize: vertical; outline: none;
+      transition: border-color .25s, box-shadow .25s;
+    }
+    textarea.input-field::placeholder { color: #C4B5FD; }
+    textarea.input-field:hover { border-color: #C4B5FD; }
+    textarea.input-field:focus {
+      border-color: #7C3AED;
+      box-shadow: 0 0 0 3px rgba(196,181,253,.3);
+      background: #fff;
+    }
+    .char-count { text-align: right; font-size: .78rem; color: #9CA3AF; margin-top: 6px; }
+
+    .btn-process {
+      width: 100%; padding: 15px 24px;
+      background: linear-gradient(135deg,#A78BFA 0%,#7C3AED 60%,#5B21B6 100%);
+      color: #fff; border: none; border-radius: 12px;
+      font-size: 1rem; font-weight: 700; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      box-shadow: 0 4px 16px rgba(124,58,237,.35);
+      transition: transform .2s, box-shadow .2s, opacity .2s;
+      margin-top: 16px; font-family: 'Inter',sans-serif;
+    }
+    .btn-process:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(124,58,237,.45); }
+    .btn-process:active { transform: scale(.98); }
+    .btn-process:disabled { opacity: .65; cursor: not-allowed; transform: none; }
+
+    .error-box {
+      display: none; background: #FEF2F2;
+      border: 1px solid #FECACA; border-radius: 12px;
+      padding: 14px 18px; color: #DC2626;
+      font-size: .9rem; font-weight: 500;
+    }
+    .error-box.active { display: block; }
+
+    .spinner-wrapper {
+      display: none; flex-direction: column;
+      align-items: center; gap: 14px; padding: 32px 0;
+    }
+    .spinner-wrapper.active { display: flex; }
+    .spinner {
+      width: 36px; height: 36px;
+      border: 3px solid #EDE9FE; border-top-color: #7C3AED;
+      border-radius: 50%; animation: spin .7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spinner-text {
+      font-size: .9rem; color: #7C3AED; font-weight: 500;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1}50%{opacity:.5} }
+
+    /* ── RESULT ── */
+    .result-section {
+      display: none; background: #fff;
+      border: 1.5px solid #C4B5FD; border-radius: 16px;
+      overflow: hidden; box-shadow: 0 4px 20px rgba(124,58,237,.08);
+    }
+    .result-section.active { display: block; }
+
+    /* Contador comparativo */
+    .word-counter {
+      display: grid; grid-template-columns: 1fr auto 1fr;
+      align-items: center; gap: 12px;
+      padding: 18px 24px; background: #F5F3FF;
+      border-bottom: 1px solid #EDE9FE;
+    }
+    .wc-box {
+      text-align: center; padding: 12px 16px;
+      border-radius: 12px; background: #fff;
+      border: 1px solid #EDE9FE;
+    }
+    .wc-label {
+      font-size: .75rem; font-weight: 600; color: #9CA3AF;
+      text-transform: uppercase; letter-spacing: .05em;
+      margin-bottom: 4px;
+    }
+    .wc-num { font-size: 1.6rem; font-weight: 800; color: #111827; line-height: 1; }
+    .wc-sub { font-size: .75rem; color: #9CA3AF; margin-top: 3px; }
+    .wc-arrow {
+      font-size: 1.2rem; color: #7C3AED; font-weight: 700;
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+    }
+    .wc-diff {
+      font-size: .75rem; font-weight: 600; padding: 3px 8px;
+      border-radius: 9999px;
+    }
+    .wc-diff.more { background: #EDE9FE; color: #7C3AED; }
+    .wc-diff.less { background: #FEF3C7; color: #92400E; }
+    .wc-diff.same { background: #F3F4F6; color: #6B7280; }
+
+    /* Resultado de texto */
+    .result-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 24px 12px; border-bottom: 1px solid #EDE9FE;
+    }
+    .result-label {
+      display: flex; align-items: center; gap: 8px;
+      font-size: .82rem; font-weight: 700; color: #7C3AED;
+      text-transform: uppercase; letter-spacing: .06em;
+    }
+    .result-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #7C3AED; animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    .btn-copy {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 14px; background: #EDE9FE; color: #7C3AED;
+      border: none; border-radius: 9999px;
+      font-size: .82rem; font-weight: 600; cursor: pointer;
+      font-family: 'Inter',sans-serif; transition: background .2s, color .2s;
+    }
+    .btn-copy:hover { background: #7C3AED; color: #fff; }
+    .btn-copy.copied { background: #D1FAE5; color: #065F46; }
+
+    .result-text {
+      padding: 20px 24px;
+      font-size: .97rem; line-height: 1.8;
+      color: #111827; white-space: pre-wrap; word-break: break-word;
+    }
+
+    /* Diferencias destacadas */
+    .result-tags {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      padding: 0 24px 16px;
+    }
+    .result-tag {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 4px 10px; border-radius: 9999px;
+      font-size: .75rem; font-weight: 500;
+      background: #EDE9FE; color: #7C3AED;
+    }
+
+    .result-actions {
+      padding: 14px 24px; border-top: 1px solid #EDE9FE;
+      display: flex; gap: 10px; flex-wrap: wrap; background: #FAFAFA;
+    }
+    .btn-reset {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 16px; background: transparent; color: #6B7280;
+      border: 1px solid #E5E7EB; border-radius: 9999px;
+      font-size: .82rem; font-weight: 600; cursor: pointer;
+      font-family: 'Inter',sans-serif; transition: border-color .2s, color .2s;
+    }
+    .btn-reset:hover { border-color: #C4B5FD; color: #7C3AED; }
+    .btn-download {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 16px; background: transparent; color: #6B7280;
+      border: 1px solid #E5E7EB; border-radius: 9999px;
+      font-size: .82rem; font-weight: 600; cursor: pointer;
+      font-family: 'Inter',sans-serif; transition: border-color .2s, color .2s;
+    }
+    .btn-download:hover { border-color: #C4B5FD; color: #7C3AED; }
+
+    .ad-slot {
+      width: 100%; min-height: 90px; background: #FAFAFA;
+      border: 1px dashed #E5E7EB; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      color: #D1D5DB; font-size: .78rem; font-family: 'Inter',sans-serif;
+    }
+
+    .tool-info {
+      background: #F5F3FF; border: 1px solid #EDE9FE;
+      border-radius: 16px; padding: 24px 28px;
+    }
+    .tool-info h2 { font-size: 1rem; font-weight: 700; color: #111827; margin-bottom: 10px; }
+    .tool-info p  { font-size: .92rem; color: #6B7280; line-height: 1.7; }
+    .tool-info ul { margin-top: 12px; display: flex; flex-direction: column; gap: 8px; }
+    .tool-info ul li {
+      font-size: .92rem; color: #6B7280;
+      display: flex; align-items: flex-start; gap: 8px; line-height: 1.5;
+    }
+    .tool-info ul li::before { content:'✓'; color:#7C3AED; font-weight:700; flex-shrink:0; }
+
+    footer { background: #fff; border-top: 1px solid #E5E7EB; }
+
+    @media(max-width:768px){
+      .nav{ flex-wrap:wrap; height:auto; padding:14px 0; gap:12px; }
+      .nav-links{ width:100%; justify-content:center; gap:16px; flex-wrap:wrap; }
+      .tool-page{ padding:28px 0 60px; }
+      .word-counter{ grid-template-columns: 1fr; gap:8px; }
+      .wc-arrow{ flex-direction: row; justify-content: center; }
+      .result-header{ padding:14px 18px 10px; }
+      .result-text{ padding:16px 18px; }
+      .result-tags{ padding:0 18px 14px; }
+      .result-actions{ padding:12px 18px; flex-direction:column; }
+      .btn-copy,.btn-reset,.btn-download{ width:100%; justify-content:center; }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="container nav">
+    <a href="../../" class="logo">
+      <img src="../../logo-32.png" alt="ClearText IA" style="width:36px;height:36px;border-radius:9px;object-fit:contain;">
+      <span>ClearText</span>
+    </a>
+    <nav class="nav-links">
+      <a href="../../#herramientas">Herramientas</a>
+      <a href="../../#ventajas">Ventajas</a>
+      <a href="../../acerca/">Acerca de</a>
+      <a href="../../contacto/">Contacto</a>
+    </nav>
+    <a href="../../#herramientas" class="btn-nav">Ver todas</a>
+  </div>
+</header>
+
+<main class="tool-page">
+  <div class="container">
+
+    <nav class="breadcrumb" aria-label="Navegación">
+      <a href="../../">Inicio</a>
+      <span class="breadcrumb-sep">›</span>
+      <a href="../../#herramientas">Herramientas</a>
+      <span class="breadcrumb-sep">›</span>
+      <span class="breadcrumb-current">Humanizador de texto IA</span>
+    </nav>
+
+    <!-- ESPACIO PARA ANUNCIOS ADSENSE -->
+    <div class="ad-slot" style="margin-bottom:32px;">
+      <!-- Aquí irá el código de Google AdSense -->
+    </div>
+
+    <div class="tool-header">
+      <div class="tool-badge">🧠 Humanizador de IA</div>
+      <h1>Texto de IA que suena <span>completamente humano</span></h1>
+      <p>Pega cualquier texto generado por ChatGPT, Claude o Gemini y lo convertimos en escritura natural, fluida y sin los patrones típicos de la IA.</p>
+    </div>
+
+    <div class="tool-body">
+
+      <div class="input-section">
+        <div class="input-label">
+          ✏️ Texto generado por IA <span>— Pega aquí el texto que quieres humanizar</span>
+        </div>
+        <textarea
+          class="input-field"
+          id="inputText"
+          placeholder="Pega aquí tu texto..."
+          rows="9"
+          maxlength="5000"
+        ></textarea>
+        <div class="char-count"><span id="charCount">0</span> / 5000 caracteres</div>
+        <button class="btn-process" id="btnProcess" onclick="processText()">
+          <span>🧠</span> Procesar texto
+        </button>
+      </div>
+
+      <div class="error-box" id="errorBox">
+        ⚠️ <span id="errorMsg">Ha ocurrido un error. Por favor, inténtalo de nuevo.</span>
+      </div>
+
+      <div class="spinner-wrapper" id="spinnerWrapper">
+        <div class="spinner"></div>
+        <span class="spinner-text">Humanizando tu texto con IA...</span>
+      </div>
+
+      <!-- RESULTADO -->
+      <div class="result-section" id="resultSection">
+
+        <!-- Contador de palabras original vs resultado -->
+        <div class="word-counter">
+          <div class="wc-box">
+            <div class="wc-label">Original</div>
+            <div class="wc-num" id="wcOriginal">0</div>
+            <div class="wc-sub">palabras</div>
+          </div>
+          <div class="wc-arrow">
+            →
+            <span class="wc-diff" id="wcDiff"></span>
+          </div>
+          <div class="wc-box">
+            <div class="wc-label">Resultado</div>
+            <div class="wc-num" id="wcResult">0</div>
+            <div class="wc-sub">palabras</div>
+          </div>
+        </div>
+
+        <!-- Texto humanizado -->
+        <div class="result-header">
+          <div class="result-label">
+            <div class="result-dot"></div>
+            Texto humanizado
+          </div>
+          <button class="btn-copy" id="btnCopy" onclick="copyResult()">📋 Copiar</button>
+        </div>
+
+        <div class="result-text" id="resultText"></div>
+
+        <div class="result-tags">
+          <span class="result-tag">✅ Frases variadas</span>
+          <span class="result-tag">✅ Sin clichés de IA</span>
+          <span class="result-tag">✅ Tono natural</span>
+        </div>
+
+        <div class="result-actions">
+          <button class="btn-reset" onclick="resetTool()">🔄 Humanizar otro texto</button>
+          <button class="btn-download" onclick="downloadResult()">⬇️ Descargar .txt</button>
+        </div>
+
+      </div>
+
+      <!-- ESPACIO PARA ANUNCIOS ADSENSE -->
+      <div class="ad-slot">
+        <!-- Aquí irá el código de Google AdSense -->
+      </div>
+
+      <div class="tool-info">
+        <h2>¿Cómo funciona el Humanizador de texto?</h2>
+        <p>
+          Nuestra IA reescribe el texto detectando y eliminando los patrones más comunes del lenguaje generado
+          automáticamente: frases genéricas, estructura demasiado perfecta, vocabulario repetitivo y
+          ausencia de matices naturales del habla humana.
+        </p>
+        <ul>
+          <li>Elimina frases típicas de IA como "en el mundo actual" o "es importante destacar"</li>
+          <li>Varía la longitud de las frases para que suene más natural</li>
+          <li>Mantiene el significado y la información original intactos</li>
+          <li>Ideal para estudiantes, profesionales y creadores de contenido</li>
+          <li>Completamente gratuito y sin registro necesario</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-info">
+        <div class="logo" style="margin-bottom:10px;">
+          <img src="../../logo-32.png" alt="ClearText IA" style="width:34px;height:34px;border-radius:9px;object-fit:contain;">
+          <span>ClearText IA</span>
+        </div>
+        <p>Herramientas de texto potenciadas por IA. Gratis, privado y sin registro.</p>
+      </div>
+      <div class="footer-links">
+        <a href="../../privacidad/">Privacidad</a>
+        <a href="../../terminos/">Términos</a>
+        <a href="../../acerca/">Acerca de</a>
+        <a href="../../contacto/">Contacto</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 ClearText. Todos los derechos reservados.</p>
+      <p style="color:#C4B5FD;font-size:.82rem;">Hecho con IA ✨</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+const API_KEY = 'TU_API_KEY_AQUI';
+
+const SYSTEM_PROMPT = `Eres experto en reescribir texto de IA para que suene completamente humano. Reescribe el siguiente texto para que: suene conversacional y natural, varie la longitud de frases, use vocabulario mas variado, elimine frases tipicas de IA como 'en el mundo actual' o 'es importante destacar'. Devuelve SOLO el texto reescrito, sin explicaciones.`;
+
+const inputText = document.getElementById('inputText');
+const charCount = document.getElementById('charCount');
+
+inputText.addEventListener('input', () => {
+  const n = inputText.value.length;
+  charCount.textContent = n;
+  charCount.style.color = n > 4500 ? '#DC2626' : '#9CA3AF';
+});
+
+function countWords(text) {
+  return text.trim() === '' ? 0 : text.trim().split(/\s+/).length;
+}
+
+function setLoading(active) {
+  const btn     = document.getElementById('btnProcess');
+  const spinner = document.getElementById('spinnerWrapper');
+  const errBox  = document.getElementById('errorBox');
+  const resSec  = document.getElementById('resultSection');
+  btn.disabled  = active;
+  btn.innerHTML = active ? '<span>⏳</span> Humanizando...' : '<span>🧠</span> Procesar texto';
+  spinner.classList.toggle('active', active);
+  if (active) {
+    resSec.classList.remove('active');
+    errBox.classList.remove('active');
+  }
+}
+
+function showError(msg) {
+  document.getElementById('errorMsg').textContent = msg;
+  document.getElementById('errorBox').classList.add('active');
+}
+
+function showResult(resultText, originalText) {
+  const wordsOrig   = countWords(originalText);
+  const wordsResult = countWords(resultText);
+  const diff        = wordsResult - wordsOrig;
+
+  document.getElementById('wcOriginal').textContent = wordsOrig;
+  document.getElementById('wcResult').textContent   = wordsResult;
+
+  const diffEl = document.getElementById('wcDiff');
+  if (diff > 0) {
+    diffEl.textContent  = `+${diff} palabras`;
+    diffEl.className    = 'wc-diff more';
+  } else if (diff < 0) {
+    diffEl.textContent  = `${diff} palabras`;
+    diffEl.className    = 'wc-diff less';
+  } else {
+    diffEl.textContent  = 'Sin cambio';
+    diffEl.className    = 'wc-diff same';
+  }
+
+  document.getElementById('resultText').textContent = resultText;
+  document.getElementById('resultSection').classList.add('active');
+
+  window._lastResult = resultText;
+}
+
+async function processText() {
+  const text = inputText.value.trim();
+  if (!text) { showError('Por favor, pega o escribe un texto antes de continuar.'); return; }
+  if (text.length > 5000) { showError('El texto supera el límite de 5.000 caracteres.'); return; }
+
+  setLoading(true);
+
+  try {
+    const response = await fetch('/api/detect', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 2048,
+        system: SYSTEM_PROMPT,
+        messages: [{ role: 'user', content: text }]
+      })
+    });
+
+    if (!response.ok) {
+      const err = await response.json().catch(() => ({}));
+      throw new Error(err.error?.message || `Error ${response.status}`);
+    }
+
+    const data   = await response.json();
+    const result = data.content?.[0]?.text || '';
+
+    if (!result) throw new Error('La IA no devolvió ningún resultado. Inténtalo de nuevo.');
+
+    showResult(result, text);
+
+  } catch (error) {
+    showError(error.message || 'No se pudo conectar con la IA. Comprueba tu conexión.');
+    console.error('Error API:', error);
+  } finally {
+    setLoading(false);
+  }
+}
+
+async function copyResult() {
+  const btnCopy = document.getElementById('btnCopy');
+  try {
+    await navigator.clipboard.writeText(window._lastResult || '');
+    btnCopy.textContent = '✅ ¡Copiado!';
+    btnCopy.classList.add('copied');
+    setTimeout(() => {
+      btnCopy.textContent = '📋 Copiar';
+      btnCopy.classList.remove('copied');
+    }, 2500);
+  } catch {
+    showError('No se pudo copiar. Selecciona el texto manualmente.');
+  }
+}
+
+function downloadResult() {
+  const text = window._lastResult;
+  if (!text) return;
+  const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href     = url;
+  a.download = 'texto-humanizado.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function resetTool() {
+  inputText.value = '';
+  charCount.textContent = '0';
+  document.getElementById('resultSection').classList.remove('active');
+  document.getElementById('errorBox').classList.remove('active');
+  document.getElementById('btnProcess').disabled = false;
+  document.getElementById('btnProcess').innerHTML = '<span>🧠</span> Procesar texto';
+  inputText.focus();
+}
+
+inputText.addEventListener('keydown', e => {
+  if (e.ctrlKey && e.key === 'Enter') processText();
+});
+</script>
+
+</body>
+</html>
