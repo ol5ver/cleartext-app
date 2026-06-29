@@ -1,1 +1,553 @@
-placeholder
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Contador de palabras avanzado gratis | ClearText</title>
+  <meta name="description" content="Cuenta palabras, caracteres, frases, párrafos y tiempo de lectura en tiempo real. Gratis, sin registro, sin IA necesaria.">
+
+  <meta property="og:title" content="Contador de palabras avanzado | ClearText">
+  <meta property="og:description" content="Contador de palabras en tiempo real con estadísticas avanzadas. Gratis y sin registro.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cleartext-app.com/tools/contador-palabras/">
+  <meta property="og:image" content="https://cleartext-app.com/logo-512.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+
+  <style>
+    * { box-sizing: border-box; }
+
+    header {
+      background: #ffffff;
+      border-bottom: 1px solid #E5E7EB;
+      box-shadow: 0 2px 12px rgba(124,58,237,0.07);
+      backdrop-filter: none;
+    }
+    .logo { color: #111827; }
+    .nav-links a { color: #6B7280; }
+    .nav-links a:hover { color: #7C3AED; }
+    .btn-nav {
+      background: linear-gradient(135deg,#A78BFA,#7C3AED);
+      color: #fff; border: none;
+      padding: 9px 20px; border-radius: 10px;
+      font-weight: 600; font-size: 0.9rem;
+      cursor: pointer; display: inline-flex;
+      align-items: center; text-decoration: none;
+      transition: opacity .2s, transform .2s;
+    }
+    .btn-nav:hover { opacity: .9; transform: translateY(-1px); }
+
+    .tool-page { padding: 40px 0 80px; }
+
+    .breadcrumb {
+      display: flex; align-items: center;
+      gap: 8px; font-size: 0.875rem;
+      color: #9CA3AF; margin-bottom: 28px;
+    }
+    .breadcrumb a { color: #7C3AED; font-weight: 500; text-decoration: none; }
+    .breadcrumb a:hover { opacity: .75; }
+    .breadcrumb-sep { color: #D1D5DB; }
+    .breadcrumb-current { color: #6B7280; font-weight: 500; }
+
+    .tool-header { text-align: center; max-width: 680px; margin: 0 auto 44px; }
+    .tool-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #EDE9FE; color: #7C3AED;
+      padding: 6px 14px; border-radius: 9999px;
+      font-size: 0.82rem; font-weight: 600; margin-bottom: 16px;
+    }
+    .tool-header h1 {
+      font-size: clamp(1.8rem,4vw,2.6rem);
+      font-weight: 800; color: #111827;
+      letter-spacing: -.5px; margin-bottom: 12px; line-height: 1.15;
+    }
+    .tool-header h1 span {
+      background: linear-gradient(135deg,#C4B5FD,#7C3AED);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .tool-header p { font-size: 1.05rem; color: #6B7280; line-height: 1.65; }
+
+    .tool-body { max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; }
+
+    /* Textarea */
+    .input-section {
+      background: #fff; border: 1px solid #E5E7EB;
+      border-radius: 16px; padding: 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.04);
+    }
+    .input-label {
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 0.85rem; font-weight: 600;
+      color: #374151; margin-bottom: 10px;
+    }
+    .input-label-left { display: flex; align-items: center; gap: 8px; }
+    .live-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: #EDE9FE; color: #7C3AED;
+      padding: 3px 10px; border-radius: 9999px;
+      font-size: .75rem; font-weight: 600;
+    }
+    .live-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #7C3AED; animation: pulse 1.2s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1}50%{opacity:.3} }
+
+    textarea.input-field {
+      width: 100%; min-height: 220px; padding: 16px;
+      border: 1.5px solid #E5E7EB; border-radius: 12px;
+      background: #FAFAFA; color: #111827;
+      font-size: 0.97rem; font-family: 'Inter',sans-serif;
+      line-height: 1.75; resize: vertical; outline: none;
+      transition: border-color .25s, box-shadow .25s;
+    }
+    textarea.input-field::placeholder { color: #C4B5FD; }
+    textarea.input-field:hover { border-color: #C4B5FD; }
+    textarea.input-field:focus {
+      border-color: #7C3AED;
+      box-shadow: 0 0 0 3px rgba(196,181,253,.3);
+      background: #fff;
+    }
+
+    .btn-clear {
+      margin-top: 12px;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 16px; background: transparent;
+      color: #9CA3AF; border: 1px solid #E5E7EB;
+      border-radius: 9999px; font-size: .82rem; font-weight: 600;
+      cursor: pointer; font-family: 'Inter',sans-serif;
+      transition: border-color .2s, color .2s;
+    }
+    .btn-clear:hover { border-color: #FECACA; color: #DC2626; }
+
+    /* Stats grid principal */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .stat-card {
+      background: #fff; border: 1px solid #E5E7EB;
+      border-radius: 14px; padding: 18px 20px;
+      display: flex; flex-direction: column;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .stat-card:hover { border-color: #C4B5FD; box-shadow: 0 4px 16px rgba(124,58,237,.08); }
+
+    .stat-icon {
+      font-size: 1.3rem; margin-bottom: 10px;
+    }
+    .stat-value {
+      font-size: 2rem; font-weight: 800;
+      color: #111827; line-height: 1; margin-bottom: 4px;
+      transition: color .2s;
+    }
+    .stat-value.active { color: #7C3AED; }
+    .stat-label { font-size: .8rem; font-weight: 600; color: #6B7280; }
+    .stat-sub { font-size: .74rem; color: #9CA3AF; margin-top: 2px; }
+
+    /* Tarjeta especial de tiempo de lectura */
+    .stat-card.read-time {
+      background: linear-gradient(135deg, #F5F3FF, #EDE9FE);
+      border-color: #C4B5FD;
+    }
+    .stat-card.read-time .stat-value { color: #7C3AED; }
+    .stat-card.read-time .stat-label { color: #5B21B6; }
+
+    /* Caracteres doble stat */
+    .stat-card.double {
+      grid-column: span 1;
+    }
+    .stat-split {
+      display: flex; gap: 16px; align-items: flex-end; margin-bottom: 4px;
+    }
+    .stat-split-item { display: flex; flex-direction: column; }
+    .stat-split-value { font-size: 1.6rem; font-weight: 800; color: #111827; line-height: 1; }
+    .stat-split-sub { font-size: .7rem; color: #9CA3AF; margin-top: 2px; }
+    .stat-split-sep { color: #D1D5DB; font-size: 1.2rem; padding-bottom: 4px; }
+
+    /* Barra de progreso de densidad */
+    .density-section {
+      background: #fff; border: 1px solid #E5E7EB;
+      border-radius: 14px; padding: 20px;
+    }
+    .density-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 14px;
+    }
+    .density-title { font-size: .85rem; font-weight: 700; color: #374151; }
+    .density-subtitle { font-size: .75rem; color: #9CA3AF; }
+
+    .density-bar-row {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 8px;
+    }
+    .density-word { font-size: .85rem; color: #374151; min-width: 100px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .density-track { flex: 1; height: 10px; background: #F3F4F6; border-radius: 9999px; overflow: hidden; }
+    .density-fill { height: 100%; border-radius: 9999px; background: linear-gradient(90deg,#C4B5FD,#7C3AED); transition: width .4s ease; }
+    .density-count { font-size: .8rem; font-weight: 700; color: #7C3AED; min-width: 28px; text-align: right; }
+
+    .density-empty {
+      text-align: center; padding: 24px 0;
+      color: #C4B5FD; font-size: .9rem; font-style: italic;
+    }
+
+    /* AdSense */
+    .ad-slot {
+      width: 100%; min-height: 90px; background: #FAFAFA;
+      border: 1px dashed #E5E7EB; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      color: #D1D5DB; font-size: .78rem; font-family: 'Inter',sans-serif;
+    }
+
+    /* Info */
+    .tool-info {
+      background: #F5F3FF; border: 1px solid #EDE9FE;
+      border-radius: 16px; padding: 24px 28px;
+    }
+    .tool-info h2 { font-size: 1rem; font-weight: 700; color: #111827; margin-bottom: 10px; }
+    .tool-info p  { font-size: .92rem; color: #6B7280; line-height: 1.7; }
+    .tool-info ul { margin-top: 12px; display: flex; flex-direction: column; gap: 8px; }
+    .tool-info ul li {
+      font-size: .92rem; color: #6B7280;
+      display: flex; align-items: flex-start; gap: 8px; line-height: 1.5;
+    }
+    .tool-info ul li::before { content:'✓'; color:#7C3AED; font-weight:700; flex-shrink:0; }
+
+    footer { background: #fff; border-top: 1px solid #E5E7EB; }
+
+    @media(max-width:768px){
+      .nav{ flex-wrap:wrap; height:auto; padding:14px 0; gap:12px; }
+      .nav-links{ width:100%; justify-content:center; gap:16px; flex-wrap:wrap; }
+      .tool-page{ padding:28px 0 60px; }
+      .stats-grid{ grid-template-columns: repeat(2,1fr); }
+      .stat-value{ font-size: 1.6rem; }
+    }
+
+    @media(max-width:480px){
+      .stats-grid{ grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="container nav">
+    <a href="../../" class="logo">
+      <img src="../../logo-32.png" alt="ClearText IA" style="width:36px;height:36px;border-radius:9px;object-fit:contain;">
+      <span>ClearText</span>
+    </a>
+    <nav class="nav-links">
+      <a href="../../#herramientas">Herramientas</a>
+      <a href="../../#ventajas">Ventajas</a>
+      <a href="../../acerca/">Acerca de</a>
+      <a href="../../contacto/">Contacto</a>
+    </nav>
+    <a href="../../#herramientas" class="btn-nav">Ver todas</a>
+  </div>
+</header>
+
+<main class="tool-page">
+  <div class="container">
+
+    <nav class="breadcrumb" aria-label="Navegación">
+      <a href="../../">Inicio</a>
+      <span class="breadcrumb-sep">›</span>
+      <a href="../../#herramientas">Herramientas</a>
+      <span class="breadcrumb-sep">›</span>
+      <span class="breadcrumb-current">Contador de palabras avanzado</span>
+    </nav>
+
+    <!-- ESPACIO PARA ANUNCIOS ADSENSE -->
+    <div class="ad-slot" style="margin-bottom:32px;">
+      <!-- Aquí irá el código de Google AdSense -->
+    </div>
+
+    <div class="tool-header">
+      <div class="tool-badge">📊 Sin IA — Instantáneo</div>
+      <h1>Contador de palabras <span>en tiempo real</span></h1>
+      <p>Escribe o pega tu texto y obtén al instante palabras, caracteres, frases, párrafos, tiempo de lectura y las palabras más usadas.</p>
+    </div>
+
+    <div class="tool-body">
+
+      <!-- TEXTAREA -->
+      <div class="input-section">
+        <div class="input-label">
+          <div class="input-label-left">
+            ✏️ Tu texto
+          </div>
+          <div class="live-badge">
+            <div class="live-dot"></div>
+            En tiempo real
+          </div>
+        </div>
+        <textarea
+          class="input-field"
+          id="inputText"
+          placeholder="Pega aquí tu texto o empieza a escribir..."
+          rows="10"
+        ></textarea>
+        <button class="btn-clear" onclick="clearText()">🗑️ Limpiar texto</button>
+      </div>
+
+      <!-- STATS GRID -->
+      <div class="stats-grid">
+
+        <div class="stat-card">
+          <div class="stat-icon">📝</div>
+          <div class="stat-value" id="statPalabras">0</div>
+          <div class="stat-label">Palabras</div>
+        </div>
+
+        <div class="stat-card double">
+          <div class="stat-icon">🔤</div>
+          <div class="stat-split">
+            <div class="stat-split-item">
+              <div class="stat-split-value" id="statCharCon">0</div>
+              <div class="stat-split-sub">con espacios</div>
+            </div>
+            <div class="stat-split-sep">/</div>
+            <div class="stat-split-item">
+              <div class="stat-split-value" id="statCharSin">0</div>
+              <div class="stat-split-sub">sin espacios</div>
+            </div>
+          </div>
+          <div class="stat-label">Caracteres</div>
+        </div>
+
+        <div class="stat-card read-time">
+          <div class="stat-icon">⏱️</div>
+          <div class="stat-value" id="statLectura">0 seg</div>
+          <div class="stat-label">Tiempo de lectura</div>
+          <div class="stat-sub">a 200 palabras/min</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon">💬</div>
+          <div class="stat-value" id="statFrases">0</div>
+          <div class="stat-label">Frases</div>
+          <div class="stat-sub">terminadas en . ! ?</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon">📄</div>
+          <div class="stat-value" id="statParrafos">0</div>
+          <div class="stat-label">Párrafos</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon">📖</div>
+          <div class="stat-value" id="statPaginas">0</div>
+          <div class="stat-label">Páginas</div>
+          <div class="stat-sub">a 250 palabras/pág.</div>
+        </div>
+
+      </div>
+
+      <!-- TOP PALABRAS -->
+      <div class="density-section">
+        <div class="density-header">
+          <div class="density-title">🔝 Top 5 palabras más repetidas</div>
+          <div class="density-subtitle">Excluyendo artículos y preposiciones</div>
+        </div>
+        <div id="densityList">
+          <div class="density-empty">Empieza a escribir para ver las palabras más usadas</div>
+        </div>
+      </div>
+
+      <!-- ESPACIO PARA ANUNCIOS ADSENSE -->
+      <div class="ad-slot">
+        <!-- Aquí irá el código de Google AdSense -->
+      </div>
+
+      <div class="tool-info">
+        <h2>¿Qué mide este contador?</h2>
+        <p>
+          A diferencia de los contadores básicos, este analiza tu texto en profundidad y te da
+          estadísticas que realmente importan para escritores, estudiantes y profesionales.
+        </p>
+        <ul>
+          <li>Palabras totales y caracteres con y sin espacios</li>
+          <li>Número de frases y párrafos del texto</li>
+          <li>Tiempo estimado de lectura basado en la velocidad media de 200 palabras por minuto</li>
+          <li>Páginas equivalentes a 250 palabras por página</li>
+          <li>Top 5 palabras más repetidas, excluyendo artículos, preposiciones y conectores</li>
+          <li>Todo se actualiza en tiempo real mientras escribes, sin hacer clic en nada</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-info">
+        <div class="logo" style="margin-bottom:10px;">
+          <img src="../../logo-32.png" alt="ClearText IA" style="width:34px;height:34px;border-radius:9px;object-fit:contain;">
+          <span>ClearText IA</span>
+        </div>
+        <p>Herramientas de texto potenciadas por IA. Gratis, privado y sin registro.</p>
+      </div>
+      <div class="footer-links">
+        <a href="../../privacidad/">Privacidad</a>
+        <a href="../../terminos/">Términos</a>
+        <a href="../../acerca/">Acerca de</a>
+        <a href="../../contacto/">Contacto</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 ClearText. Todos los derechos reservados.</p>
+      <p style="color:#C4B5FD;font-size:.82rem;">Hecho con IA ✨</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Palabras a excluir (artículos, preposiciones, conjunciones, pronombres comunes en español)
+const EXCLUIR = new Set([
+  'a','al','ante','bajo','cabe','con','contra','de','desde','durante','en','entre',
+  'hacia','hasta','mediante','para','por','según','sin','so','sobre','tras',
+  'el','la','los','las','un','una','unos','unas','lo',
+  'y','e','ni','que','o','u','pero','mas','sino','aunque','si','como','cuando',
+  'yo','tú','tu','él','ella','nosotros','vosotros','ellos','ellas','me','te','se',
+  'le','nos','os','les','este','esta','estos','estas','ese','esa','esos','esas',
+  'aquel','aquella','aquellos','aquellas','mi','su','sus','mis','tus','nuestro',
+  'nuestra','vuestro','vuestra','del','al','más','muy','también','ya','así','bien',
+  'no','sí','todo','todos','toda','todas','es','son','era','fue','hay','ha','han',
+  'he','has','ser','estar','hacer','tener','poder','ir','ver','dar','saber','querer',
+  'llegar','pasar','deber','poner','parecer','quedar','creer','hablar','llevar',
+  'dejar','seguir','encontrar','llamar','venir','pensar','salir','volver','tomar',
+  'conocer','vivir','sentir','tratar','mirar','contar','empezar','esperar','buscar',
+  'existir','entrar','trabajar','escribir','perder','producir','ocurrir','entender',
+  'pedir','recibir','recordar','terminar','permitir','aparecer','conseguir','comenzar',
+  'servir','sacar','necesitar','mantener','resultar','leer','caer','cambiar','presentar',
+  'crear','abrir','considerar','oír','puede','pueden','como','cuando','donde','quien',
+  'cual','cuales','que','qué','cómo','cuándo','dónde','quién','cuál'
+]);
+
+const input = document.getElementById('inputText');
+
+function contarPalabras(texto) {
+  return texto.trim() === '' ? 0 : texto.trim().split(/\s+/).filter(w => w.length > 0).length;
+}
+
+function contarFrases(texto) {
+  if (!texto.trim()) return 0;
+  const matches = texto.match(/[^.!?]*[.!?]+/g);
+  return matches ? matches.length : 0;
+}
+
+function contarParrafos(texto) {
+  if (!texto.trim()) return 0;
+  return texto.split(/\n+/).filter(p => p.trim().length > 0).length;
+}
+
+function tiempoLectura(palabras) {
+  if (palabras === 0) return '0 seg';
+  const minutos = palabras / 200;
+  if (minutos < 1) {
+    const segundos = Math.round(minutos * 60);
+    return segundos + ' seg';
+  }
+  const min = Math.floor(minutos);
+  const seg = Math.round((minutos - min) * 60);
+  if (seg === 0) return min + ' min';
+  return min + ' min ' + seg + ' seg';
+}
+
+function topPalabras(texto) {
+  if (!texto.trim()) return [];
+  const palabras = texto
+    .toLowerCase()
+    .replace(/[^a-záéíóúüñ\s]/gi, ' ')
+    .split(/\s+/)
+    .filter(w => w.length > 2 && !EXCLUIR.has(w));
+
+  const freq = {};
+  palabras.forEach(w => { freq[w] = (freq[w] || 0) + 1; });
+
+  return Object.entries(freq)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 5);
+}
+
+function animarValor(el, nuevoValor) {
+  const valorActual = el.textContent;
+  if (valorActual !== String(nuevoValor)) {
+    el.classList.add('active');
+    el.textContent = nuevoValor;
+    clearTimeout(el._timer);
+    el._timer = setTimeout(() => el.classList.remove('active'), 300);
+  }
+}
+
+function actualizarStats() {
+  const texto = input.value;
+
+  const palabras   = contarPalabras(texto);
+  const charCon    = texto.length;
+  const charSin    = texto.replace(/\s/g, '').length;
+  const frases     = contarFrases(texto);
+  const parrafos   = contarParrafos(texto);
+  const paginas    = palabras === 0 ? 0 : (palabras / 250).toFixed(1);
+  const lectura    = tiempoLectura(palabras);
+  const top        = topPalabras(texto);
+
+  animarValor(document.getElementById('statPalabras'), palabras.toLocaleString('es'));
+  animarValor(document.getElementById('statCharCon'),  charCon.toLocaleString('es'));
+  animarValor(document.getElementById('statCharSin'),  charSin.toLocaleString('es'));
+  animarValor(document.getElementById('statFrases'),   frases);
+  animarValor(document.getElementById('statParrafos'), parrafos);
+  animarValor(document.getElementById('statPaginas'),  paginas);
+  animarValor(document.getElementById('statLectura'),  lectura);
+
+  const densityList = document.getElementById('densityList');
+  if (top.length === 0) {
+    densityList.innerHTML = '<div class="density-empty">Empieza a escribir para ver las palabras más usadas</div>';
+    return;
+  }
+
+  const maxFreq = top[0][1];
+  densityList.innerHTML = top.map(([palabra, freq]) => {
+    const pct = Math.round((freq / maxFreq) * 100);
+    return `
+      <div class="density-bar-row">
+        <div class="density-word" title="${palabra}">${palabra}</div>
+        <div class="density-track">
+          <div class="density-fill" style="width:${pct}%"></div>
+        </div>
+        <div class="density-count">${freq}×</div>
+      </div>
+    `;
+  }).join('');
+}
+
+function clearText() {
+  input.value = '';
+  actualizarStats();
+  input.focus();
+}
+
+// Actualización en tiempo real con debounce ligero
+let debounceTimer;
+input.addEventListener('input', () => {
+  clearTimeout(debounceTimer);
+  debounceTimer = setTimeout(actualizarStats, 80);
+});
+
+// Inicializar
+actualizarStats();
+</script>
+
+</body>
+</html>
