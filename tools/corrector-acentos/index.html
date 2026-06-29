@@ -1,1 +1,583 @@
-placeholder
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Corrector de acentos y tildes gratis en español | ClearText</title>
+  <meta name="description" content="Corrige acentos, tildes diacríticas y errores ortográficos en español. Muestra cada corrección con su regla. Gratis, sin registro.">
+
+  <meta property="og:title" content="Corrector de acentos y tildes | ClearText">
+  <meta property="og:description" content="Corrector ortográfico especializado en español. Corrige tildes diacríticas y acentuación. Gratis.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cleartext-app.com/tools/corrector-acentos/">
+  <meta property="og:image" content="https://cleartext-app.com/logo-512.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+
+  <style>
+    * { box-sizing: border-box; }
+
+    header {
+      background: #ffffff; border-bottom: 1px solid #E5E7EB;
+      box-shadow: 0 2px 12px rgba(124,58,237,0.07); backdrop-filter: none;
+    }
+    .logo { color: #111827; }
+    .nav-links a { color: #6B7280; }
+    .nav-links a:hover { color: #7C3AED; }
+    .btn-nav {
+      background: linear-gradient(135deg,#A78BFA,#7C3AED);
+      color: #fff; border: none; padding: 9px 20px; border-radius: 10px;
+      font-weight: 600; font-size: 0.9rem; cursor: pointer;
+      display: inline-flex; align-items: center; text-decoration: none;
+      transition: opacity .2s, transform .2s;
+    }
+    .btn-nav:hover { opacity: .9; transform: translateY(-1px); }
+
+    .tool-page { padding: 40px 0 80px; }
+
+    .breadcrumb {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.875rem; color: #9CA3AF; margin-bottom: 28px;
+    }
+    .breadcrumb a { color: #7C3AED; font-weight: 500; text-decoration: none; }
+    .breadcrumb a:hover { opacity: .75; }
+    .breadcrumb-sep { color: #D1D5DB; }
+    .breadcrumb-current { color: #6B7280; font-weight: 500; }
+
+    .tool-header { text-align: center; max-width: 680px; margin: 0 auto 44px; }
+    .tool-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #EDE9FE; color: #7C3AED;
+      padding: 6px 14px; border-radius: 9999px;
+      font-size: 0.82rem; font-weight: 600; margin-bottom: 16px;
+    }
+    .tool-header h1 {
+      font-size: clamp(1.8rem,4vw,2.6rem); font-weight: 800; color: #111827;
+      letter-spacing: -.5px; margin-bottom: 12px; line-height: 1.15;
+    }
+    .tool-header h1 span {
+      background: linear-gradient(135deg,#C4B5FD,#7C3AED);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .tool-header p { font-size: 1.05rem; color: #6B7280; line-height: 1.65; }
+
+    .tool-body { max-width: 860px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; }
+
+    .input-section {
+      background: #fff; border: 1px solid #E5E7EB; border-radius: 16px; padding: 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.04);
+    }
+    .input-label {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.85rem; font-weight: 600; color: #374151; margin-bottom: 10px;
+    }
+    .input-label span { color: #9CA3AF; font-weight: 400; }
+
+    textarea.input-field {
+      width: 100%; min-height: 200px; padding: 16px;
+      border: 1.5px solid #E5E7EB; border-radius: 12px;
+      background: #FAFAFA; color: #111827;
+      font-size: 0.97rem; font-family: 'Inter',sans-serif;
+      line-height: 1.7; resize: vertical; outline: none;
+      transition: border-color .25s, box-shadow .25s;
+    }
+    textarea.input-field::placeholder { color: #C4B5FD; }
+    textarea.input-field:hover { border-color: #C4B5FD; }
+    textarea.input-field:focus {
+      border-color: #7C3AED; box-shadow: 0 0 0 3px rgba(196,181,253,.3); background: #fff;
+    }
+    .char-count { text-align: right; font-size: .78rem; color: #9CA3AF; margin-top: 6px; }
+
+    .btn-process {
+      width: 100%; padding: 15px 24px;
+      background: linear-gradient(135deg,#A78BFA 0%,#7C3AED 60%,#5B21B6 100%);
+      color: #fff; border: none; border-radius: 12px;
+      font-size: 1rem; font-weight: 700; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      box-shadow: 0 4px 16px rgba(124,58,237,.35);
+      transition: transform .2s, box-shadow .2s, opacity .2s;
+      margin-top: 16px; font-family: 'Inter',sans-serif;
+    }
+    .btn-process:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(124,58,237,.45); }
+    .btn-process:active { transform: scale(.98); }
+    .btn-process:disabled { opacity: .65; cursor: not-allowed; transform: none; }
+
+    .error-box {
+      display: none; background: #FEF2F2; border: 1px solid #FECACA;
+      border-radius: 12px; padding: 14px 18px; color: #DC2626; font-size: .9rem; font-weight: 500;
+    }
+    .error-box.active { display: block; }
+
+    .spinner-wrapper {
+      display: none; flex-direction: column; align-items: center; gap: 14px; padding: 32px 0;
+    }
+    .spinner-wrapper.active { display: flex; }
+    .spinner {
+      width: 36px; height: 36px; border: 3px solid #EDE9FE; border-top-color: #7C3AED;
+      border-radius: 50%; animation: spin .7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spinner-text {
+      font-size: .9rem; color: #7C3AED; font-weight: 500;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1}50%{opacity:.5} }
+
+    /* ── RESULTADO ── */
+    .result-section {
+      display: none; background: #fff; border: 1.5px solid #C4B5FD;
+      border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(124,58,237,.08);
+    }
+    .result-section.active { display: block; }
+
+    /* Baner de resumen */
+    .result-summary {
+      background: linear-gradient(135deg,#7C3AED,#5B21B6);
+      padding: 16px 24px;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+    }
+    .summary-text { color: #fff; font-size: .9rem; font-weight: 700; }
+    .summary-badge {
+      background: rgba(255,255,255,.2); color: #fff;
+      padding: 4px 12px; border-radius: 9999px;
+      font-size: .8rem; font-weight: 600; border: 1px solid rgba(255,255,255,.3);
+    }
+
+    /* Texto corregido */
+    .corrected-section { padding: 20px 24px; border-bottom: 1px solid #EDE9FE; }
+    .section-label {
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: .82rem; font-weight: 700; color: #7C3AED;
+      text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px;
+    }
+    .btn-copy {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 12px; background: #EDE9FE; color: #7C3AED;
+      border: none; border-radius: 9999px;
+      font-size: .78rem; font-weight: 600; cursor: pointer;
+      font-family: 'Inter',sans-serif; transition: background .2s, color .2s;
+    }
+    .btn-copy:hover { background: #7C3AED; color: #fff; }
+    .btn-copy.copied { background: #D1FAE5; color: #065F46; }
+
+    .corrected-text {
+      background: #F5F3FF; border: 1px solid #EDE9FE; border-radius: 12px;
+      padding: 16px 18px; font-size: .97rem; line-height: 1.75;
+      color: #111827; white-space: pre-wrap; word-break: break-word;
+    }
+
+    /* Tabla de correcciones */
+    .corrections-section { padding: 20px 24px; }
+    .corrections-title {
+      font-size: .82rem; font-weight: 700; color: #374151;
+      text-transform: uppercase; letter-spacing: .06em; margin-bottom: 14px;
+    }
+
+    /* Sin correcciones */
+    .no-corrections {
+      display: flex; align-items: center; gap: 10px;
+      background: #F0FDF4; border: 1px solid #BBF7D0;
+      border-radius: 12px; padding: 14px 18px;
+      color: #14532D; font-size: .9rem; font-weight: 500;
+    }
+
+    /* Tabla */
+    .corrections-table { width: 100%; border-collapse: collapse; font-size: .875rem; }
+    .corrections-table thead tr {
+      background: #F5F3FF;
+    }
+    .corrections-table th {
+      padding: 10px 14px; text-align: left;
+      font-size: .75rem; font-weight: 700; color: #7C3AED;
+      text-transform: uppercase; letter-spacing: .05em;
+      border-bottom: 1px solid #EDE9FE;
+    }
+    .corrections-table td {
+      padding: 11px 14px; border-bottom: 1px solid #F3F4F6;
+      color: #374151; line-height: 1.5; vertical-align: top;
+    }
+    .corrections-table tr:last-child td { border-bottom: none; }
+    .corrections-table tr:hover td { background: #FAFAFA; }
+
+    .tag-original {
+      display: inline-flex; align-items: center;
+      background: #FEF2F2; color: #DC2626;
+      border: 1px solid #FECACA; border-radius: 6px;
+      padding: 2px 8px; font-family: monospace; font-size: .85rem; font-weight: 600;
+    }
+    .tag-corrected {
+      display: inline-flex; align-items: center;
+      background: #F0FDF4; color: #16A34A;
+      border: 1px solid #BBF7D0; border-radius: 6px;
+      padding: 2px 8px; font-family: monospace; font-size: .85rem; font-weight: 600;
+    }
+    .arrow-cell { color: #9CA3AF; font-size: .9rem; padding: 11px 6px; }
+    .rule-cell { color: #6B7280; font-size: .82rem; line-height: 1.5; }
+
+    /* Acciones */
+    .result-actions {
+      padding: 14px 24px; border-top: 1px solid #EDE9FE;
+      display: flex; gap: 10px; flex-wrap: wrap; background: #FAFAFA;
+    }
+    .btn-reset {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 16px; background: transparent; color: #6B7280;
+      border: 1px solid #E5E7EB; border-radius: 9999px;
+      font-size: .82rem; font-weight: 600; cursor: pointer;
+      font-family: 'Inter',sans-serif; transition: border-color .2s, color .2s;
+    }
+    .btn-reset:hover { border-color: #C4B5FD; color: #7C3AED; }
+
+    .ad-slot {
+      width: 100%; min-height: 90px; background: #FAFAFA;
+      border: 1px dashed #E5E7EB; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      color: #D1D5DB; font-size: .78rem; font-family: 'Inter',sans-serif;
+    }
+
+    .tool-info {
+      background: #F5F3FF; border: 1px solid #EDE9FE; border-radius: 16px; padding: 24px 28px;
+    }
+    .tool-info h2 { font-size: 1rem; font-weight: 700; color: #111827; margin-bottom: 10px; }
+    .tool-info p  { font-size: .92rem; color: #6B7280; line-height: 1.7; }
+    .tool-info ul { margin-top: 12px; display: flex; flex-direction: column; gap: 8px; }
+    .tool-info ul li {
+      font-size: .92rem; color: #6B7280;
+      display: flex; align-items: flex-start; gap: 8px; line-height: 1.5;
+    }
+    .tool-info ul li::before { content:'✓'; color:#7C3AED; font-weight:700; flex-shrink:0; }
+
+    footer { background: #fff; border-top: 1px solid #E5E7EB; }
+
+    @media(max-width:768px){
+      .nav{ flex-wrap:wrap; height:auto; padding:14px 0; gap:12px; }
+      .nav-links{ width:100%; justify-content:center; gap:16px; flex-wrap:wrap; }
+      .tool-page{ padding:28px 0 60px; }
+      .corrected-section,.corrections-section{ padding:16px 18px; }
+      .corrections-table th, .corrections-table td { padding:9px 10px; }
+      .result-actions{ flex-direction:column; }
+      .btn-reset{ width:100%; justify-content:center; }
+      /* En móvil ocultamos la columna de flecha */
+      .arrow-col { display: none; }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="container nav">
+    <a href="../../" class="logo">
+      <img src="../../logo-32.png" alt="ClearText IA" style="width:36px;height:36px;border-radius:9px;object-fit:contain;">
+      <span>ClearText</span>
+    </a>
+    <nav class="nav-links">
+      <a href="../../#herramientas">Herramientas</a>
+      <a href="../../#ventajas">Ventajas</a>
+      <a href="../../acerca/">Acerca de</a>
+      <a href="../../contacto/">Contacto</a>
+    </nav>
+    <a href="../../#herramientas" class="btn-nav">Ver todas</a>
+  </div>
+</header>
+
+<main class="tool-page">
+  <div class="container">
+
+    <nav class="breadcrumb" aria-label="Navegación">
+      <a href="../../">Inicio</a>
+      <span class="breadcrumb-sep">›</span>
+      <a href="../../#herramientas">Herramientas</a>
+      <span class="breadcrumb-sep">›</span>
+      <span class="breadcrumb-current">Corrector de acentos y tildes</span>
+    </nav>
+
+    <!-- ESPACIO PARA ANUNCIOS ADSENSE -->
+    <div class="ad-slot" style="margin-bottom:32px;">
+      <!-- Aquí irá el código de Google AdSense -->
+    </div>
+
+    <div class="tool-header">
+      <div class="tool-badge">✍️ Corrector ortográfico</div>
+      <h1>Corrige <span>acentos y tildes</span> en español</h1>
+      <p>Pega tu texto y corregimos automáticamente todos los errores de acentuación, tildes diacríticas y ortografía, con la regla explicada para cada corrección.</p>
+    </div>
+
+    <div class="tool-body">
+
+      <div class="input-section">
+        <div class="input-label">
+          ✏️ Tu texto <span>— Pega el texto que quieres corregir</span>
+        </div>
+        <textarea
+          class="input-field"
+          id="inputText"
+          placeholder="Pega aquí tu texto..."
+          rows="9"
+          maxlength="5000"
+        ></textarea>
+        <div class="char-count"><span id="charCount">0</span> / 5000 caracteres</div>
+        <button class="btn-process" id="btnProcess" onclick="processText()">
+          <span>✍️</span> Procesar texto
+        </button>
+      </div>
+
+      <div class="error-box" id="errorBox">
+        ⚠️ <span id="errorMsg">Ha ocurrido un error. Por favor, inténtalo de nuevo.</span>
+      </div>
+
+      <div class="spinner-wrapper" id="spinnerWrapper">
+        <div class="spinner"></div>
+        <span class="spinner-text">Revisando acentos y ortografía...</span>
+      </div>
+
+      <!-- RESULTADO -->
+      <div class="result-section" id="resultSection">
+
+        <!-- Baner resumen -->
+        <div class="result-summary">
+          <div class="summary-text">✅ Corrección completada</div>
+          <div class="summary-badge" id="summaryBadge">0 correcciones</div>
+        </div>
+
+        <!-- Texto corregido -->
+        <div class="corrected-section">
+          <div class="section-label">
+            <span>📝 Texto corregido</span>
+            <button class="btn-copy" id="btnCopy" onclick="copyResult()">📋 Copiar texto</button>
+          </div>
+          <div class="corrected-text" id="correctedText"></div>
+        </div>
+
+        <!-- Tabla de correcciones -->
+        <div class="corrections-section">
+          <div class="corrections-title">🔎 Correcciones realizadas</div>
+          <div id="correctionsContainer"></div>
+        </div>
+
+        <div class="result-actions">
+          <button class="btn-reset" onclick="resetTool()">🔄 Corregir otro texto</button>
+        </div>
+
+      </div>
+
+      <!-- ESPACIO PARA ANUNCIOS ADSENSE -->
+      <div class="ad-slot">
+        <!-- Aquí irá el código de Google AdSense -->
+      </div>
+
+      <div class="tool-info">
+        <h2>¿Qué corrige esta herramienta?</h2>
+        <p>
+          A diferencia de los correctores genéricos, este corrector está especializado en los errores
+          más comunes del español: tildes que se omiten o se ponen donde no corresponden, y las
+          confusiones entre palabras que suenan igual pero tienen significado distinto según el acento.
+        </p>
+        <ul>
+          <li>Tildes diacríticas: él/el, tú/tu, sí/si, mí/mi, más/mas, qué/que, cómo/como...</li>
+          <li>Acentuación de palabras agudas, llanas y esdrújulas</li>
+          <li>Errores ortográficos frecuentes en español</li>
+          <li>Cada corrección incluye la regla gramatical aplicada</li>
+          <li>El texto corregido se puede copiar con un solo clic</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-info">
+        <div class="logo" style="margin-bottom:10px;">
+          <img src="../../logo-32.png" alt="ClearText IA" style="width:34px;height:34px;border-radius:9px;object-fit:contain;">
+          <span>ClearText</span>
+        </div>
+        <p>Herramientas de texto potenciadas por IA. Gratis, privado y sin registro.</p>
+      </div>
+      <div class="footer-links">
+        <a href="../../privacidad/">Privacidad</a>
+        <a href="../../terminos/">Términos</a>
+        <a href="../../acerca/">Acerca de</a>
+        <a href="../../contacto/">Contacto</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 ClearText. Todos los derechos reservados.</p>
+      <p style="color:#C4B5FD;font-size:.82rem;">Hecho con IA ✨</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+const API_KEY = 'TU_API_KEY_AQUI';
+
+const SYSTEM_PROMPT = `Eres corrector ortografico especializado en espanol. Corrige todos los errores de acentuacion, tildes diacriticas (el/el, tu/tu, si/si, mi/mi, etc), puntuacion y ortografia. Responde SOLO en JSON sin texto adicional: {"texto_corregido": "el texto corregido completo", "correcciones": [{"original": "palabra mal escrita", "corregido": "palabra corregida", "regla": "explicacion breve de la regla aplicada"}]}`;
+
+const inputText = document.getElementById('inputText');
+const charCount = document.getElementById('charCount');
+
+window._correctedText = '';
+
+inputText.addEventListener('input', () => {
+  const n = inputText.value.length;
+  charCount.textContent = n;
+  charCount.style.color = n > 4500 ? '#DC2626' : '#9CA3AF';
+});
+
+function setLoading(active) {
+  const btn     = document.getElementById('btnProcess');
+  const spinner = document.getElementById('spinnerWrapper');
+  const errBox  = document.getElementById('errorBox');
+  const resSec  = document.getElementById('resultSection');
+  btn.disabled  = active;
+  btn.innerHTML = active ? '<span>⏳</span> Revisando...' : '<span>✍️</span> Procesar texto';
+  spinner.classList.toggle('active', active);
+  if (active) {
+    resSec.classList.remove('active');
+    errBox.classList.remove('active');
+  }
+}
+
+function showError(msg) {
+  document.getElementById('errorMsg').textContent = msg;
+  document.getElementById('errorBox').classList.add('active');
+}
+
+function showResult(data) {
+  const textCorregido = data.texto_corregido || '';
+  const correcciones  = data.correcciones    || [];
+
+  window._correctedText = textCorregido;
+
+  // Resumen
+  const n = correcciones.length;
+  document.getElementById('summaryBadge').textContent =
+    n === 0 ? 'Sin errores' : n === 1 ? '1 corrección' : `${n} correcciones`;
+
+  // Texto corregido
+  document.getElementById('correctedText').textContent = textCorregido;
+
+  // Tabla de correcciones
+  const container = document.getElementById('correctionsContainer');
+
+  if (n === 0) {
+    container.innerHTML = `
+      <div class="no-corrections">
+        🎉 ¡No se encontraron errores de acentuación ni ortografía en tu texto!
+      </div>`;
+  } else {
+    container.innerHTML = `
+      <table class="corrections-table">
+        <thead>
+          <tr>
+            <th>Original</th>
+            <th class="arrow-col"></th>
+            <th>Correcto</th>
+            <th>Regla aplicada</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${correcciones.map(c => `
+            <tr>
+              <td><span class="tag-original">${escapeHtml(c.original || '')}</span></td>
+              <td class="arrow-cell arrow-col">→</td>
+              <td><span class="tag-corrected">${escapeHtml(c.corregido || '')}</span></td>
+              <td class="rule-cell">${escapeHtml(c.regla || '')}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>`;
+  }
+
+  document.getElementById('resultSection').classList.add('active');
+}
+
+function escapeHtml(str) {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+async function processText() {
+  const text = inputText.value.trim();
+  if (!text) { showError('Por favor, pega o escribe un texto antes de continuar.'); return; }
+  if (text.length > 5000) { showError('El texto supera el límite de 5.000 caracteres.'); return; }
+
+  setLoading(true);
+
+  try {
+    const response = await fetch('/api/detect', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 2048,
+        system: SYSTEM_PROMPT,
+        messages: [{ role: 'user', content: text }]
+      })
+    });
+
+    if (!response.ok) {
+      const err = await response.json().catch(() => ({}));
+      throw new Error(err.error?.message || `Error ${response.status}`);
+    }
+
+    const data = await response.json();
+    let raw = data.content?.[0]?.text || '';
+    raw = raw.replace(/```json|```/g, '').trim();
+
+    let parsed;
+    try { parsed = JSON.parse(raw); }
+    catch { throw new Error('La IA no devolvió el formato esperado. Inténtalo de nuevo.'); }
+
+    showResult(parsed);
+
+  } catch (error) {
+    showError(error.message || 'No se pudo conectar con la IA. Comprueba tu conexión.');
+    console.error('Error API:', error);
+  } finally {
+    setLoading(false);
+  }
+}
+
+async function copyResult() {
+  const btnCopy = document.getElementById('btnCopy');
+  try {
+    await navigator.clipboard.writeText(window._correctedText);
+    btnCopy.textContent = '✅ ¡Copiado!';
+    btnCopy.classList.add('copied');
+    setTimeout(() => {
+      btnCopy.textContent = '📋 Copiar texto';
+      btnCopy.classList.remove('copied');
+    }, 2500);
+  } catch {
+    showError('No se pudo copiar. Selecciona el texto manualmente.');
+  }
+}
+
+function resetTool() {
+  inputText.value = '';
+  charCount.textContent = '0';
+  document.getElementById('resultSection').classList.remove('active');
+  document.getElementById('errorBox').classList.remove('active');
+  document.getElementById('btnProcess').disabled = false;
+  document.getElementById('btnProcess').innerHTML = '<span>✍️</span> Procesar texto';
+  window._correctedText = '';
+  inputText.focus();
+}
+
+inputText.addEventListener('keydown', e => {
+  if (e.ctrlKey && e.key === 'Enter') processText();
+});
+</script>
+
+</body>
+</html>
