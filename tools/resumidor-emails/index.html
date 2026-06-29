@@ -1,1 +1,639 @@
-placeholder
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Resumidor de emails gratis con IA | ClearText</title>
+  <meta name="description" content="Resume emails largos en segundos. Detecta asunto, tono, puntos clave y si requiere acción. Gratis, sin registro, con IA.">
+
+  <meta property="og:title" content="Resumidor de emails | ClearText">
+  <meta property="og:description" content="Resume emails largos al instante con IA. Detecta puntos clave, tono y acción requerida. Gratis.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cleartext-app.com/tools/resumidor-emails/">
+  <meta property="og:image" content="https://cleartext-app.com/logo-512.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+
+  <style>
+    * { box-sizing: border-box; }
+
+    header {
+      background: #ffffff; border-bottom: 1px solid #E5E7EB;
+      box-shadow: 0 2px 12px rgba(124,58,237,0.07); backdrop-filter: none;
+    }
+    .logo { color: #111827; }
+    .nav-links a { color: #6B7280; }
+    .nav-links a:hover { color: #7C3AED; }
+    .btn-nav {
+      background: linear-gradient(135deg,#A78BFA,#7C3AED);
+      color: #fff; border: none; padding: 9px 20px; border-radius: 10px;
+      font-weight: 600; font-size: 0.9rem; cursor: pointer;
+      display: inline-flex; align-items: center; text-decoration: none;
+      transition: opacity .2s, transform .2s;
+    }
+    .btn-nav:hover { opacity: .9; transform: translateY(-1px); }
+
+    .tool-page { padding: 40px 0 80px; }
+
+    .breadcrumb {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.875rem; color: #9CA3AF; margin-bottom: 28px;
+    }
+    .breadcrumb a { color: #7C3AED; font-weight: 500; text-decoration: none; }
+    .breadcrumb a:hover { opacity: .75; }
+    .breadcrumb-sep { color: #D1D5DB; }
+    .breadcrumb-current { color: #6B7280; font-weight: 500; }
+
+    .tool-header { text-align: center; max-width: 680px; margin: 0 auto 44px; }
+    .tool-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #EDE9FE; color: #7C3AED;
+      padding: 6px 14px; border-radius: 9999px;
+      font-size: 0.82rem; font-weight: 600; margin-bottom: 16px;
+    }
+    .tool-header h1 {
+      font-size: clamp(1.8rem,4vw,2.6rem); font-weight: 800; color: #111827;
+      letter-spacing: -.5px; margin-bottom: 12px; line-height: 1.15;
+    }
+    .tool-header h1 span {
+      background: linear-gradient(135deg,#C4B5FD,#7C3AED);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .tool-header p { font-size: 1.05rem; color: #6B7280; line-height: 1.65; }
+
+    .tool-body { max-width: 860px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; }
+
+    .input-section {
+      background: #fff; border: 1px solid #E5E7EB; border-radius: 16px; padding: 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.04);
+    }
+    .input-label {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.85rem; font-weight: 600; color: #374151; margin-bottom: 10px;
+    }
+    .input-label span { color: #9CA3AF; font-weight: 400; }
+
+    textarea.input-field {
+      width: 100%; min-height: 220px; padding: 16px;
+      border: 1.5px solid #E5E7EB; border-radius: 12px;
+      background: #FAFAFA; color: #111827;
+      font-size: 0.97rem; font-family: 'Inter',sans-serif;
+      line-height: 1.7; resize: vertical; outline: none;
+      transition: border-color .25s, box-shadow .25s;
+    }
+    textarea.input-field::placeholder { color: #C4B5FD; }
+    textarea.input-field:hover { border-color: #C4B5FD; }
+    textarea.input-field:focus {
+      border-color: #7C3AED; box-shadow: 0 0 0 3px rgba(196,181,253,.3); background: #fff;
+    }
+    .char-count { text-align: right; font-size: .78rem; color: #9CA3AF; margin-top: 6px; }
+
+    .btn-process {
+      width: 100%; padding: 15px 24px;
+      background: linear-gradient(135deg,#A78BFA 0%,#7C3AED 60%,#5B21B6 100%);
+      color: #fff; border: none; border-radius: 12px;
+      font-size: 1rem; font-weight: 700; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      box-shadow: 0 4px 16px rgba(124,58,237,.35);
+      transition: transform .2s, box-shadow .2s, opacity .2s;
+      margin-top: 16px; font-family: 'Inter',sans-serif;
+    }
+    .btn-process:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(124,58,237,.45); }
+    .btn-process:active { transform: scale(.98); }
+    .btn-process:disabled { opacity: .65; cursor: not-allowed; transform: none; }
+
+    .error-box {
+      display: none; background: #FEF2F2; border: 1px solid #FECACA;
+      border-radius: 12px; padding: 14px 18px; color: #DC2626; font-size: .9rem; font-weight: 500;
+    }
+    .error-box.active { display: block; }
+
+    .spinner-wrapper {
+      display: none; flex-direction: column; align-items: center; gap: 14px; padding: 32px 0;
+    }
+    .spinner-wrapper.active { display: flex; }
+    .spinner {
+      width: 36px; height: 36px; border: 3px solid #EDE9FE; border-top-color: #7C3AED;
+      border-radius: 50%; animation: spin .7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spinner-text {
+      font-size: .9rem; color: #7C3AED; font-weight: 500;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1}50%{opacity:.5} }
+
+    /* ── RESULTADO ── */
+    .result-section {
+      display: none; background: #fff; border: 1.5px solid #C4B5FD;
+      border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(124,58,237,.08);
+    }
+    .result-section.active { display: block; }
+
+    /* Alerta de acción requerida — aparece arriba cuando es urgente */
+    .action-alert {
+      display: none; padding: 14px 20px;
+      align-items: center; gap: 12px;
+    }
+    .action-alert.active { display: flex; }
+    .action-alert.urgencia-alta {
+      background: #FEF2F2; border-bottom: 1px solid #FECACA;
+    }
+    .action-alert.urgencia-media {
+      background: #FFFBEB; border-bottom: 1px solid #FDE68A;
+    }
+    .action-alert.urgencia-baja {
+      background: #EFF6FF; border-bottom: 1px solid #BFDBFE;
+    }
+    .alert-icon { font-size: 1.4rem; flex-shrink: 0; }
+    .alert-body { flex: 1; }
+    .alert-title { font-size: .82rem; font-weight: 700; margin-bottom: 2px; }
+    .alert-desc  { font-size: .85rem; line-height: 1.5; }
+    .urgencia-alta  .alert-title { color: #DC2626; }
+    .urgencia-alta  .alert-desc  { color: #7F1D1D; }
+    .urgencia-media .alert-title { color: #D97706; }
+    .urgencia-media .alert-desc  { color: #78350F; }
+    .urgencia-baja  .alert-title { color: #2563EB; }
+    .urgencia-baja  .alert-desc  { color: #1E3A8A; }
+
+    .urgencia-pill {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 4px 10px; border-radius: 9999px;
+      font-size: .75rem; font-weight: 700;
+    }
+    .urgencia-alta  .urgencia-pill { background: #DC2626; color: #fff; }
+    .urgencia-media .urgencia-pill { background: #D97706; color: #fff; }
+    .urgencia-baja  .urgencia-pill { background: #2563EB; color: #fff; }
+
+    /* Grid de tarjetas */
+    .cards-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 14px; padding: 20px;
+    }
+
+    .info-card {
+      background: #FAFAFA; border: 1px solid #E5E7EB; border-radius: 12px;
+      padding: 16px 18px;
+    }
+    .info-card.full-width { grid-column: span 2; }
+    .info-card.highlight {
+      background: #F5F3FF; border-color: #C4B5FD;
+    }
+
+    .card-label {
+      font-size: .75rem; font-weight: 700; color: #9CA3AF;
+      text-transform: uppercase; letter-spacing: .06em; margin-bottom: 8px;
+    }
+    .card-value {
+      font-size: .97rem; font-weight: 600; color: #111827; line-height: 1.45;
+    }
+
+    /* Tono badge */
+    .tono-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 12px; border-radius: 9999px;
+      font-size: .85rem; font-weight: 600;
+    }
+    .tono-formal    { background: #EDE9FE; color: #5B21B6; }
+    .tono-informal  { background: #ECFDF5; color: #065F46; }
+    .tono-urgente   { background: #FEF2F2; color: #991B1B; }
+    .tono-amigable  { background: #FEF3C7; color: #92400E; }
+
+    /* Puntos clave */
+    .puntos-list { display: flex; flex-direction: column; gap: 8px; }
+    .punto-item {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: .92rem; color: #374151; line-height: 1.55;
+    }
+    .punto-num {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: #EDE9FE; color: #7C3AED;
+      font-size: .72rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+
+    /* Sin acción requerida */
+    .no-action {
+      display: flex; align-items: center; gap: 8px;
+      font-size: .9rem; color: #16A34A; font-weight: 500;
+    }
+
+    /* Acciones */
+    .result-actions {
+      padding: 14px 20px; border-top: 1px solid #EDE9FE;
+      display: flex; gap: 10px; flex-wrap: wrap; background: #FAFAFA;
+    }
+    .btn-copy {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 16px; background: #EDE9FE; color: #7C3AED;
+      border: none; border-radius: 9999px;
+      font-size: .82rem; font-weight: 600; cursor: pointer;
+      font-family: 'Inter',sans-serif; transition: background .2s, color .2s;
+    }
+    .btn-copy:hover { background: #7C3AED; color: #fff; }
+    .btn-copy.copied { background: #D1FAE5; color: #065F46; }
+    .btn-reset {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 16px; background: transparent; color: #6B7280;
+      border: 1px solid #E5E7EB; border-radius: 9999px;
+      font-size: .82rem; font-weight: 600; cursor: pointer;
+      font-family: 'Inter',sans-serif; transition: border-color .2s, color .2s;
+    }
+    .btn-reset:hover { border-color: #C4B5FD; color: #7C3AED; }
+
+    .ad-slot {
+      width: 100%; min-height: 90px; background: #FAFAFA;
+      border: 1px dashed #E5E7EB; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      color: #D1D5DB; font-size: .78rem; font-family: 'Inter',sans-serif;
+    }
+
+    .tool-info {
+      background: #F5F3FF; border: 1px solid #EDE9FE; border-radius: 16px; padding: 24px 28px;
+    }
+    .tool-info h2 { font-size: 1rem; font-weight: 700; color: #111827; margin-bottom: 10px; }
+    .tool-info p  { font-size: .92rem; color: #6B7280; line-height: 1.7; }
+    .tool-info ul { margin-top: 12px; display: flex; flex-direction: column; gap: 8px; }
+    .tool-info ul li {
+      font-size: .92rem; color: #6B7280;
+      display: flex; align-items: flex-start; gap: 8px; line-height: 1.5;
+    }
+    .tool-info ul li::before { content:'✓'; color:#7C3AED; font-weight:700; flex-shrink:0; }
+
+    footer { background: #fff; border-top: 1px solid #E5E7EB; }
+
+    @media(max-width:768px){
+      .nav{ flex-wrap:wrap; height:auto; padding:14px 0; gap:12px; }
+      .nav-links{ width:100%; justify-content:center; gap:16px; flex-wrap:wrap; }
+      .tool-page{ padding:28px 0 60px; }
+      .cards-grid{ grid-template-columns: 1fr; }
+      .info-card.full-width{ grid-column: span 1; }
+      .result-actions{ flex-direction:column; }
+      .btn-copy,.btn-reset{ width:100%; justify-content:center; }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="container nav">
+    <a href="../../" class="logo">
+      <img src="../../logo-32.png" alt="ClearText IA" style="width:36px;height:36px;border-radius:9px;object-fit:contain;">
+      <span>ClearText</span>
+    </a>
+    <nav class="nav-links">
+      <a href="../../#herramientas">Herramientas</a>
+      <a href="../../#ventajas">Ventajas</a>
+      <a href="../../acerca/">Acerca de</a>
+      <a href="../../contacto/">Contacto</a>
+    </nav>
+    <a href="../../#herramientas" class="btn-nav">Ver todas</a>
+  </div>
+</header>
+
+<main class="tool-page">
+  <div class="container">
+
+    <nav class="breadcrumb" aria-label="Navegación">
+      <a href="../../">Inicio</a>
+      <span class="breadcrumb-sep">›</span>
+      <a href="../../#herramientas">Herramientas</a>
+      <span class="breadcrumb-sep">›</span>
+      <span class="breadcrumb-current">Resumidor de emails</span>
+    </nav>
+
+    <!-- ESPACIO PARA ANUNCIOS ADSENSE -->
+    <div class="ad-slot" style="margin-bottom:32px;">
+      <!-- Aquí irá el código de Google AdSense -->
+    </div>
+
+    <div class="tool-header">
+      <div class="tool-badge">📧 Resumidor de emails</div>
+      <h1>Entiende cualquier email <span>en segundos</span></h1>
+      <p>Pega el email más largo que tengas y te extraemos lo esencial: de qué va, el tono, los puntos clave y si necesitas hacer algo al respecto.</p>
+    </div>
+
+    <div class="tool-body">
+
+      <div class="input-section">
+        <div class="input-label">
+          📧 Tu email <span>— Pega aquí el email que quieres resumir</span>
+        </div>
+        <textarea
+          class="input-field"
+          id="inputText"
+          placeholder="Pega aquí tu texto..."
+          rows="10"
+          maxlength="6000"
+        ></textarea>
+        <div class="char-count"><span id="charCount">0</span> / 6000 caracteres</div>
+        <button class="btn-process" id="btnProcess" onclick="processText()">
+          <span>📧</span> Procesar texto
+        </button>
+      </div>
+
+      <div class="error-box" id="errorBox">
+        ⚠️ <span id="errorMsg">Ha ocurrido un error. Por favor, inténtalo de nuevo.</span>
+      </div>
+
+      <div class="spinner-wrapper" id="spinnerWrapper">
+        <div class="spinner"></div>
+        <span class="spinner-text">Analizando tu email...</span>
+      </div>
+
+      <!-- RESULTADO -->
+      <div class="result-section" id="resultSection">
+
+        <!-- Alerta de acción requerida -->
+        <div class="action-alert" id="actionAlert">
+          <div class="alert-icon" id="alertIcon"></div>
+          <div class="alert-body">
+            <div class="alert-title" id="alertTitle"></div>
+            <div class="alert-desc"  id="alertDesc"></div>
+          </div>
+          <div class="urgencia-pill" id="urgenciaPill"></div>
+        </div>
+
+        <!-- Grid de tarjetas -->
+        <div class="cards-grid">
+
+          <!-- Asunto -->
+          <div class="info-card highlight">
+            <div class="card-label">📌 Asunto detectado</div>
+            <div class="card-value" id="cardAsunto">—</div>
+          </div>
+
+          <!-- Tono -->
+          <div class="info-card">
+            <div class="card-label">🎭 Tono del email</div>
+            <div id="cardTono"></div>
+          </div>
+
+          <!-- Puntos clave (ancho completo) -->
+          <div class="info-card full-width">
+            <div class="card-label">🔑 Puntos clave</div>
+            <div class="puntos-list" id="cardPuntos"></div>
+          </div>
+
+          <!-- Acción requerida -->
+          <div class="info-card full-width" id="cardAccionBox">
+            <div class="card-label">⚡ Acción requerida</div>
+            <div id="cardAccion"></div>
+          </div>
+
+        </div>
+
+        <div class="result-actions">
+          <button class="btn-copy" id="btnCopy" onclick="copyResult()">📋 Copiar resumen</button>
+          <button class="btn-reset" onclick="resetTool()">🔄 Resumir otro email</button>
+        </div>
+
+      </div>
+
+      <!-- ESPACIO PARA ANUNCIOS ADSENSE -->
+      <div class="ad-slot">
+        <!-- Aquí irá el código de Google AdSense -->
+      </div>
+
+      <div class="tool-info">
+        <h2>¿Qué te dice el Resumidor de emails?</h2>
+        <p>
+          Más que un simple resumen, esta herramienta actúa como un asistente ejecutivo: analiza
+          el email en profundidad y te da exactamente la información que necesitas para decidir
+          qué hacer con él en los próximos segundos.
+        </p>
+        <ul>
+          <li>Detecta automáticamente el asunto principal aunque no esté en el asunto del email</li>
+          <li>Identifica el tono: formal, informal, urgente o amigable</li>
+          <li>Extrae los 3-5 puntos clave sin que tengas que leer todo el texto</li>
+          <li>Te dice si el email requiere una acción de tu parte y cuál es</li>
+          <li>Muestra una alerta visual si la urgencia es alta</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-info">
+        <div class="logo" style="margin-bottom:10px;">
+          <img src="../../logo-32.png" alt="ClearText IA" style="width:34px;height:34px;border-radius:9px;object-fit:contain;">
+          <span>ClearText</span>
+        </div>
+        <p>Herramientas de texto potenciadas por IA. Gratis, privado y sin registro.</p>
+      </div>
+      <div class="footer-links">
+        <a href="../../privacidad/">Privacidad</a>
+        <a href="../../terminos/">Términos</a>
+        <a href="../../acerca/">Acerca de</a>
+        <a href="../../contacto/">Contacto</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 ClearText. Todos los derechos reservados.</p>
+      <p style="color:#C4B5FD;font-size:.82rem;">Hecho con IA ✨</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+const API_KEY = 'TU_API_KEY_AQUI';
+
+const SYSTEM_PROMPT = `Eres asistente ejecutivo experto en resumir comunicaciones. Analiza el email y extrae lo clave. Responde SOLO en JSON sin texto adicional: {"asunto_detectado": "de que trata", "tono": "formal o informal o urgente o amigable", "puntos_clave": ["punto 1", "punto 2", "punto 3"], "accion_requerida": "si o no", "que_hay_que_hacer": "descripcion de la accion o No requiere accion", "urgencia": "alta o media o baja"}`;
+
+const inputText = document.getElementById('inputText');
+const charCount = document.getElementById('charCount');
+window._summary  = '';
+
+inputText.addEventListener('input', () => {
+  const n = inputText.value.length;
+  charCount.textContent = n;
+  charCount.style.color = n > 5500 ? '#DC2626' : '#9CA3AF';
+});
+
+function setLoading(active) {
+  const btn     = document.getElementById('btnProcess');
+  const spinner = document.getElementById('spinnerWrapper');
+  const errBox  = document.getElementById('errorBox');
+  const resSec  = document.getElementById('resultSection');
+  btn.disabled  = active;
+  btn.innerHTML = active ? '<span>⏳</span> Analizando...' : '<span>📧</span> Procesar texto';
+  spinner.classList.toggle('active', active);
+  if (active) {
+    resSec.classList.remove('active');
+    errBox.classList.remove('active');
+  }
+}
+
+function showError(msg) {
+  document.getElementById('errorMsg').textContent = msg;
+  document.getElementById('errorBox').classList.add('active');
+}
+
+function getTonoBadge(tono) {
+  const map = {
+    formal:   { cls: 'tono-formal',   icon: '🤝', label: 'Formal'   },
+    informal: { cls: 'tono-informal', icon: '😊', label: 'Informal' },
+    urgente:  { cls: 'tono-urgente',  icon: '🚨', label: 'Urgente'  },
+    amigable: { cls: 'tono-amigable', icon: '👋', label: 'Amigable' },
+  };
+  const t = map[tono?.toLowerCase()] || { cls: 'tono-formal', icon: '💬', label: tono || '—' };
+  return `<span class="tono-badge ${t.cls}">${t.icon} ${t.label}</span>`;
+}
+
+function showResult(data) {
+  const {
+    asunto_detectado, tono, puntos_clave,
+    accion_requerida, que_hay_que_hacer, urgencia
+  } = data;
+
+  const necesitaAccion = (accion_requerida || '').toLowerCase().startsWith('s');
+  const urg = (urgencia || 'baja').toLowerCase();
+
+  // Alerta de acción
+  const alert = document.getElementById('actionAlert');
+  if (necesitaAccion) {
+    alert.className = `action-alert active urgencia-${urg}`;
+    const iconMap = { alta: '🚨', media: '⚠️', baja: 'ℹ️' };
+    document.getElementById('alertIcon').textContent    = iconMap[urg] || '⚠️';
+    document.getElementById('alertTitle').textContent   = 'Este email requiere tu atención';
+    document.getElementById('alertDesc').textContent    = que_hay_que_hacer || '';
+    document.getElementById('urgenciaPill').textContent = `Urgencia ${urg}`;
+  } else {
+    alert.className = 'action-alert';
+  }
+
+  // Asunto
+  document.getElementById('cardAsunto').textContent = asunto_detectado || '—';
+
+  // Tono
+  document.getElementById('cardTono').innerHTML = getTonoBadge(tono);
+
+  // Puntos clave
+  const puntosList = document.getElementById('cardPuntos');
+  const puntos = Array.isArray(puntos_clave) ? puntos_clave : [];
+  puntosList.innerHTML = puntos.length
+    ? puntos.map((p, i) => `
+        <div class="punto-item">
+          <div class="punto-num">${i + 1}</div>
+          <span>${escapeHtml(p)}</span>
+        </div>`).join('')
+    : '<div style="color:#9CA3AF;font-size:.9rem;">No se detectaron puntos clave.</div>';
+
+  // Acción requerida
+  const accionDiv = document.getElementById('cardAccion');
+  if (necesitaAccion) {
+    accionDiv.innerHTML = `
+      <div style="font-size:.95rem;color:#111827;font-weight:500;line-height:1.55;">
+        ${escapeHtml(que_hay_que_hacer || '')}
+      </div>`;
+  } else {
+    accionDiv.innerHTML = `
+      <div class="no-action">
+        ✅ <span>No requiere ninguna acción por tu parte</span>
+      </div>`;
+  }
+
+  // Guardar para copiar
+  window._summary =
+    `ASUNTO: ${asunto_detectado || '—'}\n` +
+    `TONO: ${tono || '—'}\n` +
+    `URGENCIA: ${urgencia || '—'}\n\n` +
+    `PUNTOS CLAVE:\n${puntos.map((p,i) => `${i+1}. ${p}`).join('\n')}\n\n` +
+    `ACCIÓN REQUERIDA: ${accion_requerida || '—'}\n` +
+    `QUÉ HACER: ${que_hay_que_hacer || '—'}`;
+
+  document.getElementById('resultSection').classList.add('active');
+}
+
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+async function processText() {
+  const text = inputText.value.trim();
+  if (!text) { showError('Por favor, pega el email que quieres resumir.'); return; }
+  if (text.length > 6000) { showError('El texto supera el límite de 6.000 caracteres.'); return; }
+
+  setLoading(true);
+
+  try {
+    const response = await fetch('/api/detect', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 1024,
+        system: SYSTEM_PROMPT,
+        messages: [{ role: 'user', content: text }]
+      })
+    });
+
+    if (!response.ok) {
+      const err = await response.json().catch(() => ({}));
+      throw new Error(err.error?.message || `Error ${response.status}`);
+    }
+
+    const data = await response.json();
+    let raw = data.content?.[0]?.text || '';
+    raw = raw.replace(/```json|```/g, '').trim();
+
+    let parsed;
+    try { parsed = JSON.parse(raw); }
+    catch { throw new Error('La IA no devolvió el formato esperado. Inténtalo de nuevo.'); }
+
+    showResult(parsed);
+
+  } catch (error) {
+    showError(error.message || 'No se pudo conectar con la IA. Comprueba tu conexión.');
+    console.error('Error API:', error);
+  } finally {
+    setLoading(false);
+  }
+}
+
+async function copyResult() {
+  const btnCopy = document.getElementById('btnCopy');
+  try {
+    await navigator.clipboard.writeText(window._summary);
+    btnCopy.textContent = '✅ ¡Copiado!';
+    btnCopy.classList.add('copied');
+    setTimeout(() => {
+      btnCopy.textContent = '📋 Copiar resumen';
+      btnCopy.classList.remove('copied');
+    }, 2500);
+  } catch {
+    showError('No se pudo copiar. Selecciona el texto manualmente.');
+  }
+}
+
+function resetTool() {
+  inputText.value = '';
+  charCount.textContent = '0';
+  document.getElementById('resultSection').classList.remove('active');
+  document.getElementById('errorBox').classList.remove('active');
+  document.getElementById('actionAlert').className = 'action-alert';
+  document.getElementById('btnProcess').disabled = false;
+  document.getElementById('btnProcess').innerHTML = '<span>📧</span> Procesar texto';
+  window._summary = '';
+  inputText.focus();
+}
+
+inputText.addEventListener('keydown', e => {
+  if (e.ctrlKey && e.key === 'Enter') processText();
+});
+</script>
+
+</body>
+</html>
