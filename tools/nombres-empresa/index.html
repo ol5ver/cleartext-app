@@ -1,1 +1,783 @@
-placeholder
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Generador de nombres de empresa gratis con IA | ClearText</title>
+  <meta name="description" content="Genera 10 nombres creativos y originales para tu empresa o marca con IA. Cortos, memorables y registrables como dominio. Gratis, sin registro.">
+
+  <meta property="og:title" content="Generador de nombres de empresa | ClearText">
+  <meta property="og:description" content="10 nombres originales para tu negocio generados con IA. Gratis y sin registro.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cleartext-app.com/tools/nombres-empresa/">
+  <meta property="og:image" content="https://cleartext-app.com/logo-512.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+
+  <style>
+    * { box-sizing: border-box; }
+
+    header {
+      background: #ffffff; border-bottom: 1px solid #E5E7EB;
+      box-shadow: 0 2px 12px rgba(124,58,237,0.07); backdrop-filter: none;
+    }
+    .logo { color: #111827; }
+    .nav-links a { color: #6B7280; }
+    .nav-links a:hover { color: #7C3AED; }
+    .btn-nav {
+      background: linear-gradient(135deg,#A78BFA,#7C3AED);
+      color: #fff; border: none; padding: 9px 20px; border-radius: 10px;
+      font-weight: 600; font-size: 0.9rem; cursor: pointer;
+      display: inline-flex; align-items: center; text-decoration: none;
+      transition: opacity .2s, transform .2s;
+    }
+    .btn-nav:hover { opacity: .9; transform: translateY(-1px); }
+
+    .tool-page { padding: 40px 0 80px; }
+
+    .breadcrumb {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.875rem; color: #9CA3AF; margin-bottom: 28px;
+    }
+    .breadcrumb a { color: #7C3AED; font-weight: 500; text-decoration: none; }
+    .breadcrumb a:hover { opacity: .75; }
+    .breadcrumb-sep { color: #D1D5DB; }
+    .breadcrumb-current { color: #6B7280; font-weight: 500; }
+
+    .tool-header { text-align: center; max-width: 680px; margin: 0 auto 44px; }
+    .tool-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #EDE9FE; color: #7C3AED;
+      padding: 6px 14px; border-radius: 9999px;
+      font-size: 0.82rem; font-weight: 600; margin-bottom: 16px;
+    }
+    .tool-header h1 {
+      font-size: clamp(1.8rem,4vw,2.6rem); font-weight: 800; color: #111827;
+      letter-spacing: -.5px; margin-bottom: 12px; line-height: 1.15;
+    }
+    .tool-header h1 span {
+      background: linear-gradient(135deg,#C4B5FD,#7C3AED);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .tool-header p { font-size: 1.05rem; color: #6B7280; line-height: 1.65; }
+
+    .tool-body { max-width: 860px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; }
+
+    .input-section {
+      background: #fff; border: 1px solid #E5E7EB; border-radius: 16px; padding: 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.04);
+    }
+    .input-label {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.85rem; font-weight: 600; color: #374151; margin-bottom: 10px;
+    }
+    .input-label span { color: #9CA3AF; font-weight: 400; }
+
+    textarea.input-field {
+      width: 100%; min-height: 140px; padding: 16px;
+      border: 1.5px solid #E5E7EB; border-radius: 12px;
+      background: #FAFAFA; color: #111827;
+      font-size: 0.97rem; font-family: 'Inter',sans-serif;
+      line-height: 1.7; resize: vertical; outline: none;
+      transition: border-color .25s, box-shadow .25s;
+    }
+    textarea.input-field::placeholder { color: #C4B5FD; }
+    textarea.input-field:hover { border-color: #C4B5FD; }
+    textarea.input-field:focus {
+      border-color: #7C3AED; box-shadow: 0 0 0 3px rgba(196,181,253,.3); background: #fff;
+    }
+    .char-count { text-align: right; font-size: .78rem; color: #9CA3AF; margin-top: 6px; }
+
+    .btn-process {
+      width: 100%; padding: 15px 24px;
+      background: linear-gradient(135deg,#A78BFA 0%,#7C3AED 60%,#5B21B6 100%);
+      color: #fff; border: none; border-radius: 12px;
+      font-size: 1rem; font-weight: 700; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      box-shadow: 0 4px 16px rgba(124,58,237,.35);
+      transition: transform .2s, box-shadow .2s, opacity .2s;
+      margin-top: 16px; font-family: 'Inter',sans-serif;
+    }
+    .btn-process:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(124,58,237,.45); }
+    .btn-process:active { transform: scale(.98); }
+    .btn-process:disabled { opacity: .65; cursor: not-allowed; transform: none; }
+
+    .error-box {
+      display: none; background: #FEF2F2; border: 1px solid #FECACA;
+      border-radius: 12px; padding: 14px 18px; color: #DC2626; font-size: .9rem; font-weight: 500;
+    }
+    .error-box.active { display: block; }
+
+    .spinner-wrapper {
+      display: none; flex-direction: column; align-items: center; gap: 14px; padding: 32px 0;
+    }
+    .spinner-wrapper.active { display: flex; }
+    .spinner {
+      width: 36px; height: 36px; border: 3px solid #EDE9FE; border-top-color: #7C3AED;
+      border-radius: 50%; animation: spin .7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spinner-text {
+      font-size: .9rem; color: #7C3AED; font-weight: 500;
+      animation: pulse-anim 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse-anim { 0%,100%{opacity:1} 50%{opacity:.5} }
+
+    /* ══════════════════════════════
+       CARD STACK UI
+    ══════════════════════════════ */
+    .result-section {
+      display: none;
+    }
+    .result-section.active { display: block; }
+
+    /* Área de la carta principal */
+    .card-area {
+      position: relative;
+      height: 320px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Sombras de cartas detrás */
+    .card-stack-shadow {
+      position: absolute;
+      width: 88%;
+      height: 280px;
+      border-radius: 24px;
+      background: #C4B5FD;
+      top: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: .35;
+    }
+    .card-stack-shadow-2 {
+      position: absolute;
+      width: 80%;
+      height: 260px;
+      border-radius: 24px;
+      background: #A78BFA;
+      top: 44px;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: .2;
+    }
+
+    /* Carta principal */
+    .main-card {
+      position: relative;
+      z-index: 10;
+      width: 92%;
+      max-width: 500px;
+      background: white;
+      border-radius: 24px;
+      padding: 36px 32px 28px;
+      box-shadow: 0 20px 60px rgba(124,58,237,.18);
+      border: 1.5px solid #EDE9FE;
+      text-align: center;
+      cursor: grab;
+      user-select: none;
+      transition: transform .35s cubic-bezier(.34,1.56,.64,1), box-shadow .35s ease, opacity .3s ease;
+      touch-action: pan-y;
+    }
+    .main-card.swiping { cursor: grabbing; transition: none; }
+    .main-card.swipe-left  { transform: translateX(-130%) rotate(-18deg); opacity: 0; }
+    .main-card.swipe-right { transform: translateX(130%)  rotate(18deg);  opacity: 0; }
+    .main-card.entering    { animation: cardEnter .4s cubic-bezier(.34,1.56,.64,1) forwards; }
+    @keyframes cardEnter {
+      from { transform: scale(.85) translateY(20px); opacity: 0; }
+      to   { transform: scale(1)   translateY(0);    opacity: 1; }
+    }
+
+    .card-counter {
+      position: absolute;
+      top: 16px; right: 20px;
+      font-size: .78rem; font-weight: 600; color: #C4B5FD;
+    }
+
+    .card-emoji {
+      font-size: 2.4rem;
+      margin-bottom: 18px;
+      display: block;
+    }
+
+    .card-name {
+      font-size: clamp(2rem,6vw,2.8rem);
+      font-weight: 800;
+      color: #111827;
+      letter-spacing: -1px;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg,#7C3AED,#5B21B6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .card-domain {
+      font-size: .88rem;
+      color: #9CA3AF;
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+    .card-domain span {
+      background: #F5F3FF;
+      border: 1px solid #EDE9FE;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-family: monospace;
+      font-size: .82rem;
+    }
+
+    .card-hint {
+      font-size: .78rem;
+      color: #C4B5FD;
+      font-weight: 500;
+    }
+
+    /* Botones de acción de la carta */
+    .card-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .btn-skip {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: #FEF2F2; border: 2px solid #FECACA;
+      color: #DC2626; font-size: 1.4rem;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: transform .2s, box-shadow .2s;
+    }
+    .btn-skip:hover { transform: scale(1.1); box-shadow: 0 4px 16px rgba(220,38,38,.2); }
+
+    .btn-save {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: #F0FDF4; border: 2px solid #BBF7D0;
+      color: #16A34A; font-size: 1.4rem;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: transform .2s, box-shadow .2s;
+    }
+    .btn-save:hover { transform: scale(1.1); box-shadow: 0 4px 16px rgba(22,163,74,.2); }
+
+    .btn-regenerate {
+      padding: 10px 20px;
+      background: linear-gradient(135deg,#A78BFA,#7C3AED);
+      color: #fff; border: none; border-radius: 12px;
+      font-size: .85rem; font-weight: 600; cursor: pointer;
+      font-family: 'Inter',sans-serif;
+      transition: opacity .2s, transform .2s;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .btn-regenerate:hover { opacity: .9; transform: translateY(-1px); }
+
+    /* Instrucciones de swipe */
+    .swipe-hints {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      margin-bottom: 20px;
+    }
+    .swipe-hint {
+      display: flex; align-items: center; gap: 6px;
+      font-size: .78rem; color: #9CA3AF; font-weight: 500;
+    }
+
+    /* Estado "todos vistos" */
+    .all-done {
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+      background: #F5F3FF;
+      border: 1.5px solid #C4B5FD;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+    .all-done.active { display: block; }
+    .all-done-icon { font-size: 3rem; margin-bottom: 12px; }
+    .all-done h3 { font-size: 1.2rem; font-weight: 700; color: #111827; margin-bottom: 8px; }
+    .all-done p { font-size: .9rem; color: #6B7280; margin-bottom: 20px; }
+
+    /* Lista de guardados */
+    .saved-section {
+      background: #fff; border: 1px solid #E5E7EB; border-radius: 16px;
+      padding: 20px 24px; display: none;
+    }
+    .saved-section.has-items { display: block; }
+
+    .saved-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .saved-title {
+      font-size: .85rem; font-weight: 700; color: #374151;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .btn-copy-saved {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 6px 12px; background: #EDE9FE; color: #7C3AED;
+      border: none; border-radius: 9999px;
+      font-size: .78rem; font-weight: 600; cursor: pointer;
+      font-family: 'Inter',sans-serif; transition: background .2s, color .2s;
+    }
+    .btn-copy-saved:hover { background: #7C3AED; color: #fff; }
+    .btn-copy-saved.copied { background: #D1FAE5; color: #065F46; }
+
+    .saved-list {
+      display: flex; flex-wrap: wrap; gap: 8px;
+    }
+    .saved-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #F5F3FF; border: 1.5px solid #C4B5FD;
+      color: #5B21B6; border-radius: 9999px;
+      padding: 6px 14px; font-size: .88rem; font-weight: 600;
+    }
+    .saved-pill button {
+      background: none; border: none; cursor: pointer;
+      color: #A78BFA; font-size: .8rem; padding: 0; line-height: 1;
+      transition: color .15s;
+    }
+    .saved-pill button:hover { color: #DC2626; }
+
+    .btn-restart {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 10px 20px; background: transparent; color: #7C3AED;
+      border: 1.5px solid #C4B5FD; border-radius: 12px;
+      font-size: .9rem; font-weight: 600; cursor: pointer;
+      font-family: 'Inter',sans-serif; transition: background .2s;
+    }
+    .btn-restart:hover { background: #F5F3FF; }
+
+    .ad-slot {
+      width: 100%; min-height: 90px; background: #FAFAFA;
+      border: 1px dashed #E5E7EB; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      color: #D1D5DB; font-size: .78rem; font-family: 'Inter',sans-serif;
+    }
+
+    .tool-info {
+      background: #F5F3FF; border: 1px solid #EDE9FE; border-radius: 16px; padding: 24px 28px;
+    }
+    .tool-info h2 { font-size: 1rem; font-weight: 700; color: #111827; margin-bottom: 10px; }
+    .tool-info p  { font-size: .92rem; color: #6B7280; line-height: 1.7; }
+    .tool-info ul { margin-top: 12px; display: flex; flex-direction: column; gap: 8px; }
+    .tool-info ul li {
+      font-size: .92rem; color: #6B7280;
+      display: flex; align-items: flex-start; gap: 8px; line-height: 1.5;
+    }
+    .tool-info ul li::before { content:'✓'; color:#7C3AED; font-weight:700; flex-shrink:0; }
+
+    footer { background: #fff; border-top: 1px solid #E5E7EB; }
+
+    @media(max-width:768px){
+      .nav{ flex-wrap:wrap; height:auto; padding:14px 0; gap:12px; }
+      .nav-links{ width:100%; justify-content:center; gap:16px; flex-wrap:wrap; }
+      .tool-page{ padding:28px 0 60px; }
+      .card-area{ height: 280px; }
+      .main-card{ padding: 28px 22px 22px; }
+      .card-name{ font-size: 2rem; }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="container nav">
+    <a href="../../" class="logo">
+      <img src="../../logo-32.png" alt="ClearText IA" style="width:36px;height:36px;border-radius:9px;object-fit:contain;">
+      <span>ClearText</span>
+    </a>
+    <nav class="nav-links">
+      <a href="../../#herramientas">Herramientas</a>
+      <a href="../../#ventajas">Ventajas</a>
+      <a href="../../acerca/">Acerca de</a>
+      <a href="../../contacto/">Contacto</a>
+    </nav>
+    <a href="../../#herramientas" class="btn-nav">Ver todas</a>
+  </div>
+</header>
+
+<main class="tool-page">
+  <div class="container">
+
+    <nav class="breadcrumb" aria-label="Navegación">
+      <a href="../../">Inicio</a>
+      <span class="breadcrumb-sep">›</span>
+      <a href="../../#herramientas">Herramientas</a>
+      <span class="breadcrumb-sep">›</span>
+      <span class="breadcrumb-current">Generador de nombres de empresa</span>
+    </nav>
+
+    <!-- ESPACIO PARA ANUNCIOS ADSENSE -->
+    <div class="ad-slot" style="margin-bottom:32px;">
+      <!-- Aquí irá el código de Google AdSense -->
+    </div>
+
+    <div class="tool-header">
+      <div class="tool-badge">💡 Naming con IA</div>
+      <h1>El nombre perfecto para <span>tu negocio</span></h1>
+      <p>Describe tu empresa o proyecto en pocas palabras y te generamos 10 nombres creativos, cortos y memorables. Desliza para pasar o guarda los que te gusten.</p>
+    </div>
+
+    <div class="tool-body">
+
+      <!-- INPUT -->
+      <div class="input-section">
+        <div class="input-label">
+          💡 Tu negocio <span>— Describe brevemente a qué se dedica tu empresa</span>
+        </div>
+        <textarea
+          class="input-field"
+          id="inputText"
+          placeholder="Pega aquí tu texto..."
+          rows="5"
+          maxlength="1000"
+        ></textarea>
+        <div class="char-count"><span id="charCount">0</span> / 1000 caracteres</div>
+        <button class="btn-process" id="btnProcess" onclick="processText()">
+          <span>💡</span> Generar nombres
+        </button>
+      </div>
+
+      <div class="error-box" id="errorBox">
+        ⚠️ <span id="errorMsg">Ha ocurrido un error. Por favor, inténtalo de nuevo.</span>
+      </div>
+
+      <div class="spinner-wrapper" id="spinnerWrapper">
+        <div class="spinner"></div>
+        <span class="spinner-text">Creando nombres para tu negocio...</span>
+      </div>
+
+      <!-- RESULTADO: CARTAS -->
+      <div class="result-section" id="resultSection">
+
+        <!-- Cartas apiladas -->
+        <div class="card-area" id="cardArea">
+          <div class="card-stack-shadow-2"></div>
+          <div class="card-stack-shadow"></div>
+          <div class="main-card" id="mainCard">
+            <div class="card-counter" id="cardCounter">1 / 10</div>
+            <span class="card-emoji" id="cardEmoji">💼</span>
+            <div class="card-name" id="cardName">NombreEjemplo</div>
+            <div class="card-domain"><span id="cardDomain">nombreejemplo.com</span></div>
+            <div class="card-hint">← Pasar  ·  Guardar →</div>
+          </div>
+        </div>
+
+        <!-- Hints de swipe -->
+        <div class="swipe-hints">
+          <div class="swipe-hint">← Pasar</div>
+          <div class="swipe-hint">❤️ Guardar →</div>
+        </div>
+
+        <!-- Botones de acción -->
+        <div class="card-actions">
+          <button class="btn-skip"  title="Pasar"    onclick="skipCard()">✕</button>
+          <button class="btn-regenerate" onclick="processText()">🔄 Nuevos nombres</button>
+          <button class="btn-save"  title="Guardar"  onclick="saveCard()">♥</button>
+        </div>
+
+        <!-- Todos vistos -->
+        <div class="all-done" id="allDone">
+          <div class="all-done-icon">🎉</div>
+          <h3>¡Has visto todos los nombres!</h3>
+          <p>Revisa tus guardados o genera una nueva tanda con otro enfoque.</p>
+          <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+            <button class="btn-restart" onclick="restartCards()">🔄 Ver de nuevo</button>
+            <button class="btn-process" style="width:auto;padding:10px 20px;margin-top:0;" onclick="processText()">✨ Nuevos nombres</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Guardados -->
+      <div class="saved-section" id="savedSection">
+        <div class="saved-header">
+          <div class="saved-title">❤️ Nombres guardados <span id="savedCount">(0)</span></div>
+          <button class="btn-copy-saved" id="btnCopySaved" onclick="copySaved()">📋 Copiar todos</button>
+        </div>
+        <div class="saved-list" id="savedList"></div>
+      </div>
+
+      <!-- ESPACIO PARA ANUNCIOS ADSENSE -->
+      <div class="ad-slot">
+        <!-- Aquí irá el código de Google AdSense -->
+      </div>
+
+      <div class="tool-info">
+        <h2>¿Cómo funciona el Generador de nombres?</h2>
+        <p>
+          Nuestra IA de naming analiza la descripción de tu negocio y genera 10 propuestas de
+          nombres que cumplen los criterios más importantes del branding moderno: cortos,
+          originales, fáciles de pronunciar y con buenas probabilidades de tener el dominio disponible.
+        </p>
+        <ul>
+          <li>Desliza o usa los botones para pasar al siguiente nombre</li>
+          <li>Guarda los que más te gusten con el botón ♥ para compararlos al final</li>
+          <li>Genera una nueva tanda de 10 nombres en cualquier momento</li>
+          <li>Copia todos tus favoritos de una vez para compartirlos</li>
+          <li>Completamente gratuito y sin registro necesario</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-info">
+        <div class="logo" style="margin-bottom:10px;">
+          <img src="../../logo-32.png" alt="ClearText IA" style="width:34px;height:34px;border-radius:9px;object-fit:contain;">
+          <span>ClearText</span>
+        </div>
+        <p>Herramientas de texto potenciadas por IA. Gratis, privado y sin registro.</p>
+      </div>
+      <div class="footer-links">
+        <a href="../../privacidad/">Privacidad</a>
+        <a href="../../terminos/">Términos</a>
+        <a href="../../acerca/">Acerca de</a>
+        <a href="../../contacto/">Contacto</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 ClearText. Todos los derechos reservados.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+const API_KEY = 'TU_API_KEY_AQUI';
+
+const SYSTEM_PROMPT = `Eres experto en branding y naming. Genera exactamente 10 nombres de empresa para el negocio descrito. Criterios: cortos (1-2 palabras), memorables, originales, que suenen bien y sean registrables como dominio. Responde SOLO con un array JSON: ["Nombre1", "Nombre2", ..., "Nombre10"]. Sin explicaciones.`;
+
+const EMOJIS = ['💼','🚀','⚡','🎯','💡','✨','🔥','🌟','💎','🏆'];
+
+// Estado
+let nombres    = [];
+let currentIdx = 0;
+let saved      = [];
+let isDragging = false;
+let startX     = 0;
+let currentX   = 0;
+
+const inputText  = document.getElementById('inputText');
+const charCount  = document.getElementById('charCount');
+const mainCard   = document.getElementById('mainCard');
+
+inputText.addEventListener('input', () => {
+  const n = inputText.value.length;
+  charCount.textContent = n;
+  charCount.style.color = n > 900 ? '#DC2626' : '#9CA3AF';
+});
+
+// ── UI helpers ──
+function setLoading(active) {
+  const btn     = document.getElementById('btnProcess');
+  const spinner = document.getElementById('spinnerWrapper');
+  const errBox  = document.getElementById('errorBox');
+  const resSec  = document.getElementById('resultSection');
+  btn.disabled  = active;
+  btn.innerHTML = active ? '<span>⏳</span> Generando...' : '<span>💡</span> Generar nombres';
+  spinner.classList.toggle('active', active);
+  if (active) {
+    resSec.classList.remove('active');
+    errBox.classList.remove('active');
+    document.getElementById('allDone').classList.remove('active');
+    mainCard.style.display = 'block';
+  }
+}
+
+function showError(msg) {
+  document.getElementById('errorMsg').textContent = msg;
+  document.getElementById('errorBox').classList.add('active');
+}
+
+// ── Mostrar carta actual ──
+function showCard(idx, animate = true) {
+  if (idx >= nombres.length) {
+    mainCard.style.display = 'none';
+    document.getElementById('allDone').classList.add('active');
+    return;
+  }
+  const name   = nombres[idx];
+  const domain = name.toLowerCase().replace(/\s+/g,'').replace(/[^a-z0-9]/g,'') + '.com';
+
+  document.getElementById('cardCounter').textContent = `${idx + 1} / ${nombres.length}`;
+  document.getElementById('cardEmoji').textContent   = EMOJIS[idx % EMOJIS.length];
+  document.getElementById('cardName').textContent    = name;
+  document.getElementById('cardDomain').textContent  = domain;
+
+  mainCard.className = 'main-card' + (animate ? ' entering' : '');
+  mainCard.style.transform = '';
+  mainCard.style.opacity   = '';
+  document.getElementById('allDone').classList.remove('active');
+  mainCard.style.display = 'block';
+}
+
+// ── Pasar carta (skip) ──
+function skipCard() {
+  if (currentIdx >= nombres.length) return;
+  mainCard.classList.add('swipe-left');
+  setTimeout(() => {
+    currentIdx++;
+    showCard(currentIdx);
+  }, 320);
+}
+
+// ── Guardar carta ──
+function saveCard() {
+  if (currentIdx >= nombres.length) return;
+  const name = nombres[currentIdx];
+  if (!saved.includes(name)) {
+    saved.push(name);
+    updateSavedSection();
+  }
+  mainCard.classList.add('swipe-right');
+  setTimeout(() => {
+    currentIdx++;
+    showCard(currentIdx);
+  }, 320);
+}
+
+// ── Actualizar sección de guardados ──
+function updateSavedSection() {
+  const section = document.getElementById('savedSection');
+  const list    = document.getElementById('savedList');
+  const count   = document.getElementById('savedCount');
+  count.textContent = `(${saved.length})`;
+  if (saved.length === 0) {
+    section.classList.remove('has-items');
+    return;
+  }
+  section.classList.add('has-items');
+  list.innerHTML = saved.map((n, i) => `
+    <div class="saved-pill">
+      ${n}
+      <button onclick="removeSaved(${i})" title="Quitar">✕</button>
+    </div>
+  `).join('');
+}
+
+function removeSaved(i) {
+  saved.splice(i, 1);
+  updateSavedSection();
+}
+
+async function copySaved() {
+  const btn = document.getElementById('btnCopySaved');
+  try {
+    await navigator.clipboard.writeText(saved.join(', '));
+    btn.textContent = '✅ ¡Copiado!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = '📋 Copiar todos'; btn.classList.remove('copied'); }, 2000);
+  } catch { showError('No se pudo copiar.'); }
+}
+
+function restartCards() {
+  currentIdx = 0;
+  showCard(0);
+}
+
+// ── Drag / Swipe con mouse y touch ──
+mainCard.addEventListener('mousedown', e => {
+  isDragging = true; startX = e.clientX; currentX = 0;
+  mainCard.classList.add('swiping');
+});
+document.addEventListener('mousemove', e => {
+  if (!isDragging) return;
+  currentX = e.clientX - startX;
+  mainCard.style.transform = `translateX(${currentX}px) rotate(${currentX * 0.05}deg)`;
+  mainCard.style.opacity   = String(1 - Math.abs(currentX) / 300);
+});
+document.addEventListener('mouseup', () => {
+  if (!isDragging) return;
+  isDragging = false;
+  mainCard.classList.remove('swiping');
+  if (currentX < -80)      skipCard();
+  else if (currentX > 80)  saveCard();
+  else { mainCard.style.transform = ''; mainCard.style.opacity = ''; }
+});
+
+mainCard.addEventListener('touchstart', e => {
+  startX = e.touches[0].clientX; currentX = 0;
+}, { passive: true });
+mainCard.addEventListener('touchmove', e => {
+  currentX = e.touches[0].clientX - startX;
+  mainCard.style.transform = `translateX(${currentX}px) rotate(${currentX * 0.05}deg)`;
+  mainCard.style.opacity   = String(1 - Math.abs(currentX) / 300);
+}, { passive: true });
+mainCard.addEventListener('touchend', () => {
+  if (currentX < -60)      skipCard();
+  else if (currentX > 60)  saveCard();
+  else { mainCard.style.transform = ''; mainCard.style.opacity = ''; }
+});
+
+// ── Llamada a la API ──
+async function processText() {
+  const text = inputText.value.trim();
+  if (!text) { showError('Por favor, describe brevemente tu negocio antes de generar nombres.'); return; }
+  if (text.length > 1000) { showError('El texto supera el límite de 1.000 caracteres.'); return; }
+
+  setLoading(true);
+  currentIdx = 0;
+  nombres    = [];
+
+  try {
+    const response = await fetch('/api/detect', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 512,
+        system: SYSTEM_PROMPT,
+        messages: [{ role: 'user', content: text }]
+      })
+    });
+
+    if (!response.ok) {
+      const err = await response.json().catch(() => ({}));
+      throw new Error(err.error?.message || `Error ${response.status}`);
+    }
+
+    const data = await response.json();
+    let raw = data.content?.[0]?.text || '';
+    raw = raw.replace(/```json|```/g, '').trim();
+
+    let parsed;
+    try { parsed = JSON.parse(raw); }
+    catch { throw new Error('La IA no devolvió el formato esperado. Inténtalo de nuevo.'); }
+
+    if (!Array.isArray(parsed) || parsed.length === 0) {
+      throw new Error('No se generaron nombres. Inténtalo de nuevo.');
+    }
+
+    nombres = parsed.slice(0, 10);
+    document.getElementById('resultSection').classList.add('active');
+    showCard(0);
+
+  } catch (error) {
+    showError(error.message || 'No se pudo conectar con la IA. Comprueba tu conexión.');
+    console.error('Error API:', error);
+  } finally {
+    setLoading(false);
+  }
+}
+
+// Ctrl+Enter para generar
+inputText.addEventListener('keydown', e => {
+  if (e.ctrlKey && e.key === 'Enter') processText();
+});
+</script>
+
+</body>
+</html>
