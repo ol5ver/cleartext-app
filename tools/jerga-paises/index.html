@@ -1,1 +1,672 @@
-placeholder
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Traductor de jerga entre países hispanohablantes | ClearText</title>
+  <meta name="description" content="Traduce expresiones coloquiales y jerga entre España, México, Argentina, Colombia, Venezuela, Chile y Perú. Gratis, sin registro, con IA.">
+
+  <meta property="og:title" content="Traductor de jerga entre países | ClearText">
+  <meta property="og:description" content="Traduce modismos y expresiones coloquiales entre países hispanohablantes con IA. Gratis.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cleartext-app.com/tools/jerga-paises/">
+  <meta property="og:image" content="https://cleartext-app.com/logo-512.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+
+  <style>
+    * { box-sizing: border-box; }
+
+    header {
+      background: #ffffff; border-bottom: 1px solid #E5E7EB;
+      box-shadow: 0 2px 12px rgba(124,58,237,0.07); backdrop-filter: none;
+    }
+    .logo { color: #111827; }
+    .nav-links a { color: #6B7280; }
+    .nav-links a:hover { color: #7C3AED; }
+    .btn-nav {
+      background: linear-gradient(135deg,#A78BFA,#7C3AED);
+      color: #fff; border: none; padding: 9px 20px; border-radius: 10px;
+      font-weight: 600; font-size: 0.9rem; cursor: pointer;
+      display: inline-flex; align-items: center; text-decoration: none;
+      transition: opacity .2s, transform .2s;
+    }
+    .btn-nav:hover { opacity: .9; transform: translateY(-1px); }
+
+    .tool-page { padding: 40px 0 80px; }
+
+    .breadcrumb {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.875rem; color: #9CA3AF; margin-bottom: 28px;
+    }
+    .breadcrumb a { color: #7C3AED; font-weight: 500; text-decoration: none; }
+    .breadcrumb a:hover { opacity: .75; }
+    .breadcrumb-sep { color: #D1D5DB; }
+    .breadcrumb-current { color: #6B7280; font-weight: 500; }
+
+    .tool-header { text-align: center; max-width: 680px; margin: 0 auto 44px; }
+    .tool-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #EDE9FE; color: #7C3AED;
+      padding: 6px 14px; border-radius: 9999px;
+      font-size: 0.82rem; font-weight: 600; margin-bottom: 16px;
+    }
+    .tool-header h1 {
+      font-size: clamp(1.8rem,4vw,2.6rem); font-weight: 800; color: #111827;
+      letter-spacing: -.5px; margin-bottom: 12px; line-height: 1.15;
+    }
+    .tool-header h1 span {
+      background: linear-gradient(135deg,#C4B5FD,#7C3AED);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .tool-header p { font-size: 1.05rem; color: #6B7280; line-height: 1.65; }
+
+    .tool-body { max-width: 860px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; }
+
+    /* ── SELECTORES DE PAÍSES ── */
+    .country-selector {
+      background: #fff; border: 1px solid #E5E7EB; border-radius: 16px; padding: 20px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.04);
+    }
+    .selector-grid {
+      display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px;
+    }
+    .selector-group { display: flex; flex-direction: column; gap: 6px; }
+    .selector-label {
+      font-size: .78rem; font-weight: 700; color: #9CA3AF;
+      text-transform: uppercase; letter-spacing: .06em;
+    }
+
+    .country-select {
+      width: 100%; padding: 11px 40px 11px 14px;
+      border: 1.5px solid #E5E7EB; border-radius: 12px;
+      background: #FAFAFA; color: #111827;
+      font-size: .95rem; font-family: 'Inter',sans-serif;
+      font-weight: 600; cursor: pointer; outline: none;
+      appearance: none; -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24' stroke='%236B7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 12px center;
+      transition: border-color .25s, box-shadow .25s;
+    }
+    .country-select:hover { border-color: #C4B5FD; }
+    .country-select:focus { border-color: #7C3AED; box-shadow: 0 0 0 3px rgba(196,181,253,.3); }
+
+    /* Botón swap */
+    .btn-swap {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: #EDE9FE; border: 1.5px solid #C4B5FD;
+      color: #7C3AED; font-size: 1.1rem;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: background .2s, transform .3s;
+      flex-shrink: 0; margin-top: 22px;
+    }
+    .btn-swap:hover { background: #7C3AED; color: #fff; transform: rotate(180deg); }
+
+    /* Flags */
+    .country-flag { font-size: 1.4rem; }
+    .country-display {
+      display: flex; align-items: center; gap: 8px;
+      margin-top: 4px;
+    }
+    .country-name-display { font-size: .9rem; font-weight: 600; color: #374151; }
+
+    /* Input section */
+    .input-section {
+      background: #fff; border: 1px solid #E5E7EB; border-radius: 16px; padding: 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.04);
+    }
+    .input-label {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.85rem; font-weight: 600; color: #374151; margin-bottom: 10px;
+    }
+    .input-label span { color: #9CA3AF; font-weight: 400; }
+
+    textarea.input-field {
+      width: 100%; min-height: 180px; padding: 16px;
+      border: 1.5px solid #E5E7EB; border-radius: 12px;
+      background: #FAFAFA; color: #111827;
+      font-size: 0.97rem; font-family: 'Inter',sans-serif;
+      line-height: 1.7; resize: vertical; outline: none;
+      transition: border-color .25s, box-shadow .25s;
+    }
+    textarea.input-field::placeholder { color: #C4B5FD; }
+    textarea.input-field:hover { border-color: #C4B5FD; }
+    textarea.input-field:focus {
+      border-color: #7C3AED; box-shadow: 0 0 0 3px rgba(196,181,253,.3); background: #fff;
+    }
+    .char-count { text-align: right; font-size: .78rem; color: #9CA3AF; margin-top: 6px; }
+
+    .btn-process {
+      width: 100%; padding: 15px 24px;
+      background: linear-gradient(135deg,#A78BFA 0%,#7C3AED 60%,#5B21B6 100%);
+      color: #fff; border: none; border-radius: 12px;
+      font-size: 1rem; font-weight: 700; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      box-shadow: 0 4px 16px rgba(124,58,237,.35);
+      transition: transform .2s, box-shadow .2s, opacity .2s;
+      margin-top: 16px; font-family: 'Inter',sans-serif;
+    }
+    .btn-process:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(124,58,237,.45); }
+    .btn-process:active { transform: scale(.98); }
+    .btn-process:disabled { opacity: .65; cursor: not-allowed; transform: none; }
+
+    .error-box {
+      display: none; background: #FEF2F2; border: 1px solid #FECACA;
+      border-radius: 12px; padding: 14px 18px; color: #DC2626; font-size: .9rem; font-weight: 500;
+    }
+    .error-box.active { display: block; }
+
+    .spinner-wrapper {
+      display: none; flex-direction: column; align-items: center; gap: 14px; padding: 32px 0;
+    }
+    .spinner-wrapper.active { display: flex; }
+    .spinner {
+      width: 36px; height: 36px; border: 3px solid #EDE9FE; border-top-color: #7C3AED;
+      border-radius: 50%; animation: spin .7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spinner-text {
+      font-size: .9rem; color: #7C3AED; font-weight: 500;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1}50%{opacity:.5} }
+
+    /* ── RESULTADO ── */
+    .result-section {
+      display: none; background: #fff; border: 1.5px solid #C4B5FD;
+      border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(124,58,237,.08);
+    }
+    .result-section.active { display: block; }
+
+    /* Header de resultado con países */
+    .result-header {
+      background: linear-gradient(135deg,#7C3AED,#5B21B6);
+      padding: 16px 24px;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+    }
+    .result-route {
+      display: flex; align-items: center; gap: 10px; color: #fff;
+      font-size: .9rem; font-weight: 600;
+    }
+    .result-route .arrow { color: rgba(255,255,255,.6); font-size: 1.1rem; }
+    .btn-copy-header {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 6px 14px; background: rgba(255,255,255,.18);
+      color: #fff; border: 1px solid rgba(255,255,255,.3);
+      border-radius: 9999px; font-size: .8rem; font-weight: 600;
+      cursor: pointer; font-family: 'Inter',sans-serif;
+      transition: background .2s;
+    }
+    .btn-copy-header:hover { background: rgba(255,255,255,.28); }
+    .btn-copy-header.copied { background: rgba(255,255,255,.3); }
+
+    /* Texto traducido */
+    .translated-block { padding: 20px 24px; border-bottom: 1px solid #EDE9FE; }
+    .block-label {
+      font-size: .82rem; font-weight: 700; color: #7C3AED;
+      text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px;
+    }
+    .translated-text {
+      background: #F5F3FF; border: 1px solid #EDE9FE; border-radius: 12px;
+      padding: 16px 18px; font-size: .97rem; line-height: 1.8;
+      color: #374151; white-space: pre-wrap; word-break: break-word;
+    }
+
+    /* Tabla de cambios */
+    .cambios-block { padding: 20px 24px; }
+
+    .cambios-empty {
+      display: flex; align-items: center; gap: 10px;
+      background: #F0FDF4; border: 1px solid #BBF7D0;
+      border-radius: 10px; padding: 14px 16px;
+      color: #14532D; font-size: .9rem; font-weight: 500;
+    }
+
+    .cambios-list { display: flex; flex-direction: column; gap: 10px; }
+    .cambio-card {
+      background: #FAFAFA; border: 1px solid #E5E7EB; border-radius: 12px;
+      padding: 14px 16px; transition: border-color .2s;
+    }
+    .cambio-card:hover { border-color: #C4B5FD; }
+
+    .cambio-row {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 6px; flex-wrap: wrap;
+    }
+    .cambio-orig {
+      display: inline-flex; align-items: center;
+      background: #FEF2F2; color: #DC2626; border: 1px solid #FECACA;
+      border-radius: 6px; padding: 3px 10px;
+      font-size: .88rem; font-weight: 600; font-family: monospace;
+    }
+    .cambio-arrow { color: #C4B5FD; font-size: 1rem; }
+    .cambio-trad {
+      display: inline-flex; align-items: center;
+      background: #F0FDF4; color: #16A34A; border: 1px solid #BBF7D0;
+      border-radius: 6px; padding: 3px 10px;
+      font-size: .88rem; font-weight: 600; font-family: monospace;
+    }
+    .cambio-nota {
+      font-size: .82rem; color: #6B7280; line-height: 1.5;
+      padding-top: 2px;
+    }
+
+    /* Acciones */
+    .result-actions {
+      padding: 14px 24px; border-top: 1px solid #EDE9FE;
+      display: flex; gap: 10px; flex-wrap: wrap; background: #FAFAFA;
+    }
+    .btn-reset {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 16px; background: transparent; color: #6B7280;
+      border: 1px solid #E5E7EB; border-radius: 9999px;
+      font-size: .82rem; font-weight: 600; cursor: pointer;
+      font-family: 'Inter',sans-serif; transition: border-color .2s, color .2s;
+    }
+    .btn-reset:hover { border-color: #C4B5FD; color: #7C3AED; }
+
+    .ad-slot {
+      width: 100%; min-height: 90px; background: #FAFAFA;
+      border: 1px dashed #E5E7EB; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      color: #D1D5DB; font-size: .78rem; font-family: 'Inter',sans-serif;
+    }
+
+    .tool-info {
+      background: #F5F3FF; border: 1px solid #EDE9FE; border-radius: 16px; padding: 24px 28px;
+    }
+    .tool-info h2 { font-size: 1rem; font-weight: 700; color: #111827; margin-bottom: 10px; }
+    .tool-info p  { font-size: .92rem; color: #6B7280; line-height: 1.7; }
+    .tool-info ul { margin-top: 12px; display: flex; flex-direction: column; gap: 8px; }
+    .tool-info ul li {
+      font-size: .92rem; color: #6B7280;
+      display: flex; align-items: flex-start; gap: 8px; line-height: 1.5;
+    }
+    .tool-info ul li::before { content:'✓'; color:#7C3AED; font-weight:700; flex-shrink:0; }
+
+    footer { background: #fff; border-top: 1px solid #E5E7EB; }
+
+    @media(max-width:768px){
+      .nav{ flex-wrap:wrap; height:auto; padding:14px 0; gap:12px; }
+      .nav-links{ width:100%; justify-content:center; gap:16px; flex-wrap:wrap; }
+      .tool-page{ padding:28px 0 60px; }
+      .selector-grid{ grid-template-columns: 1fr; gap:8px; }
+      .btn-swap{ margin-top:0; transform: rotate(90deg); }
+      .btn-swap:hover{ transform: rotate(270deg); }
+      .translated-block,.cambios-block,.result-actions{ padding-left:18px; padding-right:18px; }
+      .result-actions{ flex-direction:column; }
+      .btn-reset{ width:100%; justify-content:center; }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="container nav">
+    <a href="../../" class="logo">
+      <img src="../../logo-32.png" alt="ClearText IA" style="width:36px;height:36px;border-radius:9px;object-fit:contain;">
+      <span>ClearText</span>
+    </a>
+    <nav class="nav-links">
+      <a href="../../#herramientas">Herramientas</a>
+      <a href="../../#ventajas">Ventajas</a>
+      <a href="../../acerca/">Acerca de</a>
+      <a href="../../contacto/">Contacto</a>
+    </nav>
+    <a href="../../#herramientas" class="btn-nav">Ver todas</a>
+  </div>
+</header>
+
+<main class="tool-page">
+  <div class="container">
+
+    <nav class="breadcrumb" aria-label="Navegación">
+      <a href="../../">Inicio</a>
+      <span class="breadcrumb-sep">›</span>
+      <a href="../../#herramientas">Herramientas</a>
+      <span class="breadcrumb-sep">›</span>
+      <span class="breadcrumb-current">Traductor de jerga entre países</span>
+    </nav>
+
+    <!-- ESPACIO PARA ANUNCIOS ADSENSE -->
+    <div class="ad-slot" style="margin-bottom:32px;">
+      <!-- Aquí irá el código de Google AdSense -->
+    </div>
+
+    <div class="tool-header">
+      <div class="tool-badge">🌎 Traductor de jerga</div>
+      <h1>El mismo español, <span>en otro idioma</span></h1>
+      <p>Selecciona el país de origen y destino, pega el texto y traducimos automáticamente los modismos, expresiones coloquiales y jerga regional.</p>
+    </div>
+
+    <div class="tool-body">
+
+      <!-- SELECTORES DE PAÍSES -->
+      <div class="country-selector">
+        <div class="selector-grid">
+
+          <div class="selector-group">
+            <div class="selector-label">País de origen</div>
+            <select class="country-select" id="paisOrigen" onchange="updateFlags()">
+              <option value="España">🇪🇸 España</option>
+              <option value="México">🇲🇽 México</option>
+              <option value="Argentina">🇦🇷 Argentina</option>
+              <option value="Colombia">🇨🇴 Colombia</option>
+              <option value="Venezuela">🇻🇪 Venezuela</option>
+              <option value="Chile">🇨🇱 Chile</option>
+              <option value="Perú">🇵🇪 Perú</option>
+            </select>
+          </div>
+
+          <button class="btn-swap" onclick="swapCountries()" title="Intercambiar países">⇄</button>
+
+          <div class="selector-group">
+            <div class="selector-label">País de destino</div>
+            <select class="country-select" id="paisDestino" onchange="updateFlags()">
+              <option value="México">🇲🇽 México</option>
+              <option value="España">🇪🇸 España</option>
+              <option value="Argentina">🇦🇷 Argentina</option>
+              <option value="Colombia">🇨🇴 Colombia</option>
+              <option value="Venezuela">🇻🇪 Venezuela</option>
+              <option value="Chile">🇨🇱 Chile</option>
+              <option value="Perú">🇵🇪 Perú</option>
+            </select>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- INPUT -->
+      <div class="input-section">
+        <div class="input-label">
+          ✏️ Tu texto <span id="inputHint">— Escribe en español de España</span>
+        </div>
+        <textarea
+          class="input-field"
+          id="inputText"
+          placeholder="Pega aquí tu texto..."
+          rows="8"
+          maxlength="3000"
+        ></textarea>
+        <div class="char-count"><span id="charCount">0</span> / 3000 caracteres</div>
+        <button class="btn-process" id="btnProcess" onclick="processText()">
+          <span>🌎</span> Procesar texto
+        </button>
+      </div>
+
+      <div class="error-box" id="errorBox">
+        ⚠️ <span id="errorMsg">Ha ocurrido un error. Por favor, inténtalo de nuevo.</span>
+      </div>
+
+      <div class="spinner-wrapper" id="spinnerWrapper">
+        <div class="spinner"></div>
+        <span class="spinner-text" id="spinnerText">Traduciendo expresiones...</span>
+      </div>
+
+      <!-- RESULTADO -->
+      <div class="result-section" id="resultSection">
+
+        <div class="result-header">
+          <div class="result-route">
+            <span id="routeOrigen">🇪🇸 España</span>
+            <span class="arrow">→</span>
+            <span id="routeDestino">🇲🇽 México</span>
+          </div>
+          <button class="btn-copy-header" id="btnCopyHeader" onclick="copyResult()">📋 Copiar traducción</button>
+        </div>
+
+        <div class="translated-block">
+          <div class="block-label">🌎 Texto traducido</div>
+          <div class="translated-text" id="translatedText"></div>
+        </div>
+
+        <div class="cambios-block">
+          <div class="block-label" style="margin-bottom:12px;">🔁 Expresiones adaptadas</div>
+          <div id="cambiosContainer"></div>
+        </div>
+
+        <div class="result-actions">
+          <button class="btn-reset" onclick="resetTool()">🔄 Traducir otro texto</button>
+        </div>
+
+      </div>
+
+      <!-- ESPACIO PARA ANUNCIOS ADSENSE -->
+      <div class="ad-slot">
+        <!-- Aquí irá el código de Google AdSense -->
+      </div>
+
+      <div class="tool-info">
+        <h2>¿Para qué sirve este traductor?</h2>
+        <p>
+          El español tiene más de 500 millones de hablantes en 20 países distintos, y las diferencias
+          entre variantes son enormes. Lo que en España es "guay", en México es "chido" y en Argentina
+          es "copado". Esta herramienta salva esas barreras invisibles del idioma.
+        </p>
+        <ul>
+          <li>Ideal para creadores de contenido que adaptan posts para distintos mercados</li>
+          <li>Útil para equipos con miembros de diferentes países hispanohablantes</li>
+          <li>Perfecto para empresas que quieren localizar sus comunicaciones</li>
+          <li>Detecta y explica cada expresión adaptada con una nota breve</li>
+          <li>Disponible entre 7 países: España, México, Argentina, Colombia, Venezuela, Chile y Perú</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-info">
+        <div class="logo" style="margin-bottom:10px;">
+          <img src="../../logo-32.png" alt="ClearText IA" style="width:34px;height:34px;border-radius:9px;object-fit:contain;">
+          <span>ClearText</span>
+        </div>
+        <p>Herramientas de texto potenciadas por IA. Gratis, privado y sin registro.</p>
+      </div>
+      <div class="footer-links">
+        <a href="../../privacidad/">Privacidad</a>
+        <a href="../../terminos/">Términos</a>
+        <a href="../../acerca/">Acerca de</a>
+        <a href="../../contacto/">Contacto</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 ClearText. Todos los derechos reservados.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+const API_KEY = 'TU_API_KEY_AQUI';
+
+const FLAGS = {
+  'España':    '🇪🇸',
+  'México':    '🇲🇽',
+  'Argentina': '🇦🇷',
+  'Colombia':  '🇨🇴',
+  'Venezuela': '🇻🇪',
+  'Chile':     '🇨🇱',
+  'Perú':      '🇵🇪',
+};
+
+const inputText  = document.getElementById('inputText');
+const charCount  = document.getElementById('charCount');
+window._translated = '';
+
+// ── Actualizar UI cuando cambian los países ──
+function updateFlags() {
+  const origen  = document.getElementById('paisOrigen').value;
+  const destino = document.getElementById('paisDestino').value;
+  document.getElementById('inputHint').textContent   = `— Escribe en español de ${origen}`;
+  document.getElementById('spinnerText').textContent = `Traduciendo de ${origen} a ${destino}...`;
+}
+
+function swapCountries() {
+  const selOrigen  = document.getElementById('paisOrigen');
+  const selDestino = document.getElementById('paisDestino');
+  const tmp = selOrigen.value;
+  selOrigen.value  = selDestino.value;
+  selDestino.value = tmp;
+  updateFlags();
+}
+
+inputText.addEventListener('input', () => {
+  const n = inputText.value.length;
+  charCount.textContent = n;
+  charCount.style.color = n > 2700 ? '#DC2626' : '#9CA3AF';
+});
+
+// Inicializar
+updateFlags();
+
+// ── Estados UI ──
+function setLoading(active) {
+  const btn     = document.getElementById('btnProcess');
+  const spinner = document.getElementById('spinnerWrapper');
+  const errBox  = document.getElementById('errorBox');
+  const resSec  = document.getElementById('resultSection');
+  btn.disabled  = active;
+  btn.innerHTML = active ? '<span>⏳</span> Traduciendo...' : '<span>🌎</span> Procesar texto';
+  spinner.classList.toggle('active', active);
+  if (active) {
+    resSec.classList.remove('active');
+    errBox.classList.remove('active');
+  }
+}
+
+function showError(msg) {
+  document.getElementById('errorMsg').textContent = msg;
+  document.getElementById('errorBox').classList.add('active');
+}
+
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ── Mostrar resultado ──
+function showResult(data, origen, destino) {
+  const traducido = data.texto_traducido || '';
+  const cambios   = Array.isArray(data.cambios) ? data.cambios : [];
+
+  window._translated = traducido;
+
+  // Header de ruta
+  document.getElementById('routeOrigen').textContent  = `${FLAGS[origen] || '🌐'} ${origen}`;
+  document.getElementById('routeDestino').textContent = `${FLAGS[destino] || '🌐'} ${destino}`;
+
+  // Texto traducido
+  document.getElementById('translatedText').textContent = traducido;
+
+  // Cambios
+  const container = document.getElementById('cambiosContainer');
+  if (cambios.length === 0) {
+    container.innerHTML = `
+      <div class="cambios-empty">
+        ✅ No se encontraron expresiones específicas que adaptar. El texto es comprensible en ambas variantes.
+      </div>`;
+  } else {
+    container.innerHTML = `<div class="cambios-list">
+      ${cambios.map(c => `
+        <div class="cambio-card">
+          <div class="cambio-row">
+            <span class="cambio-orig">${escapeHtml(c.original || '')}</span>
+            <span class="cambio-arrow">→</span>
+            <span class="cambio-trad">${escapeHtml(c.traduccion || '')}</span>
+          </div>
+          <div class="cambio-nota">${escapeHtml(c.nota || '')}</div>
+        </div>
+      `).join('')}
+    </div>`;
+  }
+
+  document.getElementById('resultSection').classList.add('active');
+}
+
+// ── Llamada a la API ──
+async function processText() {
+  const text    = inputText.value.trim();
+  const origen  = document.getElementById('paisOrigen').value;
+  const destino = document.getElementById('paisDestino').value;
+
+  if (!text) { showError('Por favor, escribe o pega el texto que quieres traducir.'); return; }
+  if (text.length > 3000) { showError('El texto supera el límite de 3.000 caracteres.'); return; }
+  if (origen === destino) { showError('El país de origen y destino no pueden ser el mismo.'); return; }
+
+  const systemPrompt = `Eres linguista experto en variantes regionales del espanol. Traduce las expresiones coloquiales y jerga del texto del espanol de ${origen} al espanol de ${destino}. Responde en JSON sin texto adicional: {"texto_traducido": "texto completo con las expresiones adaptadas al espanol de ${destino}", "cambios": [{"original": "expresion del pais origen", "traduccion": "equivalente en pais destino", "nota": "explicacion breve de la diferencia"}]}`;
+
+  setLoading(true);
+
+  try {
+    const response = await fetch('/api/detect', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 2048,
+        system: systemPrompt,
+        messages: [{ role: 'user', content: text }]
+      })
+    });
+
+    if (!response.ok) {
+      const err = await response.json().catch(() => ({}));
+      throw new Error(err.error?.message || `Error ${response.status}`);
+    }
+
+    const data = await response.json();
+    let raw = data.content?.[0]?.text || '';
+    raw = raw.replace(/```json|```/g, '').trim();
+
+    let parsed;
+    try { parsed = JSON.parse(raw); }
+    catch { throw new Error('La IA no devolvió el formato esperado. Inténtalo de nuevo.'); }
+
+    showResult(parsed, origen, destino);
+
+  } catch (error) {
+    showError(error.message || 'No se pudo conectar con la IA. Comprueba tu conexión.');
+    console.error('Error API:', error);
+  } finally {
+    setLoading(false);
+  }
+}
+
+// ── Copiar resultado ──
+async function copyResult() {
+  const btn = document.getElementById('btnCopyHeader');
+  try {
+    await navigator.clipboard.writeText(window._translated);
+    btn.textContent = '✅ ¡Copiado!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = '📋 Copiar traducción'; btn.classList.remove('copied'); }, 2000);
+  } catch { showError('No se pudo copiar.'); }
+}
+
+// ── Resetear ──
+function resetTool() {
+  inputText.value = '';
+  charCount.textContent = '0';
+  document.getElementById('resultSection').classList.remove('active');
+  document.getElementById('errorBox').classList.remove('active');
+  document.getElementById('btnProcess').disabled = false;
+  document.getElementById('btnProcess').innerHTML = '<span>🌎</span> Procesar texto';
+  window._translated = '';
+  inputText.focus();
+}
+
+inputText.addEventListener('keydown', e => {
+  if (e.ctrlKey && e.key === 'Enter') processText();
+});
+</script>
+
+</body>
+</html>
