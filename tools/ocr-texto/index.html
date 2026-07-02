@@ -1,1 +1,753 @@
-placeholder
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Extractor de texto de imagen OCR gratis con IA | ClearText</title>
+  <meta name="description" content="Extrae todo el texto de cualquier imagen, foto o captura de pantalla con IA. Gratis, sin registro, resultados en segundos.">
+
+  <meta property="og:title" content="OCR — Extractor de texto de imagen | ClearText">
+  <meta property="og:description" content="Extrae texto de imágenes al instante con IA. Fotos, capturas, documentos. Gratis y sin registro.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cleartext-app.com/tools/ocr-texto/">
+  <meta property="og:image" content="https://cleartext-app.com/logo-512.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+
+  <style>
+    * { box-sizing: border-box; }
+
+    header {
+      background: #ffffff; border-bottom: 1px solid #E5E7EB;
+      box-shadow: 0 2px 12px rgba(124,58,237,0.07); backdrop-filter: none;
+    }
+    .logo { color: #111827; }
+    .nav-links a { color: #6B7280; }
+    .nav-links a:hover { color: #7C3AED; }
+    .btn-nav {
+      background: linear-gradient(135deg,#A78BFA,#7C3AED);
+      color: #fff; border: none; padding: 9px 20px; border-radius: 10px;
+      font-weight: 600; font-size: 0.9rem; cursor: pointer;
+      display: inline-flex; align-items: center; text-decoration: none;
+      transition: opacity .2s, transform .2s;
+    }
+    .btn-nav:hover { opacity: .9; transform: translateY(-1px); }
+
+    .tool-page { padding: 40px 0 80px; }
+
+    .breadcrumb {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.875rem; color: #9CA3AF; margin-bottom: 28px;
+    }
+    .breadcrumb a { color: #7C3AED; font-weight: 500; text-decoration: none; }
+    .breadcrumb a:hover { opacity: .75; }
+    .breadcrumb-sep { color: #D1D5DB; }
+    .breadcrumb-current { color: #6B7280; font-weight: 500; }
+
+    .tool-header { text-align: center; max-width: 680px; margin: 0 auto 44px; }
+    .tool-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #EDE9FE; color: #7C3AED;
+      padding: 6px 14px; border-radius: 9999px;
+      font-size: 0.82rem; font-weight: 600; margin-bottom: 16px;
+    }
+    .tool-header h1 {
+      font-size: clamp(1.8rem,4vw,2.6rem); font-weight: 800; color: #111827;
+      letter-spacing: -.5px; margin-bottom: 12px; line-height: 1.15;
+    }
+    .tool-header h1 span {
+      background: linear-gradient(135deg,#C4B5FD,#7C3AED);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .tool-header p { font-size: 1.05rem; color: #6B7280; line-height: 1.65; }
+
+    .tool-body { max-width: 860px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; }
+
+    /* ── UPLOAD ZONE ── */
+    .upload-section {
+      background: #fff; border: 1px solid #E5E7EB; border-radius: 16px; padding: 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.04);
+    }
+
+    /* Zona de drop */
+    .drop-zone {
+      border: 2px dashed #C4B5FD; border-radius: 14px;
+      background: #F5F3FF; padding: 40px 24px;
+      text-align: center; cursor: pointer;
+      transition: border-color .25s, background .25s;
+      position: relative;
+    }
+    .drop-zone:hover, .drop-zone.drag-over {
+      border-color: #7C3AED; background: #EDE9FE;
+    }
+    .drop-zone.has-image {
+      padding: 16px; border-style: solid; border-color: #7C3AED;
+    }
+
+    /* Input file oculto */
+    #fileInput {
+      position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+    }
+
+    .drop-icon { font-size: 2.8rem; margin-bottom: 12px; }
+    .drop-title {
+      font-size: 1rem; font-weight: 700; color: #374151; margin-bottom: 6px;
+    }
+    .drop-sub {
+      font-size: .88rem; color: #9CA3AF;
+    }
+    .drop-sub span {
+      color: #7C3AED; font-weight: 600; text-decoration: underline; cursor: pointer;
+    }
+    .drop-formats {
+      margin-top: 12px; display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;
+    }
+    .format-pill {
+      background: #fff; border: 1px solid #E5E7EB; border-radius: 9999px;
+      padding: 3px 10px; font-size: .75rem; color: #6B7280; font-weight: 500;
+    }
+
+    /* Previsualización */
+    .preview-wrapper {
+      display: none; position: relative;
+    }
+    .preview-wrapper.active { display: block; }
+
+    .preview-img {
+      width: 100%; max-height: 420px; object-fit: contain;
+      border-radius: 10px; display: block;
+    }
+    .preview-overlay {
+      position: absolute; top: 8px; right: 8px;
+      display: flex; gap: 6px;
+    }
+    .btn-remove-img {
+      background: rgba(0,0,0,.55); color: #fff; border: none;
+      border-radius: 9999px; padding: 5px 12px;
+      font-size: .8rem; font-weight: 600; cursor: pointer;
+      font-family: 'Inter',sans-serif; backdrop-filter: blur(4px);
+      transition: background .2s;
+    }
+    .btn-remove-img:hover { background: rgba(220,38,38,.8); }
+
+    .preview-info {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 10px; padding: 10px 14px;
+      background: #F5F3FF; border: 1px solid #EDE9FE; border-radius: 10px;
+    }
+    .preview-filename { font-size: .85rem; font-weight: 600; color: #374151; }
+    .preview-size     { font-size: .78rem; color: #9CA3AF; }
+
+    /* Botón procesar */
+    .btn-process {
+      width: 100%; padding: 15px 24px;
+      background: linear-gradient(135deg,#A78BFA 0%,#7C3AED 60%,#5B21B6 100%);
+      color: #fff; border: none; border-radius: 12px;
+      font-size: 1rem; font-weight: 700; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      box-shadow: 0 4px 16px rgba(124,58,237,.35);
+      transition: transform .2s, box-shadow .2s, opacity .2s;
+      margin-top: 16px; font-family: 'Inter',sans-serif;
+    }
+    .btn-process:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(124,58,237,.45); }
+    .btn-process:active { transform: scale(.98); }
+    .btn-process:disabled { opacity: .65; cursor: not-allowed; transform: none; }
+
+    .error-box {
+      display: none; background: #FEF2F2; border: 1px solid #FECACA;
+      border-radius: 12px; padding: 14px 18px; color: #DC2626; font-size: .9rem; font-weight: 500;
+    }
+    .error-box.active { display: block; }
+
+    /* Progreso de carga */
+    .upload-progress {
+      display: none; flex-direction: column; align-items: center; gap: 14px; padding: 28px 0;
+    }
+    .upload-progress.active { display: flex; }
+
+    .progress-steps {
+      display: flex; align-items: center; gap: 6px; flex-wrap: wrap; justify-content: center;
+    }
+    .progress-step {
+      display: flex; align-items: center; gap: 6px;
+      font-size: .82rem; color: #9CA3AF; font-weight: 500;
+    }
+    .progress-step.active  { color: #7C3AED; }
+    .progress-step.done    { color: #16A34A; }
+    .step-dot {
+      width: 8px; height: 8px; border-radius: 50%; background: #E5E7EB;
+    }
+    .progress-step.active .step-dot { background: #7C3AED; animation: pulse-dot .9s ease-in-out infinite; }
+    .progress-step.done   .step-dot { background: #16A34A; }
+    @keyframes pulse-dot { 0%,100%{transform:scale(1)}50%{transform:scale(1.4)} }
+
+    .progress-step-sep { color: #D1D5DB; }
+
+    .spinner {
+      width: 36px; height: 36px; border: 3px solid #EDE9FE; border-top-color: #7C3AED;
+      border-radius: 50%; animation: spin .7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spinner-text {
+      font-size: .9rem; color: #7C3AED; font-weight: 500;
+      animation: pulse-txt 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse-txt { 0%,100%{opacity:1}50%{opacity:.5} }
+
+    /* ── RESULTADO ── */
+    .result-section {
+      display: none; background: #fff; border: 1.5px solid #C4B5FD;
+      border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(124,58,237,.08);
+    }
+    .result-section.active { display: block; }
+
+    /* Vista dividida: imagen + texto */
+    .result-split {
+      display: grid; grid-template-columns: 1fr 1fr; min-height: 300px;
+    }
+
+    /* Panel izquierdo: miniatura */
+    .result-img-panel {
+      border-right: 1px solid #EDE9FE; padding: 16px;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .result-img-label {
+      font-size: .75rem; font-weight: 700; color: #9CA3AF;
+      text-transform: uppercase; letter-spacing: .06em;
+    }
+    .result-thumbnail {
+      width: 100%; border-radius: 8px; object-fit: contain;
+      border: 1px solid #E5E7EB; flex: 1; min-height: 180px;
+    }
+
+    /* Panel derecho: texto extraído */
+    .result-text-panel { padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+    .result-text-header {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .result-label {
+      font-size: .82rem; font-weight: 700; color: #7C3AED;
+      text-transform: uppercase; letter-spacing: .06em;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .result-dot {
+      width: 7px; height: 7px; border-radius: 50%; background: #7C3AED;
+      animation: pulse-txt 1.5s ease-in-out infinite;
+    }
+    .btn-copy {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 5px 12px; background: #EDE9FE; color: #7C3AED;
+      border: none; border-radius: 9999px;
+      font-size: .78rem; font-weight: 600; cursor: pointer;
+      font-family: 'Inter',sans-serif; transition: background .2s, color .2s;
+    }
+    .btn-copy:hover { background: #7C3AED; color: #fff; }
+    .btn-copy.copied { background: #D1FAE5; color: #065F46; }
+
+    .extracted-text {
+      flex: 1; background: #FAFAFA; border: 1px solid #E5E7EB; border-radius: 10px;
+      padding: 14px; font-size: .93rem; line-height: 1.75; color: #374151;
+      white-space: pre-wrap; word-break: break-word; overflow-y: auto;
+      min-height: 180px; max-height: 400px;
+    }
+
+    /* Stats del texto */
+    .result-stats {
+      padding: 12px 20px; border-top: 1px solid #EDE9FE;
+      display: flex; gap: 20px; flex-wrap: wrap;
+    }
+    .stat-item {
+      display: flex; align-items: center; gap: 6px;
+      font-size: .8rem; color: #6B7280;
+    }
+    .stat-item strong { color: #374151; font-weight: 700; }
+
+    /* Acciones */
+    .result-actions {
+      padding: 14px 20px; border-top: 1px solid #EDE9FE;
+      display: flex; gap: 10px; flex-wrap: wrap; background: #FAFAFA;
+    }
+    .btn-reset {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 16px; background: transparent; color: #6B7280;
+      border: 1px solid #E5E7EB; border-radius: 9999px;
+      font-size: .82rem; font-weight: 600; cursor: pointer;
+      font-family: 'Inter',sans-serif; transition: border-color .2s, color .2s;
+    }
+    .btn-reset:hover { border-color: #C4B5FD; color: #7C3AED; }
+    .btn-download {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 16px; background: transparent; color: #6B7280;
+      border: 1px solid #E5E7EB; border-radius: 9999px;
+      font-size: .82rem; font-weight: 600; cursor: pointer;
+      font-family: 'Inter',sans-serif; transition: border-color .2s, color .2s;
+    }
+    .btn-download:hover { border-color: #C4B5FD; color: #7C3AED; }
+
+    .ad-slot {
+      width: 100%; min-height: 90px; background: #FAFAFA;
+      border: 1px dashed #E5E7EB; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      color: #D1D5DB; font-size: .78rem; font-family: 'Inter',sans-serif;
+    }
+
+    .tool-info {
+      background: #F5F3FF; border: 1px solid #EDE9FE; border-radius: 16px; padding: 24px 28px;
+    }
+    .tool-info h2 { font-size: 1rem; font-weight: 700; color: #111827; margin-bottom: 10px; }
+    .tool-info p  { font-size: .92rem; color: #6B7280; line-height: 1.7; }
+    .tool-info ul { margin-top: 12px; display: flex; flex-direction: column; gap: 8px; }
+    .tool-info ul li {
+      font-size: .92rem; color: #6B7280;
+      display: flex; align-items: flex-start; gap: 8px; line-height: 1.5;
+    }
+    .tool-info ul li::before { content:'✓'; color:#7C3AED; font-weight:700; flex-shrink:0; }
+
+    footer { background: #fff; border-top: 1px solid #E5E7EB; }
+
+    @media(max-width:768px){
+      .nav{ flex-wrap:wrap; height:auto; padding:14px 0; gap:12px; }
+      .nav-links{ width:100%; justify-content:center; gap:16px; flex-wrap:wrap; }
+      .tool-page{ padding:28px 0 60px; }
+      .result-split{ grid-template-columns: 1fr; }
+      .result-img-panel{ border-right:none; border-bottom: 1px solid #EDE9FE; }
+      .result-thumbnail{ max-height:200px; }
+      .result-stats{ gap:14px; }
+      .result-actions{ flex-direction:column; }
+      .btn-reset,.btn-download{ width:100%; justify-content:center; }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="container nav">
+    <a href="../../" class="logo">
+      <img src="../../logo-32.png" alt="ClearText IA" style="width:36px;height:36px;border-radius:9px;object-fit:contain;">
+      <span>ClearText</span>
+    </a>
+    <nav class="nav-links">
+      <a href="../../#herramientas">Herramientas</a>
+      <a href="../../#ventajas">Ventajas</a>
+      <a href="../../acerca/">Acerca de</a>
+      <a href="../../contacto/">Contacto</a>
+    </nav>
+    <a href="../../#herramientas" class="btn-nav">Ver todas</a>
+  </div>
+</header>
+
+<main class="tool-page">
+  <div class="container">
+
+    <nav class="breadcrumb" aria-label="Navegación">
+      <a href="../../">Inicio</a>
+      <span class="breadcrumb-sep">›</span>
+      <a href="../../#herramientas">Herramientas</a>
+      <span class="breadcrumb-sep">›</span>
+      <span class="breadcrumb-current">OCR — Extractor de texto de imagen</span>
+    </nav>
+
+    <!-- ESPACIO PARA ANUNCIOS ADSENSE -->
+    <div class="ad-slot" style="margin-bottom:32px;">
+      <!-- Aquí irá el código de Google AdSense -->
+    </div>
+
+    <div class="tool-header">
+      <div class="tool-badge">📸 OCR con IA</div>
+      <h1>Extrae texto de <span>cualquier imagen</span></h1>
+      <p>Sube una foto, captura de pantalla, escáner o documento y extraemos todo el texto que contiene, listo para copiar y editar.</p>
+    </div>
+
+    <div class="tool-body">
+
+      <!-- UPLOAD ZONE -->
+      <div class="upload-section">
+
+        <!-- Zona de arrastre / click -->
+        <div class="drop-zone" id="dropZone">
+          <input type="file" id="fileInput" accept="image/*" onchange="handleFile(this.files[0])">
+
+          <!-- Estado vacío -->
+          <div id="dropEmpty">
+            <div class="drop-icon">📸</div>
+            <div class="drop-title">Arrastra tu imagen aquí</div>
+            <div class="drop-sub">o <span>haz clic para seleccionar</span></div>
+            <div class="drop-formats">
+              <span class="format-pill">JPG</span>
+              <span class="format-pill">PNG</span>
+              <span class="format-pill">WEBP</span>
+              <span class="format-pill">GIF</span>
+              <span class="format-pill">PDF (captura)</span>
+            </div>
+          </div>
+
+          <!-- Previsualización -->
+          <div class="preview-wrapper" id="previewWrapper">
+            <img id="previewImg" class="preview-img" src="" alt="Previsualización">
+            <div class="preview-overlay">
+              <button class="btn-remove-img" onclick="removeImage(event)">✕ Cambiar imagen</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Info del archivo -->
+        <div class="preview-info" id="previewInfo" style="display:none;">
+          <div class="preview-filename" id="previewFilename">—</div>
+          <div class="preview-size" id="previewSize">—</div>
+        </div>
+
+        <button class="btn-process" id="btnProcess" onclick="processImage()" disabled>
+          <span>📸</span> Extraer texto
+        </button>
+
+      </div>
+
+      <div class="error-box" id="errorBox">
+        ⚠️ <span id="errorMsg">Ha ocurrido un error. Por favor, inténtalo de nuevo.</span>
+      </div>
+
+      <!-- Progreso de carga -->
+      <div class="upload-progress" id="uploadProgress">
+        <div class="spinner"></div>
+        <div class="progress-steps">
+          <div class="progress-step" id="step1">
+            <div class="step-dot"></div> Leyendo imagen
+          </div>
+          <span class="progress-step-sep">→</span>
+          <div class="progress-step" id="step2">
+            <div class="step-dot"></div> Enviando a la IA
+          </div>
+          <span class="progress-step-sep">→</span>
+          <div class="progress-step" id="step3">
+            <div class="step-dot"></div> Extrayendo texto
+          </div>
+        </div>
+        <div class="spinner-text" id="spinnerText">Preparando la imagen...</div>
+      </div>
+
+      <!-- RESULTADO -->
+      <div class="result-section" id="resultSection">
+
+        <div class="result-split">
+
+          <!-- Miniatura de la imagen -->
+          <div class="result-img-panel">
+            <div class="result-img-label">📸 Imagen analizada</div>
+            <img id="resultThumbnail" class="result-thumbnail" src="" alt="Imagen">
+          </div>
+
+          <!-- Texto extraído -->
+          <div class="result-text-panel">
+            <div class="result-text-header">
+              <div class="result-label">
+                <div class="result-dot"></div>
+                Texto extraído
+              </div>
+              <button class="btn-copy" id="btnCopy" onclick="copyResult()">📋 Copiar</button>
+            </div>
+            <div class="extracted-text" id="extractedText"></div>
+          </div>
+
+        </div>
+
+        <!-- Stats -->
+        <div class="result-stats">
+          <div class="stat-item">📝 <strong id="statWords">0</strong> palabras</div>
+          <div class="stat-item">🔤 <strong id="statChars">0</strong> caracteres</div>
+          <div class="stat-item">📄 <strong id="statLines">0</strong> líneas</div>
+        </div>
+
+        <div class="result-actions">
+          <button class="btn-reset"    onclick="resetTool()">🔄 Analizar otra imagen</button>
+          <button class="btn-download" onclick="downloadResult()">⬇️ Descargar .txt</button>
+        </div>
+
+      </div>
+
+      <!-- ESPACIO PARA ANUNCIOS ADSENSE -->
+      <div class="ad-slot">
+        <!-- Aquí irá el código de Google AdSense -->
+      </div>
+
+      <div class="tool-info">
+        <h2>¿Qué tipo de imágenes funciona mejor?</h2>
+        <p>
+          Esta herramienta usa IA de visión avanzada para leer el texto de cualquier imagen, no solo
+          documentos escaneados. Funciona con cualquier imagen que tenga texto visible.
+        </p>
+        <ul>
+          <li>Capturas de pantalla de webs, apps o documentos</li>
+          <li>Fotos de libros, revistas, menús o carteles</li>
+          <li>Documentos escaneados o fotografiados</li>
+          <li>Imágenes con texto en varios idiomas simultáneamente</li>
+          <li>Fotografías de pizarras, notas escritas a mano o pantallas</li>
+          <li>Imágenes de hasta varios MB, formatos JPG, PNG, WEBP y GIF</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-info">
+        <div class="logo" style="margin-bottom:10px;">
+          <img src="../../logo-32.png" alt="ClearText IA" style="width:34px;height:34px;border-radius:9px;object-fit:contain;">
+          <span>ClearText</span>
+        </div>
+        <p>Herramientas de texto potenciadas por IA. Gratis, privado y sin registro.</p>
+      </div>
+      <div class="footer-links">
+        <a href="../../privacidad/">Privacidad</a>
+        <a href="../../terminos/">Términos</a>
+        <a href="../../acerca/">Acerca de</a>
+        <a href="../../contacto/">Contacto</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 ClearText. Todos los derechos reservados.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+const API_KEY = 'TU_API_KEY_AQUI';
+
+const SYSTEM_PROMPT = `El usuario te envia una imagen. Extrae TODO el texto visible manteniendo el formato original. Si hay texto en varios idiomas, extraelos todos. Si no hay texto responde: No se detecto texto en esta imagen. Devuelve SOLO el texto extraido, sin comentarios adicionales.`;
+
+// Estado
+let currentFile   = null;
+let currentBase64 = null;
+let currentMime   = null;
+window._extracted = '';
+
+// ── Drag & drop ──
+const dropZone = document.getElementById('dropZone');
+
+dropZone.addEventListener('dragover', e => {
+  e.preventDefault();
+  dropZone.classList.add('drag-over');
+});
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', e => {
+  e.preventDefault();
+  dropZone.classList.remove('drag-over');
+  const file = e.dataTransfer.files[0];
+  if (file && file.type.startsWith('image/')) handleFile(file);
+  else showError('Por favor, sube un archivo de imagen (JPG, PNG, WEBP, GIF).');
+});
+
+// ── Manejar archivo ──
+function handleFile(file) {
+  if (!file) return;
+  if (!file.type.startsWith('image/')) {
+    showError('El archivo seleccionado no es una imagen válida.');
+    return;
+  }
+  if (file.size > 20 * 1024 * 1024) {
+    showError('La imagen es demasiado grande. El límite es 20 MB.');
+    return;
+  }
+
+  currentFile = file;
+  document.getElementById('errorBox').classList.remove('active');
+
+  const reader = new FileReader();
+  reader.onload = e => {
+    const dataUrl = e.target.result;
+    // Extraer base64 y mime
+    const parts = dataUrl.split(',');
+    currentBase64 = parts[1];
+    currentMime   = file.type;
+
+    // Previsualización
+    document.getElementById('previewImg').src = dataUrl;
+    document.getElementById('resultThumbnail').src = dataUrl;
+    document.getElementById('previewWrapper').classList.add('active');
+    document.getElementById('dropEmpty').style.display = 'none';
+    dropZone.classList.add('has-image');
+
+    // Info del archivo
+    const kb = (file.size / 1024).toFixed(1);
+    const mb = (file.size / 1024 / 1024).toFixed(2);
+    document.getElementById('previewFilename').textContent = file.name;
+    document.getElementById('previewSize').textContent     = file.size > 1024*1024 ? `${mb} MB` : `${kb} KB`;
+    document.getElementById('previewInfo').style.display   = 'flex';
+
+    // Activar botón
+    document.getElementById('btnProcess').disabled = false;
+    document.getElementById('btnProcess').innerHTML = '<span>📸</span> Extraer texto de esta imagen';
+  };
+  reader.readAsDataURL(file);
+}
+
+function removeImage(e) {
+  e.stopPropagation();
+  currentFile = currentBase64 = currentMime = null;
+  document.getElementById('previewImg').src            = '';
+  document.getElementById('previewWrapper').classList.remove('active');
+  document.getElementById('dropEmpty').style.display   = 'block';
+  dropZone.classList.remove('has-image');
+  document.getElementById('previewInfo').style.display = 'none';
+  document.getElementById('fileInput').value           = '';
+  document.getElementById('btnProcess').disabled       = true;
+  document.getElementById('btnProcess').innerHTML      = '<span>📸</span> Extraer texto';
+  document.getElementById('resultSection').classList.remove('active');
+  document.getElementById('errorBox').classList.remove('active');
+}
+
+// ── UI helpers ──
+function setStep(active) {
+  ['step1','step2','step3'].forEach((id, i) => {
+    const el = document.getElementById(id);
+    el.classList.remove('active','done');
+    if (i < active)     el.classList.add('done');
+    else if (i === active) el.classList.add('active');
+  });
+  const texts = ['Leyendo la imagen...','Enviando a la IA...','Extrayendo el texto...'];
+  if (active < 3) document.getElementById('spinnerText').textContent = texts[active];
+}
+
+function setLoading(active) {
+  const btn      = document.getElementById('btnProcess');
+  const progress = document.getElementById('uploadProgress');
+  const errBox   = document.getElementById('errorBox');
+  const resSec   = document.getElementById('resultSection');
+  btn.disabled   = active;
+  btn.innerHTML  = active ? '<span>⏳</span> Procesando...' : '<span>📸</span> Extraer texto de esta imagen';
+  progress.classList.toggle('active', active);
+  if (active) {
+    resSec.classList.remove('active');
+    errBox.classList.remove('active');
+    setStep(0);
+  }
+}
+
+function showError(msg) {
+  document.getElementById('errorMsg').textContent = msg;
+  document.getElementById('errorBox').classList.add('active');
+}
+
+// ── Llamada a la API con imagen ──
+async function processImage() {
+  if (!currentBase64 || !currentMime) {
+    showError('Por favor, selecciona una imagen primero.');
+    return;
+  }
+
+  setLoading(true);
+  setStep(0);
+
+  try {
+    // Pequeña pausa visual para el paso 1
+    await new Promise(r => setTimeout(r, 400));
+    setStep(1);
+
+    const response = await fetch('/api/detect', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 4096,
+        system: SYSTEM_PROMPT,
+        messages: [{
+          role: 'user',
+          content: [
+            {
+              type: 'image',
+              source: {
+                type: 'base64',
+                media_type: currentMime,
+                data: currentBase64
+              }
+            },
+            {
+              type: 'text',
+              text: 'Extrae todo el texto de esta imagen.'
+            }
+          ]
+        }]
+      })
+    });
+
+    setStep(2);
+
+    if (!response.ok) {
+      const err = await response.json().catch(() => ({}));
+      throw new Error(err.error?.message || `Error ${response.status}`);
+    }
+
+    const data   = await response.json();
+    const result = data.content?.[0]?.text || '';
+
+    if (!result) throw new Error('La IA no devolvió ningún resultado. Inténtalo de nuevo.');
+
+    showResult(result);
+
+  } catch (error) {
+    showError(error.message || 'No se pudo conectar con la IA. Comprueba tu conexión.');
+    console.error('Error API:', error);
+  } finally {
+    setLoading(false);
+  }
+}
+
+// ── Mostrar resultado ──
+function showResult(text) {
+  window._extracted = text;
+
+  document.getElementById('extractedText').textContent = text;
+
+  // Estadísticas
+  const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+  const chars  = text.length;
+  const lines  = text.split('\n').length;
+  document.getElementById('statWords').textContent = words.toLocaleString('es');
+  document.getElementById('statChars').textContent = chars.toLocaleString('es');
+  document.getElementById('statLines').textContent = lines.toLocaleString('es');
+
+  document.getElementById('resultSection').classList.add('active');
+  document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ── Copiar ──
+async function copyResult() {
+  const btn = document.getElementById('btnCopy');
+  try {
+    await navigator.clipboard.writeText(window._extracted);
+    btn.textContent = '✅ ¡Copiado!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = '📋 Copiar'; btn.classList.remove('copied'); }, 2500);
+  } catch { showError('No se pudo copiar. Selecciona el texto manualmente.'); }
+}
+
+// ── Descargar ──
+function downloadResult() {
+  const text = window._extracted;
+  if (!text) return;
+  const name = (currentFile?.name || 'imagen').replace(/\.[^.]+$/, '');
+  const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url; a.download = `${name}-texto.txt`; a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ── Reset ──
+function resetTool() {
+  removeImage({ stopPropagation: () => {} });
+  document.getElementById('resultSection').classList.remove('active');
+  document.getElementById('errorBox').classList.remove('active');
+  window._extracted = '';
+}
+</script>
+
+</body>
+</html>
