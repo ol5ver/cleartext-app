@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Política de Privacidad | ClearText</title>
+  <meta name="description" content="Política de privacidad de ClearText. Información sobre qué datos recopilamos, cómo usamos las cookies y cómo protegemos tu privacidad.">
+  <meta name="robots" content="index, follow">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+
+  <style>
+    * { box-sizing: border-box; }
+
+    header {
+      background: #ffffff; border-bottom: 1px solid #E5E7EB;
+      box-shadow: 0 2px 12px rgba(124,58,237,0.07); backdrop-filter: none;
+    }
+    .logo { color: #111827; }
+    .nav-links a { color: #6B7280; }
+    .nav-links a:hover { color: #7C3AED; }
+    .btn-nav {
+      background: linear-gradient(135deg,#A78BFA,#7C3AED);
+      color: #fff; border: none; padding: 9px 20px; border-radius: 10px;
+      font-weight: 600; font-size: 0.9rem; cursor: pointer;
+      display: inline-flex; align-items: center; text-decoration: none;
+      transition: opacity .2s, transform .2s;
+    }
+    .btn-nav:hover { opacity: .9; transform: translateY(-1px); }
+
+    .legal-page { padding: 56px 0 90px; }
+
+    /* Hero de la página */
+    .legal-hero {
+      background: linear-gradient(135deg,#7C3AED,#5B21B6);
+      padding: 48px 0 52px; margin-bottom: 52px; text-align: center;
+    }
+    .legal-hero .badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.3);
+      color: #fff; padding: 6px 14px; border-radius: 9999px;
+      font-size: .82rem; font-weight: 600; margin-bottom: 18px;
+    }
+    .legal-hero h1 {
+      font-size: clamp(1.8rem,4vw,2.8rem); font-weight: 800;
+      color: #fff; margin-bottom: 12px; letter-spacing: -.5px;
+    }
+    .legal-hero p { font-size: .95rem; color: rgba(255,255,255,.75); }
+
+    /* Layout */
+    .legal-layout {
+      display: grid; grid-template-columns: 220px 1fr;
+      gap: 40px; align-items: start; max-width: 1060px; margin: 0 auto;
+    }
+
+    /* Índice lateral */
+    .legal-toc {
+      position: sticky; top: 96px;
+      background: #F5F3FF; border: 1px solid #EDE9FE;
+      border-radius: 14px; padding: 20px;
+    }
+    .toc-title {
+      font-size: .75rem; font-weight: 700; color: #9CA3AF;
+      text-transform: uppercase; letter-spacing: .06em; margin-bottom: 14px;
+    }
+    .toc-list { display: flex; flex-direction: column; gap: 4px; }
+    .toc-item {
+      display: flex; align-items: center; gap: 8px;
+      padding: 7px 10px; border-radius: 8px;
+      font-size: .82rem; font-weight: 500; color: #6B7280;
+      text-decoration: none; transition: background .15s, color .15s;
+    }
+    .toc-item:hover { background: #EDE9FE; color: #7C3AED; }
+    .toc-num {
+      width: 20px; height: 20px; border-radius: 50%;
+      background: #EDE9FE; color: #7C3AED;
+      font-size: .68rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+
+    /* Contenido principal */
+    .legal-content { min-width: 0; }
+
+    .legal-section {
+      background: #fff; border: 1px solid #E5E7EB; border-radius: 16px;
+      padding: 28px 32px; margin-bottom: 20px;
+      scroll-margin-top: 100px;
+    }
+
+    .section-header {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 18px;
+      padding-bottom: 16px; border-bottom: 1px solid #F3F4F6;
+    }
+    .section-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: #EDE9FE; display: flex; align-items: center;
+      justify-content: center; font-size: 1.1rem; flex-shrink: 0;
+    }
+    .section-title {
+      font-size: 1.1rem; font-weight: 700; color: #111827;
+    }
+    .section-num {
+      font-size: .75rem; color: #9CA3AF; font-weight: 500; margin-top: 1px;
+    }
+
+    .legal-content p {
+      font-size: .94rem; color: #374151; line-height: 1.75; margin-bottom: 14px;
+    }
+    .legal-content p:last-child { margin-bottom: 0; }
+
+    .legal-content ul {
+      margin: 10px 0 14px 0; display: flex; flex-direction: column; gap: 8px;
+    }
+    .legal-content ul li {
+      font-size: .93rem; color: #374151; line-height: 1.6;
+      display: flex; align-items: flex-start; gap: 8px;
+    }
+    .legal-content ul li::before {
+      content: '✓'; color: #7C3AED; font-weight: 700; flex-shrink: 0; margin-top: 1px;
+    }
+
+    .legal-content strong { font-weight: 600; color: #111827; }
+
+    /* Tabla de datos */
+    .data-table {
+      width: 100%; border-collapse: collapse; margin: 14px 0; font-size: .88rem;
+    }
+    .data-table th {
+      background: #F5F3FF; color: #7C3AED; font-weight: 700;
+      padding: 10px 14px; text-align: left; font-size: .78rem;
+      text-transform: uppercase; letter-spacing: .05em;
+      border-bottom: 1px solid #EDE9FE;
+    }
+    .data-table td {
+      padding: 11px 14px; border-bottom: 1px solid #F3F4F6;
+      color: #374151; vertical-align: top; line-height: 1.5;
+    }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:hover td { background: #FAFAFA; }
+
+    .tag-no    { background: #F0FDF4; color: #15803D; border: 1px solid #BBF7D0; border-radius: 6px; padding: 2px 8px; font-size: .78rem; font-weight: 600; }
+    .tag-yes   { background: #FEF3C7; color: #92400E; border: 1px solid #FDE68A; border-radius: 6px; padding: 2px 8px; font-size: .78rem; font-weight: 600; }
+    .tag-third { background: #EFF6FF; color: #1D4ED8; border: 1px solid #BFDBFE; border-radius: 6px; padding: 2px 8px; font-size: .78rem; font-weight: 600; }
+
+    /* Highlight box */
+    .highlight-box {
+      background: #F0FDF4; border: 1px solid #BBF7D0; border-radius: 12px;
+      padding: 14px 18px; margin: 14px 0;
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: .9rem; color: #14532D; line-height: 1.55;
+    }
+    .highlight-box-icon { font-size: 1.1rem; flex-shrink: 0; }
+
+    .warning-box {
+      background: #FFFBEB; border: 1px solid #FDE68A; border-radius: 12px;
+      padding: 14px 18px; margin: 14px 0;
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: .9rem; color: #78350F; line-height: 1.55;
+    }
+
+    /* Derechos */
+    .rights-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 14px;
+    }
+    .right-card {
+      background: #F5F3FF; border: 1px solid #EDE9FE; border-radius: 10px;
+      padding: 14px 16px;
+    }
+    .right-card-title {
+      font-size: .85rem; font-weight: 700; color: #5B21B6; margin-bottom: 4px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .right-card-desc { font-size: .82rem; color: #6B7280; line-height: 1.5; }
+
+    /* Contacto */
+    .contact-card {
+      background: linear-gradient(135deg,#F5F3FF,#EDE9FE);
+      border: 1px solid #C4B5FD; border-radius: 12px;
+      padding: 20px 24px; text-align: center; margin-top: 8px;
+    }
+    .contact-card p { font-size: .93rem; color: #374151; margin-bottom: 14px; }
+    .contact-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 10px 22px;
+      background: linear-gradient(135deg,#A78BFA,#7C3AED);
+      color: #fff; border-radius: 10px; font-weight: 600; font-size: .9rem;
+      text-decoration: none; transition: opacity .2s, transform .2s;
+    }
+    .contact-link:hover { opacity: .9; transform: translateY(-1px); }
+
+    /* Fecha actualización */
+    .update-note {
+      text-align: center; font-size: .82rem; color: #9CA3AF;
+      margin-top: 32px; padding-top: 24px; border-top: 1px solid #E5E7EB;
+    }
+
+    footer { background: #fff; border-top: 1px solid #E5E7EB; }
+
+    @media(max-width:900px){
+      .legal-layout{ grid-template-columns: 1fr; }
+      .legal-toc{ position: static; }
+    }
+    @media(max-width:768px){
+      .nav{ flex-wrap:wrap; height:auto; padding:14px 0; gap:12px; }
+      .nav-links{ width:100%; justify-content:center; gap:16px; flex-wrap:wrap; }
+      .legal-section{ padding:22px 18px; }
+      .rights-grid{ grid-template-columns: 1fr; }
+      .legal-hero{ padding:36px 0 40px; }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="container nav">
+    <a href="../" class="logo">
+      <img src="../logo-32.png" alt="ClearText IA" style="width:36px;height:36px;border-radius:9px;object-fit:contain;">
+      <span>ClearText</span>
+    </a>
+    <nav class="nav-links">
+      <a href="../#herramientas">Herramientas</a>
+      <a href="../#ventajas">Ventajas</a>
+      <a href="../acerca/">Acerca de</a>
+      <a href="../contacto/">Contacto</a>
+    </nav>
+    <a href="../#herramientas" class="btn-nav">Usar gratis</a>
+  </div>
+</header>
+
+<!-- Hero -->
+<div class="legal-hero">
+  <div class="container">
+    <div class="badge">🔒 Privacidad</div>
+    <h1>Política de Privacidad</h1>
+    <p>Última actualización: junio de 2026 · cleartext-app.com</p>
+  </div>
+</div>
+
+<main>
+  <div class="container">
+    <div class="legal-layout">
+
+      <!-- Índice -->
+      <aside class="legal-toc">
+        <div class="toc-title">Contenido</div>
+        <nav class="toc-list">
+          <a class="toc-item" href="#quienes-somos"><span class="toc-num">1</span>Quiénes somos</a>
+          <a class="toc-item" href="#datos-recopilados"><span class="toc-num">2</span>Datos recopilados</a>
+          <a class="toc-item" href="#api-claude"><span class="toc-num">3</span>API de Claude</a>
+          <a class="toc-item" href="#cookies-analytics"><span class="toc-num">4</span>Cookies y Analytics</a>
+          <a class="toc-item" href="#google-adsense"><span class="toc-num">5</span>Google AdSense</a>
+          <a class="toc-item" href="#terceros"><span class="toc-num">6</span>Terceros</a>
+          <a class="toc-item" href="#derechos"><span class="toc-num">7</span>Tus derechos</a>
+          <a class="toc-item" href="#menores"><span class="toc-num">8</span>Menores</a>
+          <a class="toc-item" href="#cambios"><span class="toc-num">9</span>Cambios</a>
+          <a class="toc-item" href="#contacto"><span class="toc-num">10</span>Contacto</a>
+        </nav>
+      </aside>
+
+      <!-- Contenido -->
+      <div class="legal-content">
+
+        <!-- 1. Quiénes somos -->
+        <div class="legal-section" id="quienes-somos">
+          <div class="section-header">
+            <div class="section-icon">🏠</div>
+            <div>
+              <div class="section-num">Sección 1</div>
+              <div class="section-title">Quiénes somos</div>
+            </div>
+          </div>
+          <p>
+            <strong>ClearText</strong> es una plataforma web de herramientas de texto gratuitas
+            con inteligencia artificial, disponible en <strong>cleartext-app.com</strong>.
+            Ofrecemos 10 herramientas sin registro ni coste: detector de IA, humanizador de texto,
+            contador de palabras, generador de hashtags, corrector de acentos, resumidor de emails,
+            generador de nombres de empresa, simplificador legal, traductor de jerga y extractor
+            de texto de imágenes (OCR).
+          </p>
+          <p>
+            Esta Política de Privacidad describe cómo tratamos la información cuando usas nuestro
+            servicio. Si tienes alguna duda, puedes contactarnos a través de la página de contacto.
+          </p>
+        </div>
+
+        <!-- 2. Datos recopilados -->
+        <div class="legal-section" id="datos-recopilados">
+          <div class="section-header">
+            <div class="section-icon">📋</div>
+            <div>
+              <div class="section-num">Sección 2</div>
+              <div class="section-title">Qué datos recopilamos</div>
+            </div>
+          </div>
+
+          <div class="highlight-box">
+            <span class="highlight-box-icon">✅</span>
+            <span><strong>ClearText no requiere registro.</strong> No pedimos nombre, email ni ningún dato personal para usar las herramientas.</span>
+          </div>
+
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Tipo de dato</th>
+                <th>¿Se recopila?</th>
+                <th>Por quién</th>
+                <th>Para qué</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Nombre o email</td>
+                <td><span class="tag-no">No</span></td>
+                <td>—</td>
+                <td>—</td>
+              </tr>
+              <tr>
+                <td>Textos que introduces</td>
+                <td><span class="tag-no">No almacenados</span></td>
+                <td>API de Claude (tránsito)</td>
+                <td>Procesamiento en tiempo real</td>
+              </tr>
+              <tr>
+                <td>Imágenes subidas</td>
+                <td><span class="tag-no">No almacenadas</span></td>
+                <td>API de Claude (tránsito)</td>
+                <td>Extracción OCR en tiempo real</td>
+              </tr>
+              <tr>
+                <td>Dirección IP</td>
+                <td><span class="tag-third">Terceros</span></td>
+                <td>Google Analytics</td>
+                <td>Estadísticas de uso anónimas</td>
+              </tr>
+              <tr>
+                <td>Páginas visitadas</td>
+                <td><span class="tag-third">Terceros</span></td>
+                <td>Google Analytics</td>
+                <td>Estadísticas de uso anónimas</td>
+              </tr>
+              <tr>
+                <td>Cookies publicitarias</td>
+                <td><span class="tag-yes">Sí (opt-out posible)</span></td>
+                <td>Google AdSense</td>
+                <td>Mostrar anuncios relevantes</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p>
+            En resumen: <strong>nosotros directamente no recopilamos ningún dato personal tuyo.</strong>
+            Los servicios de terceros que sí procesan datos (Google Analytics y AdSense) están sujetos
+            a sus propias políticas de privacidad.
+          </p>
+        </div>
+
+        <!-- 3. API de Claude -->
+        <div class="legal-section" id="api-claude">
+          <div class="section-header">
+            <div class="section-icon">🤖</div>
+            <div>
+              <div class="section-num">Sección 3</div>
+              <div class="section-title">Uso de la API de Claude (Anthropic)</div>
+            </div>
+          </div>
+
+          <p>
+            Las herramientas de ClearText utilizan la <strong>API de Claude</strong>, desarrollada
+            por Anthropic, para procesar los textos e imágenes que introduces. Este procesamiento
+            funciona de la siguiente manera:
+          </p>
+
+          <ul>
+            <li>El texto o imagen que introduces se envía de forma cifrada (HTTPS) a los servidores de Anthropic para su procesamiento.</li>
+            <li>La respuesta de la IA se devuelve a tu navegador y se muestra en pantalla.</li>
+            <li><strong>ClearText no guarda en ningún servidor propio el texto que introduces ni la respuesta de la IA.</strong></li>
+            <li>Anthropic puede procesar las solicitudes según su propia política de privacidad y términos de uso.</li>
+          </ul>
+
+          <div class="highlight-box">
+            <span class="highlight-box-icon">🔒</span>
+            <span>
+              Anthropic indica en su política que los datos enviados a través de la API no se usan
+              para entrenar modelos por defecto. Puedes consultar la política completa en
+              <strong>anthropic.com/privacy</strong>.
+            </span>
+          </div>
+
+          <p>
+            Te recomendamos <strong>no introducir información personal sensible</strong>
+            (contraseñas, datos bancarios, números de identificación, etc.) en ninguna de las
+            herramientas, ya que el texto pasa por los servidores de un tercero (Anthropic).
+          </p>
+        </div>
+
+        <!-- 4. Cookies y Analytics -->
+        <div class="legal-section" id="cookies-analytics">
+          <div class="section-header">
+            <div class="section-icon">🍪</div>
+            <div>
+              <div class="section-num">Sección 4</div>
+              <div class="section-title">Cookies y Google Analytics</div>
+            </div>
+          </div>
+
+          <p>
+            ClearText utiliza <strong>Google Analytics 4</strong> para recopilar estadísticas
+            anónimas de uso: qué páginas son más visitadas, de qué países vienen los usuarios, cuánto
+            tiempo pasan en cada herramienta, etc. Esta información nos ayuda a mejorar el servicio.
+          </p>
+
+          <p><strong>Qué cookies instala Google Analytics:</strong></p>
+          <ul>
+            <li><strong>_ga:</strong> identifica de forma anónima a los usuarios únicos. Duración: 2 años.</li>
+            <li><strong>_ga_XXXXXXX:</strong> mantiene el estado de la sesión. Duración: 2 años.</li>
+            <li><strong>_gid:</strong> distingue a los usuarios durante 24 horas.</li>
+          </ul>
+
+          <div class="warning-box">
+            <span>⚠️</span>
+            <span>
+              Estos datos son completamente anónimos y no incluyen ningún texto que hayas introducido
+              en las herramientas. Google Analytics solo registra tu comportamiento de navegación,
+              no el contenido que procesas.
+            </span>
+          </div>
+
+          <p>
+            Puedes optar por no ser rastreado instalando la extensión oficial de Google:
+            <strong>tools.google.com/dlpage/gaoptout</strong>.
+          </p>
+        </div>
+
+        <!-- 5. Google AdSense -->
+        <div class="legal-section" id="google-adsense">
+          <div class="section-header">
+            <div class="section-icon">📢</div>
+            <div>
+              <div class="section-num">Sección 5</div>
+              <div class="section-title">Google AdSense y publicidad</div>
+            </div>
+          </div>
+
+          <p>
+            ClearText se financia mediante publicidad contextual de <strong>Google AdSense</strong>.
+            Esto significa que Google puede mostrar anuncios relevantes basándose en el contenido de
+            la página y, si lo has permitido, en tus intereses y comportamiento de navegación previo.
+          </p>
+
+          <p><strong>Cómo funciona AdSense:</strong></p>
+          <ul>
+            <li>Google utiliza cookies para mostrar anuncios personalizados a los usuarios que lo han consentido.</li>
+            <li>Los anuncios que ves pueden basarse en tu historial de navegación en otros sitios web.</li>
+            <li>ClearText <strong>no tiene acceso</strong> a los datos de AdSense ni los comparte con terceros ajenos a Google.</li>
+            <li>Google cumple con el Reglamento General de Protección de Datos (RGPD) como encargado del tratamiento.</li>
+          </ul>
+
+          <p>
+            Puedes controlar la personalización de anuncios de Google en:
+            <strong>adssettings.google.com</strong>.
+            También puedes rechazar las cookies publicitarias a través de la configuración de tu
+            navegador o mediante la plataforma <strong>youronlinechoices.com</strong>.
+          </p>
+        </div>
+
+        <!-- 6. Terceros -->
+        <div class="legal-section" id="terceros">
+          <div class="section-header">
+            <div class="section-icon">🔗</div>
+            <div>
+              <div class="section-num">Sección 6</div>
+              <div class="section-title">Servicios de terceros</div>
+            </div>
+          </div>
+
+          <p>ClearText integra los siguientes servicios de terceros:</p>
+
+          <table class="data-table">
+            <thead>
+              <tr><th>Servicio</th><th>Proveedor</th><th>Finalidad</th><th>Política de privacidad</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Claude API</td>
+                <td>Anthropic, PBC</td>
+                <td>Procesamiento de texto e imágenes con IA</td>
+                <td>anthropic.com/privacy</td>
+              </tr>
+              <tr>
+                <td>Google Analytics 4</td>
+                <td>Google LLC</td>
+                <td>Estadísticas de uso anónimas</td>
+                <td>policies.google.com/privacy</td>
+              </tr>
+              <tr>
+                <td>Google AdSense</td>
+                <td>Google LLC</td>
+                <td>Publicidad contextual</td>
+                <td>policies.google.com/privacy</td>
+              </tr>
+              <tr>
+                <td>Vercel</td>
+                <td>Vercel Inc.</td>
+                <td>Hosting y distribución de la web</td>
+                <td>vercel.com/legal/privacy-policy</td>
+              </tr>
+              <tr>
+                <td>Google Fonts</td>
+                <td>Google LLC</td>
+                <td>Tipografía (fuente Inter)</td>
+                <td>policies.google.com/privacy</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p>
+            ClearText no vende, alquila ni comparte ningún dato personal con terceros distintos
+            a los mencionados en esta tabla y exclusivamente para las finalidades descritas.
+          </p>
+        </div>
+
+        <!-- 7. Derechos -->
+        <div class="legal-section" id="derechos">
+          <div class="section-header">
+            <div class="section-icon">⚖️</div>
+            <div>
+              <div class="section-num">Sección 7</div>
+              <div class="section-title">Tus derechos (RGPD)</div>
+            </div>
+          </div>
+
+          <p>
+            De acuerdo con el Reglamento General de Protección de Datos (RGPD) de la Unión Europea,
+            tienes los siguientes derechos respecto a tus datos personales:
+          </p>
+
+          <div class="rights-grid">
+            <div class="right-card">
+              <div class="right-card-title">👁️ Acceso</div>
+              <div class="right-card-desc">Puedes solicitar información sobre qué datos tenemos sobre ti.</div>
+            </div>
+            <div class="right-card">
+              <div class="right-card-title">✏️ Rectificación</div>
+              <div class="right-card-desc">Puedes pedir que corrijamos datos incorrectos o incompletos.</div>
+            </div>
+            <div class="right-card">
+              <div class="right-card-title">🗑️ Supresión</div>
+              <div class="right-card-desc">Puedes solicitar que eliminemos tus datos personales ("derecho al olvido").</div>
+            </div>
+            <div class="right-card">
+              <div class="right-card-title">🚫 Oposición</div>
+              <div class="right-card-desc">Puedes oponerte al tratamiento de tus datos para fines publicitarios.</div>
+            </div>
+            <div class="right-card">
+              <div class="right-card-title">📦 Portabilidad</div>
+              <div class="right-card-desc">Puedes solicitar tus datos en un formato estructurado y legible por máquina.</div>
+            </div>
+            <div class="right-card">
+              <div class="right-card-title">⏸️ Limitación</div>
+              <div class="right-card-desc">Puedes solicitar que limitemos el tratamiento de tus datos en ciertos casos.</div>
+            </div>
+          </div>
+
+          <p style="margin-top:18px;">
+            Dado que ClearText <strong>no almacena datos personales propios</strong>, el ejercicio
+            de la mayoría de estos derechos debe dirigirse directamente a los terceros que sí procesan
+            datos (Google, Anthropic). Para dudas específicas sobre nuestra web, puedes contactarnos.
+          </p>
+        </div>
+
+        <!-- 8. Menores -->
+        <div class="legal-section" id="menores">
+          <div class="section-header">
+            <div class="section-icon">👶</div>
+            <div>
+              <div class="section-num">Sección 8</div>
+              <div class="section-title">Menores de edad</div>
+            </div>
+          </div>
+          <p>
+            ClearText no está dirigido a menores de 14 años. Si eres menor de 14 años, por favor
+            no uses este servicio sin la supervisión de un adulto responsable. No recopilamos
+            intencionadamente datos de menores de edad.
+          </p>
+          <p>
+            Si tienes conocimiento de que un menor ha proporcionado datos personales a través de
+            nuestra web, contáctanos para que podamos tomar las medidas oportunas.
+          </p>
+        </div>
+
+        <!-- 9. Cambios -->
+        <div class="legal-section" id="cambios">
+          <div class="section-header">
+            <div class="section-icon">🔄</div>
+            <div>
+              <div class="section-num">Sección 9</div>
+              <div class="section-title">Cambios en esta política</div>
+            </div>
+          </div>
+          <p>
+            Podemos actualizar esta Política de Privacidad en cualquier momento para reflejar cambios
+            en el servicio, en la legislación aplicable o en nuestras prácticas. Cuando lo hagamos,
+            actualizaremos la fecha de "última actualización" que aparece al inicio de esta página.
+          </p>
+          <p>
+            Te recomendamos revisar esta política periódicamente. El uso continuado de ClearText
+            después de cualquier modificación implica tu aceptación de la política actualizada.
+          </p>
+        </div>
+
+        <!-- 10. Contacto -->
+        <div class="legal-section" id="contacto">
+          <div class="section-header">
+            <div class="section-icon">✉️</div>
+            <div>
+              <div class="section-num">Sección 10</div>
+              <div class="section-title">Contacto</div>
+            </div>
+          </div>
+          <p>
+            Si tienes cualquier pregunta sobre esta Política de Privacidad, sobre cómo tratamos tus
+            datos o quieres ejercer alguno de tus derechos, puedes contactarnos a través de nuestra
+            página de contacto:
+          </p>
+          <div class="contact-card">
+            <p>Estamos disponibles para resolver cualquier duda sobre privacidad o protección de datos.</p>
+            <a href="../contacto/" class="contact-link">✉️ Ir a la página de contacto</a>
+          </div>
+        </div>
+
+        <div class="update-note">
+          Política de Privacidad de ClearText · cleartext-app.com<br>
+          Última actualización: junio de 2026
+        </div>
+
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-info">
+        <div class="logo" style="margin-bottom:10px;">
+          <img src="../logo-32.png" alt="ClearText IA" style="width:34px;height:34px;border-radius:9px;object-fit:contain;">
+          <span>ClearText</span>
+        </div>
+        <p>Herramientas de texto potenciadas por IA. Gratis, privado y sin registro.</p>
+      </div>
+      <div class="footer-links">
+        <a href="../privacidad/">Privacidad</a>
+        <a href="../terminos/">Términos</a>
+        <a href="../acerca/">Acerca de</a>
+        <a href="../contacto/">Contacto</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 ClearText. Todos los derechos reservados.</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
