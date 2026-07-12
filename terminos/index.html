@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Términos de Uso | ClearText</title>
+  <meta name="description" content="Términos y condiciones de uso de ClearText IA. Condiciones del servicio gratuito de herramientas de texto con IA.">
+  <meta name="robots" content="index, follow">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+
+  <style>
+    * { box-sizing: border-box; }
+
+    header {
+      background: #ffffff; border-bottom: 1px solid #E5E7EB;
+      box-shadow: 0 2px 12px rgba(124,58,237,0.07); backdrop-filter: none;
+    }
+    .logo { color: #111827; }
+    .nav-links a { color: #6B7280; }
+    .nav-links a:hover { color: #7C3AED; }
+    .btn-nav {
+      background: linear-gradient(135deg,#A78BFA,#7C3AED);
+      color: #fff; border: none; padding: 9px 20px; border-radius: 10px;
+      font-weight: 600; font-size: 0.9rem; cursor: pointer;
+      display: inline-flex; align-items: center; text-decoration: none;
+      transition: opacity .2s, transform .2s;
+    }
+    .btn-nav:hover { opacity: .9; transform: translateY(-1px); }
+
+    /* Hero */
+    .legal-hero {
+      background: linear-gradient(135deg,#7C3AED,#5B21B6);
+      padding: 48px 0 52px; margin-bottom: 52px; text-align: center;
+    }
+    .legal-hero .badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.3);
+      color: #fff; padding: 6px 14px; border-radius: 9999px;
+      font-size: .82rem; font-weight: 600; margin-bottom: 18px;
+    }
+    .legal-hero h1 {
+      font-size: clamp(1.8rem,4vw,2.8rem); font-weight: 800;
+      color: #fff; margin-bottom: 12px; letter-spacing: -.5px;
+    }
+    .legal-hero p { font-size: .95rem; color: rgba(255,255,255,.75); }
+
+    /* Layout */
+    .legal-layout {
+      display: grid; grid-template-columns: 220px 1fr;
+      gap: 40px; align-items: start; max-width: 1060px; margin: 0 auto;
+    }
+
+    /* Índice lateral */
+    .legal-toc {
+      position: sticky; top: 96px;
+      background: #F5F3FF; border: 1px solid #EDE9FE;
+      border-radius: 14px; padding: 20px;
+    }
+    .toc-title {
+      font-size: .75rem; font-weight: 700; color: #9CA3AF;
+      text-transform: uppercase; letter-spacing: .06em; margin-bottom: 14px;
+    }
+    .toc-list { display: flex; flex-direction: column; gap: 4px; }
+    .toc-item {
+      display: flex; align-items: center; gap: 8px;
+      padding: 7px 10px; border-radius: 8px;
+      font-size: .82rem; font-weight: 500; color: #6B7280;
+      text-decoration: none; transition: background .15s, color .15s;
+    }
+    .toc-item:hover { background: #EDE9FE; color: #7C3AED; }
+    .toc-num {
+      width: 20px; height: 20px; border-radius: 50%;
+      background: #EDE9FE; color: #7C3AED;
+      font-size: .68rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+
+    /* Secciones */
+    .legal-content { min-width: 0; }
+    .legal-section {
+      background: #fff; border: 1px solid #E5E7EB; border-radius: 16px;
+      padding: 28px 32px; margin-bottom: 20px; scroll-margin-top: 100px;
+    }
+    .section-header {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 18px;
+      padding-bottom: 16px; border-bottom: 1px solid #F3F4F6;
+    }
+    .section-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: #EDE9FE; display: flex; align-items: center;
+      justify-content: center; font-size: 1.1rem; flex-shrink: 0;
+    }
+    .section-title { font-size: 1.1rem; font-weight: 700; color: #111827; }
+    .section-num   { font-size: .75rem; color: #9CA3AF; font-weight: 500; margin-top: 1px; }
+
+    .legal-content p {
+      font-size: .94rem; color: #374151; line-height: 1.75; margin-bottom: 14px;
+    }
+    .legal-content p:last-child { margin-bottom: 0; }
+    .legal-content strong { font-weight: 600; color: #111827; }
+
+    .legal-content ul {
+      margin: 10px 0 14px; display: flex; flex-direction: column; gap: 8px;
+    }
+    .legal-content ul li {
+      font-size: .93rem; color: #374151; line-height: 1.6;
+      display: flex; align-items: flex-start; gap: 8px;
+    }
+    .legal-content ul li::before {
+      content: '✓'; color: #7C3AED; font-weight: 700; flex-shrink: 0; margin-top: 1px;
+    }
+
+    /* Listas de uso prohibido */
+    .legal-content ul.prohibited li::before { content: '✕'; color: #DC2626; }
+
+    /* Highlight / warning boxes */
+    .highlight-box {
+      background: #F0FDF4; border: 1px solid #BBF7D0; border-radius: 12px;
+      padding: 14px 18px; margin: 14px 0;
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: .9rem; color: #14532D; line-height: 1.55;
+    }
+    .warning-box {
+      background: #FEF2F2; border: 1px solid #FECACA; border-radius: 12px;
+      padding: 14px 18px; margin: 14px 0;
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: .9rem; color: #7F1D1D; line-height: 1.55;
+    }
+    .info-box {
+      background: #FFFBEB; border: 1px solid #FDE68A; border-radius: 12px;
+      padding: 14px 18px; margin: 14px 0;
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: .9rem; color: #78350F; line-height: 1.55;
+    }
+    .box-icon { font-size: 1.1rem; flex-shrink: 0; }
+
+    /* Tabla de usos permitidos/prohibidos */
+    .use-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 14px 0;
+    }
+    .use-card {
+      border-radius: 12px; padding: 16px 18px;
+    }
+    .use-card.allowed  { background: #F0FDF4; border: 1px solid #BBF7D0; }
+    .use-card.banned   { background: #FEF2F2; border: 1px solid #FECACA; }
+    .use-card-title {
+      font-size: .85rem; font-weight: 700; margin-bottom: 10px;
+      display: flex; align-items: center; gap: 7px;
+    }
+    .use-card.allowed .use-card-title { color: #15803D; }
+    .use-card.banned  .use-card-title { color: #DC2626; }
+    .use-card ul { margin: 0; }
+    .use-card ul li { font-size: .83rem; color: #374151; }
+    .use-card.allowed ul li::before { content: '✓'; color: #16A34A; }
+    .use-card.banned  ul li::before { content: '✕'; color: #DC2626; }
+
+    /* Responsabilidad */
+    .liability-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 14px 0;
+    }
+    .liability-card {
+      background: #FAFAFA; border: 1px solid #E5E7EB; border-radius: 10px;
+      padding: 14px 16px;
+    }
+    .liability-card-title {
+      font-size: .85rem; font-weight: 700; color: #374151;
+      display: flex; align-items: center; gap: 6px; margin-bottom: 6px;
+    }
+    .liability-card p { font-size: .82rem; color: #6B7280; line-height: 1.5; margin: 0; }
+
+    /* Propiedad intelectual */
+    .ip-row {
+      display: flex; align-items: flex-start; gap: 12px;
+      background: #F5F3FF; border: 1px solid #EDE9FE; border-radius: 10px;
+      padding: 14px 16px; margin-bottom: 10px;
+    }
+    .ip-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 1px; }
+    .ip-body {}
+    .ip-title { font-size: .88rem; font-weight: 700; color: #5B21B6; margin-bottom: 3px; }
+    .ip-desc  { font-size: .83rem; color: #6B7280; line-height: 1.5; }
+
+    /* Contacto */
+    .contact-card {
+      background: linear-gradient(135deg,#F5F3FF,#EDE9FE);
+      border: 1px solid #C4B5FD; border-radius: 12px;
+      padding: 20px 24px; text-align: center; margin-top: 8px;
+    }
+    .contact-card p { font-size: .93rem; color: #374151; margin-bottom: 14px; }
+    .contact-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 10px 22px;
+      background: linear-gradient(135deg,#A78BFA,#7C3AED);
+      color: #fff; border-radius: 10px; font-weight: 600; font-size: .9rem;
+      text-decoration: none; transition: opacity .2s, transform .2s;
+    }
+    .contact-link:hover { opacity: .9; transform: translateY(-1px); }
+
+    .update-note {
+      text-align: center; font-size: .82rem; color: #9CA3AF;
+      margin-top: 32px; padding-top: 24px; border-top: 1px solid #E5E7EB;
+    }
+
+    footer { background: #fff; border-top: 1px solid #E5E7EB; }
+
+    @media(max-width:900px){
+      .legal-layout{ grid-template-columns: 1fr; }
+      .legal-toc{ position: static; }
+    }
+    @media(max-width:768px){
+      .nav{ flex-wrap:wrap; height:auto; padding:14px 0; gap:12px; }
+      .nav-links{ width:100%; justify-content:center; gap:16px; flex-wrap:wrap; }
+      .legal-section{ padding:22px 18px; }
+      .use-grid{ grid-template-columns: 1fr; }
+      .liability-grid{ grid-template-columns: 1fr; }
+      .legal-hero{ padding:36px 0 40px; }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="container nav">
+    <a href="../" class="logo">
+      <img src="../logo-32.png" alt="ClearText IA" style="width:36px;height:36px;border-radius:9px;object-fit:contain;">
+      <span>ClearText</span>
+    </a>
+    <nav class="nav-links">
+      <a href="../#herramientas">Herramientas</a>
+      <a href="../#ventajas">Ventajas</a>
+      <a href="../acerca/">Acerca de</a>
+      <a href="../contacto/">Contacto</a>
+    </nav>
+    <a href="../#herramientas" class="btn-nav">Usar gratis</a>
+  </div>
+</header>
+
+<!-- Hero -->
+<div class="legal-hero">
+  <div class="container">
+    <div class="badge">📄 Legal</div>
+    <h1>Términos de Uso</h1>
+    <p>Última actualización: junio de 2026 · cleartext-app.com</p>
+  </div>
+</div>
+
+<main>
+  <div class="container" style="padding-bottom: 80px;">
+    <div class="legal-layout">
+
+      <!-- Índice -->
+      <aside class="legal-toc">
+        <div class="toc-title">Contenido</div>
+        <nav class="toc-list">
+          <a class="toc-item" href="#descripcion"><span class="toc-num">1</span>Descripción del servicio</a>
+          <a class="toc-item" href="#acceso"><span class="toc-num">2</span>Acceso y condiciones</a>
+          <a class="toc-item" href="#uso-aceptable"><span class="toc-num">3</span>Uso aceptable</a>
+          <a class="toc-item" href="#contenido-usuario"><span class="toc-num">4</span>Contenido del usuario</a>
+          <a class="toc-item" href="#responsabilidad"><span class="toc-num">5</span>Limitación de responsabilidad</a>
+          <a class="toc-item" href="#propiedad-intelectual"><span class="toc-num">6</span>Propiedad intelectual</a>
+          <a class="toc-item" href="#disponibilidad"><span class="toc-num">7</span>Disponibilidad</a>
+          <a class="toc-item" href="#cambios"><span class="toc-num">8</span>Cambios en los términos</a>
+          <a class="toc-item" href="#ley-aplicable"><span class="toc-num">9</span>Ley aplicable</a>
+          <a class="toc-item" href="#contacto"><span class="toc-num">10</span>Contacto</a>
+        </nav>
+      </aside>
+
+      <!-- Contenido -->
+      <div class="legal-content">
+
+        <!-- INTRO -->
+        <div class="legal-section" style="background:#F5F3FF;border-color:#C4B5FD;">
+          <p style="margin:0;font-size:.95rem;">
+            Al acceder y utilizar <strong>ClearText</strong>, aceptas estos
+            Términos de Uso. Si no estás de acuerdo con alguno de ellos, por favor deja de usar el servicio.
+            El uso continuado de la web implica la aceptación de estos términos en su versión vigente.
+          </p>
+        </div>
+
+        <!-- 1. Descripción -->
+        <div class="legal-section" id="descripcion">
+          <div class="section-header">
+            <div class="section-icon">🛠️</div>
+            <div>
+              <div class="section-num">Sección 1</div>
+              <div class="section-title">Descripción del servicio</div>
+            </div>
+          </div>
+
+          <p>
+            <strong>ClearText</strong> es una plataforma web que ofrece herramientas de
+            procesamiento de texto gratuitas basadas en inteligencia artificial. El servicio está
+            disponible en <strong>cleartext-app.com</strong> y actualmente incluye las siguientes
+            herramientas:
+          </p>
+
+          <ul>
+            <li>Detector de IA en textos</li>
+            <li>Humanizador de texto generado por IA</li>
+            <li>Contador de palabras avanzado</li>
+            <li>Generador de hashtags para redes sociales</li>
+            <li>Corrector de acentos y tildes en español</li>
+            <li>Resumidor de emails</li>
+            <li>Generador de nombres de empresa</li>
+            <li>Simplificador de textos legales</li>
+            <li>Traductor de jerga entre países hispanohablantes</li>
+            <li>Extractor de texto de imágenes (OCR)</li>
+          </ul>
+
+          <div class="highlight-box">
+            <span class="box-icon">✅</span>
+            <span>
+              Todas las herramientas son <strong>completamente gratuitas</strong> y no requieren
+              registro ni creación de cuenta. El servicio se financia mediante publicidad de
+              Google AdSense.
+            </span>
+          </div>
+
+          <p>
+            Nos reservamos el derecho de añadir, modificar o retirar herramientas en cualquier momento,
+            así como de cambiar el modelo de financiación del servicio con aviso previo razonable.
+          </p>
+        </div>
+
+        <!-- 2. Acceso -->
+        <div class="legal-section" id="acceso">
+          <div class="section-header">
+            <div class="section-icon">🔑</div>
+            <div>
+              <div class="section-num">Sección 2</div>
+              <div class="section-title">Acceso y condiciones de uso</div>
+            </div>
+          </div>
+
+          <p>Para usar ClearText debes:</p>
+
+          <ul>
+            <li>Tener al menos <strong>14 años de edad</strong> o contar con la supervisión de un adulto responsable.</li>
+            <li>Acceder al servicio desde un navegador web moderno con conexión a internet.</li>
+            <li>Usar el servicio de forma personal y no comercial a gran escala sin autorización previa.</li>
+            <li>Respetar estos Términos de Uso y la legislación aplicable en tu país.</li>
+          </ul>
+
+          <p>
+            No es necesario crear una cuenta. El acceso al servicio es inmediato y gratuito
+            para cualquier usuario que acepte estos términos.
+          </p>
+        </div>
+
+        <!-- 3. Uso aceptable -->
+        <div class="legal-section" id="uso-aceptable">
+          <div class="section-header">
+            <div class="section-icon">✅</div>
+            <div>
+              <div class="section-num">Sección 3</div>
+              <div class="section-title">Uso aceptable</div>
+            </div>
+          </div>
+
+          <p>
+            ClearText está diseñado para usos legítimos y productivos. A continuación se detallan
+            los usos permitidos y los que están expresamente prohibidos:
+          </p>
+
+          <div class="use-grid">
+            <div class="use-card allowed">
+              <div class="use-card-title">✅ Usos permitidos</div>
+              <ul>
+                <li>Mejorar textos propios o profesionales</li>
+                <li>Detectar si un texto fue generado por IA</li>
+                <li>Resumir correos electrónicos personales</li>
+                <li>Generar hashtags para tus publicaciones</li>
+                <li>Extraer texto de imágenes propias</li>
+                <li>Simplificar documentos legales para entenderlos</li>
+                <li>Uso educativo y académico</li>
+                <li>Uso profesional individual</li>
+              </ul>
+            </div>
+            <div class="use-card banned">
+              <div class="use-card-title">✕ Usos prohibidos</div>
+              <ul>
+                <li>Generar contenido falso o desinformación</li>
+                <li>Procesar datos personales de terceros sin consentimiento</li>
+                <li>Usar el servicio para actividades ilegales</li>
+                <li>Automatizar solicitudes de forma masiva (bots)</li>
+                <li>Intentar comprometer la seguridad de la web</li>
+                <li>Revender el servicio o sus resultados como producto propio</li>
+                <li>Procesar contenido que infrinja derechos de terceros</li>
+                <li>Usar el servicio para acosar o dañar a personas</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="warning-box">
+            <span class="box-icon">⚠️</span>
+            <span>
+              El incumplimiento de estas condiciones puede resultar en el bloqueo del acceso al
+              servicio y, si corresponde, en acciones legales. Nos reservamos el derecho de
+              bloquear IPs que hagan un uso abusivo de la plataforma.
+            </span>
+          </div>
+        </div>
+
+        <!-- 4. Contenido del usuario -->
+        <div class="legal-section" id="contenido-usuario">
+          <div class="section-header">
+            <div class="section-icon">📝</div>
+            <div>
+              <div class="section-num">Sección 4</div>
+              <div class="section-title">Contenido que introduces en las herramientas</div>
+            </div>
+          </div>
+
+          <p>
+            Cuando introduces texto, imágenes u otro contenido en las herramientas de ClearText,
+            declaras y garantizas que:
+          </p>
+
+          <ul>
+            <li>Eres el propietario del contenido o tienes los derechos necesarios para procesarlo.</li>
+            <li>El contenido no infringe derechos de propiedad intelectual de terceros.</li>
+            <li>El contenido no incluye datos personales sensibles de terceros sin su consentimiento.</li>
+            <li>El contenido no es ilegal, difamatorio, obsceno ni incita a la violencia o el odio.</li>
+          </ul>
+
+          <div class="highlight-box">
+            <span class="box-icon">🔒</span>
+            <span>
+              <strong>ClearText no almacena el contenido que introduces.</strong> Los textos
+              e imágenes se envían a la API de Anthropic (Claude) para su procesamiento y
+              no se guardan en ningún servidor propio. Consulta nuestra
+              <a href="../privacidad/" style="color:#15803D;font-weight:600;">Política de Privacidad</a>
+              para más detalles.
+            </span>
+          </div>
+
+          <p>
+            ClearText no es responsable del contenido que los usuarios introduzcan en las
+            herramientas. El usuario es el único responsable del contenido que procesa y de los
+            resultados que obtiene.
+          </p>
+        </div>
+
+        <!-- 5. Limitación de responsabilidad -->
+        <div class="legal-section" id="responsabilidad">
+          <div class="section-header">
+            <div class="section-icon">⚖️</div>
+            <div>
+              <div class="section-num">Sección 5</div>
+              <div class="section-title">Limitación de responsabilidad</div>
+            </div>
+          </div>
+
+          <p>
+            ClearText proporciona sus herramientas <strong>"tal como están"</strong>, sin
+            garantías expresas ni implícitas sobre la exactitud, completitud o idoneidad de los
+            resultados para un propósito específico.
+          </p>
+
+          <div class="liability-grid">
+            <div class="liability-card">
+              <div class="liability-card-title">🤖 Resultados de la IA</div>
+              <p>Los resultados generados por la IA pueden contener errores, imprecisiones o información desactualizada. No deben usarse como única fuente para decisiones importantes.</p>
+            </div>
+            <div class="liability-card">
+              <div class="liability-card-title">⚖️ Textos legales</div>
+              <p>La simplificación de textos legales es orientativa y no constituye asesoramiento jurídico profesional. Siempre consulta con un abogado para decisiones legales.</p>
+            </div>
+            <div class="liability-card">
+              <div class="liability-card-title">📊 Disponibilidad</div>
+              <p>No garantizamos la disponibilidad ininterrumpida del servicio. Pueden producirse interrupciones por mantenimiento, fallos técnicos o causas ajenas a nuestro control.</p>
+            </div>
+            <div class="liability-card">
+              <div class="liability-card-title">🔗 Terceros</div>
+              <p>No somos responsables de los servicios de terceros integrados (Google, Anthropic, Vercel). Su funcionamiento está sujeto a sus propios términos y condiciones.</p>
+            </div>
+          </div>
+
+          <div class="info-box">
+            <span class="box-icon">ℹ️</span>
+            <span>
+              En ningún caso ClearText será responsable de daños directos, indirectos,
+              incidentales, especiales o consecuentes derivados del uso o la imposibilidad de uso
+              del servicio, incluso si se ha advertido de la posibilidad de dichos daños.
+            </span>
+          </div>
+        </div>
+
+        <!-- 6. Propiedad intelectual -->
+        <div class="legal-section" id="propiedad-intelectual">
+          <div class="section-header">
+            <div class="section-icon">©️</div>
+            <div>
+              <div class="section-num">Sección 6</div>
+              <div class="section-title">Propiedad intelectual</div>
+            </div>
+          </div>
+
+          <p>
+            Esta sección describe los derechos de propiedad intelectual relativos a ClearText,
+            sus herramientas y el contenido que los usuarios procesan.
+          </p>
+
+          <div class="ip-row">
+            <span class="ip-icon">🏷️</span>
+            <div class="ip-body">
+              <div class="ip-title">Marca y diseño de ClearText IA</div>
+              <div class="ip-desc">El nombre "ClearText", el logotipo, el diseño visual y el código fuente de la web son propiedad de ClearText. Queda prohibida su reproducción, distribución o uso sin autorización expresa por escrito.</div>
+            </div>
+          </div>
+
+          <div class="ip-row">
+            <span class="ip-icon">✍️</span>
+            <div class="ip-body">
+              <div class="ip-title">Contenido introducido por el usuario</div>
+              <div class="ip-desc">El contenido que introduces en las herramientas sigue siendo tuyo. ClearText no reclama ningún derecho sobre los textos, imágenes u otro material que proceses con nuestras herramientas.</div>
+            </div>
+          </div>
+
+          <div class="ip-row">
+            <span class="ip-icon">🤖</span>
+            <div class="ip-body">
+              <div class="ip-title">Resultados generados por la IA</div>
+              <div class="ip-desc">Los textos generados o transformados por la IA a partir de tu contenido te pertenecen a ti como usuario. Sin embargo, ten en cuenta que la IA puede generar textos similares para diferentes usuarios con entradas parecidas.</div>
+            </div>
+          </div>
+
+          <div class="ip-row">
+            <span class="ip-icon">🔗</span>
+            <div class="ip-body">
+              <div class="ip-title">Tecnología de terceros</div>
+              <div class="ip-desc">Las tecnologías de terceros utilizadas (Claude de Anthropic, Google Analytics, etc.) son propiedad de sus respectivos titulares y están sujetas a sus propias condiciones de uso y licencias.</div>
+            </div>
+          </div>
+
+          <div class="ip-row">
+            <span class="ip-icon">🚫</span>
+            <div class="ip-body">
+              <div class="ip-title">Prohibición de uso no autorizado</div>
+              <div class="ip-desc">Queda expresamente prohibido copiar, reproducir, distribuir, modificar o crear obras derivadas de cualquier parte de ClearText sin autorización previa por escrito, salvo lo permitido por la legislación de propiedad intelectual aplicable.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7. Disponibilidad -->
+        <div class="legal-section" id="disponibilidad">
+          <div class="section-header">
+            <div class="section-icon">🌐</div>
+            <div>
+              <div class="section-num">Sección 7</div>
+              <div class="section-title">Disponibilidad del servicio</div>
+            </div>
+          </div>
+          <p>
+            ClearText aspira a ofrecer un servicio disponible las 24 horas del día, los 7 días
+            de la semana, pero no puede garantizar una disponibilidad del 100%. El servicio puede
+            interrumpirse por:
+          </p>
+          <ul>
+            <li>Mantenimiento programado o de emergencia de la plataforma.</li>
+            <li>Fallos en los servicios de terceros (Vercel, Anthropic, Google).</li>
+            <li>Causas de fuerza mayor o circunstancias ajenas a nuestro control.</li>
+            <li>Abuso del servicio que obligue a restricciones temporales.</li>
+          </ul>
+          <p>
+            Nos reservamos el derecho de suspender, modificar o discontinuar el servicio en
+            cualquier momento, con o sin previo aviso, sin que ello genere ninguna responsabilidad
+            frente al usuario.
+          </p>
+        </div>
+
+        <!-- 8. Cambios -->
+        <div class="legal-section" id="cambios">
+          <div class="section-header">
+            <div class="section-icon">🔄</div>
+            <div>
+              <div class="section-num">Sección 8</div>
+              <div class="section-title">Cambios en los términos</div>
+            </div>
+          </div>
+          <p>
+            Podemos modificar estos Términos de Uso en cualquier momento. Cuando lo hagamos,
+            actualizaremos la fecha de "última actualización" al inicio de esta página. Los cambios
+            entrarán en vigor desde el momento de su publicación.
+          </p>
+          <p>
+            El uso continuado de ClearText tras la publicación de cambios en los Términos
+            implica la aceptación de los nuevos términos. Si no estás de acuerdo con los cambios,
+            debes dejar de usar el servicio.
+          </p>
+        </div>
+
+        <!-- 9. Ley aplicable -->
+        <div class="legal-section" id="ley-aplicable">
+          <div class="section-header">
+            <div class="section-icon">🏛️</div>
+            <div>
+              <div class="section-num">Sección 9</div>
+              <div class="section-title">Ley aplicable y jurisdicción</div>
+            </div>
+          </div>
+          <p>
+            Estos Términos de Uso se rigen por la legislación española y, en lo que resulte
+            aplicable, por la normativa de la Unión Europea, incluyendo el Reglamento General de
+            Protección de Datos (RGPD) y la Ley de Servicios de la Sociedad de la Información (LSSI).
+          </p>
+          <p>
+            Para la resolución de cualquier controversia derivada del uso de ClearText IA, las
+            partes se someten a la jurisdicción de los juzgados y tribunales competentes según
+            la normativa vigente, sin perjuicio de otros fueros que pudieran resultar aplicables.
+          </p>
+        </div>
+
+        <!-- 10. Contacto -->
+        <div class="legal-section" id="contacto">
+          <div class="section-header">
+            <div class="section-icon">✉️</div>
+            <div>
+              <div class="section-num">Sección 10</div>
+              <div class="section-title">Contacto</div>
+            </div>
+          </div>
+          <p>
+            Si tienes alguna pregunta sobre estos Términos de Uso, quieres reportar un uso indebido
+            del servicio o necesitas contactar con nosotros por cualquier motivo legal, puedes
+            hacerlo a través de nuestra página de contacto:
+          </p>
+          <div class="contact-card">
+            <p>Respondemos a todas las consultas en un plazo máximo de 48 horas laborables.</p>
+            <a href="../contacto/" class="contact-link">✉️ Ir a la página de contacto</a>
+          </div>
+        </div>
+
+        <div class="update-note">
+          Términos de Uso de ClearText · cleartext-app.com<br>
+          Última actualización: junio de 2026
+        </div>
+
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-info">
+        <div class="logo" style="margin-bottom:10px;">
+          <img src="../logo-32.png" alt="ClearText IA" style="width:34px;height:34px;border-radius:9px;object-fit:contain;">
+          <span>ClearText</span>
+        </div>
+        <p>Herramientas de texto potenciadas por IA. Gratis, privado y sin registro.</p>
+      </div>
+      <div class="footer-links">
+        <a href="../privacidad/">Privacidad</a>
+        <a href="../terminos/">Términos</a>
+        <a href="../acerca/">Acerca de</a>
+        <a href="../contacto/">Contacto</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 ClearText. Todos los derechos reservados.</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
