@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Acerca de ClearText | Herramientas de texto con IA gratis</title>
+  <meta name="description" content="ClearText IA es una plataforma gratuita de herramientas de texto con inteligencia artificial, creada para hispanohablantes. Conoce nuestra misión y visión.">
+  <meta name="robots" content="index, follow">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+
+  <style>
+    * { box-sizing: border-box; }
+
+    header {
+      background: #ffffff; border-bottom: 1px solid #E5E7EB;
+      box-shadow: 0 2px 12px rgba(124,58,237,0.07); backdrop-filter: none;
+    }
+    .logo { color: #111827; }
+    .nav-links a { color: #6B7280; }
+    .nav-links a:hover { color: #7C3AED; }
+    .btn-nav {
+      background: linear-gradient(135deg,#A78BFA,#7C3AED);
+      color: #fff; border: none; padding: 9px 20px; border-radius: 10px;
+      font-weight: 600; font-size: 0.9rem; cursor: pointer;
+      display: inline-flex; align-items: center; text-decoration: none;
+      transition: opacity .2s, transform .2s;
+    }
+    .btn-nav:hover { opacity: .9; transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .about-hero {
+      background: linear-gradient(135deg,#7C3AED 0%,#5B21B6 55%,#3B0F8C 100%);
+      padding: 70px 0 80px; text-align: center; position: relative; overflow: hidden;
+    }
+    .about-hero::before {
+      content:''; position:absolute; top:-60px; right:-60px;
+      width:320px; height:320px; border-radius:50%;
+      background: rgba(196,181,253,.1); pointer-events:none;
+    }
+    .about-hero::after {
+      content:''; position:absolute; bottom:-40px; left:-40px;
+      width:220px; height:220px; border-radius:50%;
+      background: rgba(196,181,253,.07); pointer-events:none;
+    }
+    .hero-inner { position:relative; z-index:1; max-width:680px; margin:0 auto; }
+    .hero-badge {
+      display:inline-flex; align-items:center; gap:6px;
+      background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.3);
+      color:#fff; padding:6px 14px; border-radius:9999px;
+      font-size:.82rem; font-weight:600; margin-bottom:20px;
+    }
+    .about-hero h1 {
+      font-size:clamp(2rem,5vw,3.2rem); font-weight:800; color:#fff;
+      letter-spacing:-1px; margin-bottom:16px; line-height:1.1;
+    }
+    .about-hero p { font-size:1.05rem; color:rgba(255,255,255,.78); line-height:1.65; margin-bottom:32px; }
+    .hero-stats {
+      display:flex; justify-content:center; gap:40px; flex-wrap:wrap;
+    }
+    .hero-stat-n { font-size:2rem; font-weight:800; color:#fff; line-height:1; }
+    .hero-stat-l { font-size:.82rem; color:rgba(255,255,255,.6); margin-top:4px; }
+
+    /* ── CONTENIDO ── */
+    .about-page { padding: 60px 0 90px; }
+    .about-wrap { max-width: 860px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+
+    .about-card {
+      background:#fff; border:1px solid #E5E7EB; border-radius:16px; padding:32px;
+      box-shadow:0 2px 8px rgba(0,0,0,.04);
+    }
+
+    .card-header {
+      display:flex; align-items:center; gap:14px; margin-bottom:20px;
+      padding-bottom:18px; border-bottom:1px solid #F3F4F6;
+    }
+    .card-icon {
+      width:44px; height:44px; border-radius:12px;
+      background:#EDE9FE; display:flex; align-items:center;
+      justify-content:center; font-size:1.2rem; flex-shrink:0;
+    }
+    .card-title { font-size:1.15rem; font-weight:700; color:#111827; }
+    .card-sub   { font-size:.8rem; color:#9CA3AF; margin-top:2px; }
+
+    .about-card p {
+      font-size:.95rem; color:#374151; line-height:1.78; margin-bottom:14px;
+    }
+    .about-card p:last-child { margin-bottom:0; }
+    .about-card strong { font-weight:600; color:#111827; }
+
+    /* ── MISIÓN Y VISIÓN ── */
+    .mv-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+
+    .mv-card { border-radius:16px; padding:28px; }
+    .mv-card.mision {
+      background:linear-gradient(135deg,#7C3AED,#5B21B6); color:#fff;
+    }
+    .mv-card.vision {
+      background:linear-gradient(135deg,#F5F3FF,#EDE9FE);
+      border:1.5px solid #C4B5FD;
+    }
+    .mv-label {
+      font-size:.75rem; font-weight:700; text-transform:uppercase;
+      letter-spacing:.08em; margin-bottom:10px; opacity:.75;
+    }
+    .mv-card.mision .mv-label { color:rgba(255,255,255,.8); }
+    .mv-card.vision  .mv-label { color:#7C3AED; }
+    .mv-icon  { font-size:1.8rem; margin-bottom:12px; display:block; }
+    .mv-title {
+      font-size:1.1rem; font-weight:800; margin-bottom:10px; line-height:1.2;
+    }
+    .mv-card.mision .mv-title { color:#fff; }
+    .mv-card.vision  .mv-title { color:#5B21B6; }
+    .mv-text { font-size:.9rem; line-height:1.7; }
+    .mv-card.mision .mv-text { color:rgba(255,255,255,.85); }
+    .mv-card.vision  .mv-text { color:#374151; }
+
+    /* ── VALORES ── */
+    .valores-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:4px; }
+    .valor-card {
+      background:#FAFAFA; border:1px solid #E5E7EB; border-radius:12px; padding:18px 16px;
+      text-align:center; transition:border-color .2s, box-shadow .2s;
+    }
+    .valor-card:hover { border-color:#C4B5FD; box-shadow:0 4px 16px rgba(124,58,237,.08); }
+    .valor-emoji { font-size:1.6rem; margin-bottom:8px; display:block; }
+    .valor-name  { font-size:.88rem; font-weight:700; color:#111827; margin-bottom:4px; }
+    .valor-desc  { font-size:.78rem; color:#6B7280; line-height:1.5; }
+
+    /* ── HERRAMIENTAS ── */
+    .tools-grid {
+      display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-top:4px;
+    }
+    .tool-row {
+      display:flex; align-items:center; gap:12px;
+      background:#F5F3FF; border:1px solid #EDE9FE; border-radius:10px;
+      padding:13px 16px; transition:border-color .2s;
+    }
+    .tool-row:hover { border-color:#C4B5FD; }
+    .tool-row-icon {
+      width:36px; height:36px; border-radius:9px;
+      background:#EDE9FE; display:flex; align-items:center;
+      justify-content:center; font-size:1rem; flex-shrink:0;
+    }
+    .tool-row-name { font-size:.9rem; font-weight:600; color:#374151; }
+    .tool-row-desc { font-size:.78rem; color:#9CA3AF; margin-top:1px; }
+
+    /* ── STACK TECNOLÓGICO ── */
+    .stack-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:4px; }
+    .stack-pill {
+      display:flex; align-items:center; gap:8px;
+      background:#FAFAFA; border:1px solid #E5E7EB; border-radius:10px;
+      padding:12px 14px;
+    }
+    .stack-dot {
+      width:8px; height:8px; border-radius:50%; background:#7C3AED; flex-shrink:0;
+    }
+    .stack-name  { font-size:.85rem; font-weight:600; color:#374151; }
+    .stack-role  { font-size:.75rem; color:#9CA3AF; }
+
+    /* ── CTA ── */
+    .cta-banner {
+      background:linear-gradient(135deg,#7C3AED,#5B21B6);
+      border-radius:20px; padding:44px 40px; text-align:center;
+    }
+    .cta-banner h2 { font-size:1.6rem; font-weight:800; color:#fff; margin-bottom:10px; }
+    .cta-banner p  { font-size:.95rem; color:rgba(255,255,255,.78); margin-bottom:28px; }
+    .btn-cta {
+      display:inline-flex; align-items:center; gap:6px;
+      background:#fff; color:#7C3AED; padding:13px 28px;
+      border-radius:12px; font-weight:700; font-size:.97rem;
+      text-decoration:none; box-shadow:0 4px 16px rgba(0,0,0,.15);
+      transition:transform .2s, box-shadow .2s;
+    }
+    .btn-cta:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,0,0,.2); }
+
+    footer { background:#fff; border-top:1px solid #E5E7EB; }
+
+    @media(max-width:768px){
+      .nav{ flex-wrap:wrap; height:auto; padding:14px 0; gap:12px; }
+      .nav-links{ width:100%; justify-content:center; gap:16px; flex-wrap:wrap; }
+      .about-hero{ padding:52px 0 60px; }
+      .hero-stats{ gap:24px; }
+      .mv-grid{ grid-template-columns:1fr; }
+      .valores-grid{ grid-template-columns:1fr 1fr; }
+      .tools-grid{ grid-template-columns:1fr; }
+      .stack-grid{ grid-template-columns:1fr 1fr; }
+      .about-card{ padding:22px 18px; }
+      .cta-banner{ padding:32px 20px; }
+    }
+    @media(max-width:480px){
+      .valores-grid{ grid-template-columns:1fr; }
+      .stack-grid{ grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="container nav">
+    <a href="../" class="logo">
+      <img src="../logo-32.png" alt="ClearText IA" style="width:36px;height:36px;border-radius:9px;object-fit:contain;">
+      <span>ClearText</span>
+    </a>
+    <nav class="nav-links">
+      <a href="../#herramientas">Herramientas</a>
+      <a href="../#ventajas">Ventajas</a>
+      <a href="../acerca/">Acerca de</a>
+      <a href="../contacto/">Contacto</a>
+    </nav>
+    <a href="../#herramientas" class="btn-nav">Usar gratis</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="about-hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-badge">✨ Nuestra historia</div>
+      <h1>ClearText</h1>
+      <p>Una plataforma gratuita creada para que cualquier hispanohablante pueda trabajar con texto usando la IA más avanzada, sin complicaciones ni costes.</p>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="hero-stat-n">10</div><div class="hero-stat-l">herramientas</div></div>
+        <div class="hero-stat"><div class="hero-stat-n">0€</div><div class="hero-stat-l">coste para el usuario</div></div>
+        <div class="hero-stat"><div class="hero-stat-n">100%</div><div class="hero-stat-l">en español</div></div>
+        <div class="hero-stat"><div class="hero-stat-n">∞</div><div class="hero-stat-l">usos disponibles</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main class="about-page">
+  <div class="container">
+    <div class="about-wrap">
+
+      <!-- QUÉ ES -->
+      <div class="about-card">
+        <div class="card-header">
+          <div class="card-icon">💡</div>
+          <div>
+            <div class="card-title">¿Qué es ClearText?</div>
+            <div class="card-sub">Nuestra historia y propósito</div>
+          </div>
+        </div>
+        <p>
+          <strong>ClearText</strong> nació con una idea simple: la inteligencia artificial puede
+          hacer el trabajo con texto mucho más fácil y rápido para todos, no solo para quienes
+          tienen conocimientos técnicos o pueden pagar suscripciones caras.
+        </p>
+        <p>
+          La mayoría de herramientas de IA están en inglés, requieren registro, tienen límites de uso
+          o cobran desde el primer día. Nosotros lo vemos diferente. Creemos que el acceso a
+          herramientas de IA de calidad debería ser universal, gratuito y, especialmente para los
+          más de <strong>500 millones de hispanohablantes</strong> del mundo, en su propio idioma.
+        </p>
+        <p>
+          ClearText es una colección de <strong>10 herramientas especializadas en texto</strong>
+          que cubren las necesidades más frecuentes: desde detectar si un texto fue escrito por IA
+          hasta simplificar contratos legales, generar hashtags o extraer texto de imágenes. Todo
+          gratis, sin registro y en español.
+        </p>
+      </div>
+
+      <!-- MISIÓN Y VISIÓN -->
+      <div class="mv-grid">
+        <div class="mv-card mision">
+          <span class="mv-icon">🎯</span>
+          <div class="mv-label">Nuestra misión</div>
+          <div class="mv-title">Democratizar la IA para el mundo hispanohablante</div>
+          <div class="mv-text">
+            Hacer que las herramientas de inteligencia artificial para trabajar con texto sean
+            accesibles para cualquier persona de habla hispana, independientemente de su nivel
+            técnico, su presupuesto o su país de origen. Sin barreras, sin costes, sin excusas.
+          </div>
+        </div>
+        <div class="mv-card vision">
+          <span class="mv-icon">🔭</span>
+          <div class="mv-label">Nuestra visión</div>
+          <div class="mv-title">La plataforma de referencia para el trabajo con texto en español</div>
+          <div class="mv-text">
+            Convertirnos en el lugar al que acudan estudiantes, profesionales, creadores y empresas
+            de todo el mundo hispanohablante cuando necesiten ayuda con el texto. Una plataforma
+            que crezca con sus usuarios y que siempre ponga la calidad y la privacidad por delante.
+          </div>
+        </div>
+      </div>
+
+      <!-- VALORES -->
+      <div class="about-card">
+        <div class="card-header">
+          <div class="card-icon">❤️</div>
+          <div>
+            <div class="card-title">Nuestros valores</div>
+            <div class="card-sub">Los principios que guían cada decisión</div>
+          </div>
+        </div>
+        <div class="valores-grid">
+          <div class="valor-card">
+            <span class="valor-emoji">🆓</span>
+            <div class="valor-name">Gratuito por defecto</div>
+            <div class="valor-desc">Las herramientas son y seguirán siendo gratuitas para el usuario final. Siempre.</div>
+          </div>
+          <div class="valor-card">
+            <span class="valor-emoji">🔒</span>
+            <div class="valor-name">Privacidad primero</div>
+            <div class="valor-desc">No almacenamos los textos que procesas. Tu información es tuya y de nadie más.</div>
+          </div>
+          <div class="valor-card">
+            <span class="valor-emoji">🌍</span>
+            <div class="valor-name">En español, de verdad</div>
+            <div class="valor-desc">No somos una traducción de algo inglés. Estamos diseñados desde el principio para el español.</div>
+          </div>
+          <div class="valor-card">
+            <span class="valor-emoji">⚡</span>
+            <div class="valor-name">Simple y rápido</div>
+            <div class="valor-desc">Entra, usa la herramienta, obtén el resultado. Sin tutoriales, sin configuraciones, sin fricciones.</div>
+          </div>
+          <div class="valor-card">
+            <span class="valor-emoji">🤖</span>
+            <div class="valor-name">IA de calidad</div>
+            <div class="valor-desc">Usamos los modelos de IA más avanzados disponibles para ofrecer resultados de verdadera calidad.</div>
+          </div>
+          <div class="valor-card">
+            <span class="valor-emoji">📈</span>
+            <div class="valor-name">Mejora continua</div>
+            <div class="valor-desc">Escuchamos a los usuarios y mejoramos constantemente las herramientas basándonos en el feedback real.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LAS 10 HERRAMIENTAS -->
+      <div class="about-card">
+        <div class="card-header">
+          <div class="card-icon">🛠️</div>
+          <div>
+            <div class="card-title">Las 10 herramientas de ClearText</div>
+            <div class="card-sub">Todo lo que necesitas para trabajar con texto, en un mismo lugar</div>
+          </div>
+        </div>
+        <p>
+          Cada herramienta está diseñada para resolver un problema concreto y frecuente. No son
+          herramientas genéricas: cada una tiene una interfaz y una lógica pensada específicamente
+          para su caso de uso.
+        </p>
+        <div class="tools-grid">
+          <a href="../tools/detector-ia/" class="tool-row" style="text-decoration:none;">
+            <div class="tool-row-icon">🤖</div>
+            <div>
+              <div class="tool-row-name">Detector de IA en textos</div>
+              <div class="tool-row-desc">Descubre si un texto fue escrito por humano o por IA</div>
+            </div>
+          </a>
+          <a href="../tools/humanizador/" class="tool-row" style="text-decoration:none;">
+            <div class="tool-row-icon">🧠</div>
+            <div>
+              <div class="tool-row-name">Humanizador de texto IA</div>
+              <div class="tool-row-desc">Convierte texto de IA en escritura natural y humana</div>
+            </div>
+          </a>
+          <a href="../tools/contador-palabras/" class="tool-row" style="text-decoration:none;">
+            <div class="tool-row-icon">📊</div>
+            <div>
+              <div class="tool-row-name">Contador de palabras avanzado</div>
+              <div class="tool-row-desc">Palabras, caracteres, frases y tiempo de lectura en tiempo real</div>
+            </div>
+          </a>
+          <a href="../tools/hashtags/" class="tool-row" style="text-decoration:none;">
+            <div class="tool-row-icon">#️⃣</div>
+            <div>
+              <div class="tool-row-name">Generador de hashtags</div>
+              <div class="tool-row-desc">Hashtags perfectos para Instagram, TikTok y X con IA</div>
+            </div>
+          </a>
+          <a href="../tools/corrector-acentos/" class="tool-row" style="text-decoration:none;">
+            <div class="tool-row-icon">✍️</div>
+            <div>
+              <div class="tool-row-name">Corrector de acentos y tildes</div>
+              <div class="tool-row-desc">Corrector ortográfico especializado en español</div>
+            </div>
+          </a>
+          <a href="../tools/resumidor-emails/" class="tool-row" style="text-decoration:none;">
+            <div class="tool-row-icon">📧</div>
+            <div>
+              <div class="tool-row-name">Resumidor de emails</div>
+              <div class="tool-row-desc">Extrae los puntos clave de cualquier email en segundos</div>
+            </div>
+          </a>
+          <a href="../tools/nombres-empresa/" class="tool-row" style="text-decoration:none;">
+            <div class="tool-row-icon">💡</div>
+            <div>
+              <div class="tool-row-name">Generador de nombres de empresa</div>
+              <div class="tool-row-desc">10 nombres creativos para tu negocio con cartas deslizables</div>
+            </div>
+          </a>
+          <a href="../tools/simplificador-legal/" class="tool-row" style="text-decoration:none;">
+            <div class="tool-row-icon">⚖️</div>
+            <div>
+              <div class="tool-row-name">Simplificador de textos legales</div>
+              <div class="tool-row-desc">Convierte contratos y cláusulas en lenguaje comprensible</div>
+            </div>
+          </a>
+          <a href="../tools/jerga-paises/" class="tool-row" style="text-decoration:none;">
+            <div class="tool-row-icon">🌎</div>
+            <div>
+              <div class="tool-row-name">Traductor de jerga entre países</div>
+              <div class="tool-row-desc">Adapta expresiones entre 7 países hispanohablantes</div>
+            </div>
+          </a>
+          <a href="../tools/ocr-texto/" class="tool-row" style="text-decoration:none;">
+            <div class="tool-row-icon">📸</div>
+            <div>
+              <div class="tool-row-name">OCR — Extractor de texto de imagen</div>
+              <div class="tool-row-desc">Extrae todo el texto de fotos y capturas de pantalla</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- TECNOLOGÍA -->
+      <div class="about-card">
+        <div class="card-header">
+          <div class="card-icon">⚙️</div>
+          <div>
+            <div class="card-title">Tecnología que usamos</div>
+            <div class="card-sub">Todo gratuito, todo moderno, todo en la nube</div>
+          </div>
+        </div>
+        <p>
+          ClearText está construido sobre un stack tecnológico 100% gratuito para el usuario
+          y de alto rendimiento para nosotros. Apostamos por tecnología moderna, rápida y respetuosa
+          con la privacidad.
+        </p>
+        <div class="stack-grid">
+          <div class="stack-pill">
+            <div class="stack-dot"></div>
+            <div>
+              <div class="stack-name">Claude (Anthropic)</div>
+              <div class="stack-role">Motor de IA</div>
+            </div>
+          </div>
+          <div class="stack-pill">
+            <div class="stack-dot"></div>
+            <div>
+              <div class="stack-name">HTML / CSS / JS</div>
+              <div class="stack-role">Frontend ligero</div>
+            </div>
+          </div>
+          <div class="stack-pill">
+            <div class="stack-dot"></div>
+            <div>
+              <div class="stack-name">Vercel</div>
+              <div class="stack-role">Hosting y CDN global</div>
+            </div>
+          </div>
+          <div class="stack-pill">
+            <div class="stack-dot"></div>
+            <div>
+              <div class="stack-name">GitHub</div>
+              <div class="stack-role">Control de versiones</div>
+            </div>
+          </div>
+          <div class="stack-pill">
+            <div class="stack-dot"></div>
+            <div>
+              <div class="stack-name">Google Analytics</div>
+              <div class="stack-role">Estadísticas anónimas</div>
+            </div>
+          </div>
+          <div class="stack-pill">
+            <div class="stack-dot"></div>
+            <div>
+              <div class="stack-name">Google AdSense</div>
+              <div class="stack-role">Monetización</div>
+            </div>
+          </div>
+        </div>
+        <p style="margin-top:16px; font-size:.88rem; color:#9CA3AF;">
+          La velocidad de carga ultra rápida se consigue gracias a que la web es HTML estático puro,
+          sin frameworks pesados. Las páginas cargan en menos de 1 segundo en cualquier parte del mundo
+          gracias a la red CDN global de Vercel.
+        </p>
+      </div>
+
+      <!-- CTA -->
+      <div class="cta-banner">
+        <h2>¿A qué esperas?</h2>
+        <p>Prueba cualquiera de las 10 herramientas ahora mismo. Gratis, sin registro, en segundos.</p>
+        <a href="../#herramientas" class="btn-cta">Explorar todas las herramientas →</a>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-info">
+        <div class="logo" style="margin-bottom:10px;">
+          <img src="../logo-32.png" alt="ClearText IA" style="width:34px;height:34px;border-radius:9px;object-fit:contain;">
+          <span>ClearText</span>
+        </div>
+        <p>Herramientas de texto potenciadas por IA. Gratis, privado y sin registro.</p>
+      </div>
+      <div class="footer-links">
+        <a href="../privacidad/">Privacidad</a>
+        <a href="../terminos/">Términos</a>
+        <a href="../acerca/">Acerca de</a>
+        <a href="../contacto/">Contacto</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 ClearText. Todos los derechos reservados.</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
